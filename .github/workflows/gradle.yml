@@ -36,7 +36,7 @@ jobs:
       - name: Make Gradlew Executable
         run: chmod +x gradlew
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+        uses: gradle/gradle-build-action@fec4a42eb0c83154e5c9590748ba8337949c5701
         with:
           arguments: build
   javadoc:
@@ -56,7 +56,7 @@ jobs:
       - name: Make Gradlew Executable
         run: chmod +x gradlew
       - name: Javadoc with Gradle
-        uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+        uses: gradle/gradle-build-action@fec4a42eb0c83154e5c9590748ba8337949c5701
         with:
           arguments: javadoc
       - name: Publish to Github Pages
