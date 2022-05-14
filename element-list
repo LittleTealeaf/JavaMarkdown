@@ -1,3 +1,8 @@
 org.tealeaf.javamarkdown
-org.tealeaf.javamarkdown.components
+org.tealeaf.javamarkdown.archive.components
+org.tealeaf.javamarkdown.archive.items
+org.tealeaf.javamarkdown.archive.iterables
+org.tealeaf.javamarkdown.archive.markup
+org.tealeaf.javamarkdown.lists
 org.tealeaf.javamarkdown.markup
+org.tealeaf.javamarkdown.types
