@@ -27,6 +27,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         name: Checkout Repository
+        with:
+          ref: ${{github.event.pull_request.head.sha}}
       - name: Set up Java JDK
         uses: actions/setup-java@v3
         with:
@@ -54,6 +56,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          ref: ${{github.event.pull_request.head.sha}}
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
@@ -86,6 +90,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         name: Checkout Repository
+        with:
+          ref: ${{github.event.pull_request.head.sha}}
       - uses: actions/setup-java@v3
         name: Set up Java JDK
         with:
