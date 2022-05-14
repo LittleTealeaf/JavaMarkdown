@@ -4,14 +4,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BoldTest extends SimpleMarkupTest{
+class ItalicsTest extends SimpleMarkupTest {
+
 
     @Test
-    void testBold() {
-        testMarkup("**");
+    void testItalics() {
+        testMarkup("*");
     }
+
     @Override
     public SimpleMarkup generate(Object object) {
-        return new Bold(object);
+        return new Italics(object);
     }
 }
