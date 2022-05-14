@@ -1,16 +1,16 @@
-package org.tealeaf.javamarkdown.markup;
+package org.tealeaf.javamarkdown.archive.markup;
 
 import org.tealeaf.javamarkdown.IllegalContentsException;
-import org.tealeaf.javamarkdown.MarkdownComponent;
+import org.tealeaf.javamarkdown.MarkdownItem;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
-import java.util.stream.Stream;
 
-public abstract class Markup extends MarkdownComponent {
+@Deprecated
+public abstract class Markup extends MarkdownItem {
 
-    private static final Set<Class<? extends MarkdownComponent>> ILLEGAL_TYPES;
+    private static final Set<Class<? extends MarkdownItem>> ILLEGAL_TYPES;
 
     static {
         ILLEGAL_TYPES = Set.of();
@@ -26,9 +26,14 @@ public abstract class Markup extends MarkdownComponent {
     }
 
     @Override
+    protected void checkType(Object object) throws IllegalContentsException {
+
+    }
+
+    @Override
     public Writer toWriter(Writer writer) throws IOException {
-        if(object instanceof MarkdownComponent) {
-            return ((MarkdownComponent) object).toWriter(writer.append(syntax)).append(syntax);
+        if(object instanceof MarkdownItem) {
+            return ((MarkdownItem) object).toWriter(writer.append(syntax)).append(syntax);
         } else {
             return writer.append(syntax).append(object.toString()).append(syntax);
         }

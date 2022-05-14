@@ -2,14 +2,12 @@ package org.tealeaf.javamarkdown;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
-public abstract class MarkdownComponent {
+public abstract class MarkdownItem {
 
-    public MarkdownComponent() {
+    public MarkdownItem() {
 
     }
 
@@ -22,10 +20,14 @@ public abstract class MarkdownComponent {
         return asString();
     }
 
-    protected void testIllegalTypes(Object object, Set<Class<? extends MarkdownComponent>> classStream) throws IllegalContentsException {
-        Optional<Class<? extends MarkdownComponent>> illegalType = classStream.parallelStream().filter(item -> item.isInstance(object)).findFirst();
+    protected abstract void checkType(Object object) throws IllegalContentsException;
+
+    @Deprecated
+    protected void testIllegalTypes(Object object, Set<Class<? extends MarkdownItem>> classStream) throws IllegalContentsException {
+        Optional<Class<? extends MarkdownItem>> illegalType = classStream.parallelStream().filter(item -> item.isInstance(object)).findFirst();
         if (illegalType.isPresent()) {
             throw new IllegalContentsException(illegalType.get());
         }
     }
+
 }

@@ -1,7 +1,4 @@
-package org.tealeaf.javamarkdown.components;
-
-import java.util.Arrays;
-import java.util.function.BinaryOperator;
+package org.tealeaf.javamarkdown.archive.components;
 
 @Deprecated
 public class BlockQuote extends Component {

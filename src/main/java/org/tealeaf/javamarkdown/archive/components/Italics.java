@@ -1,4 +1,4 @@
-package org.tealeaf.javamarkdown.components;
+package org.tealeaf.javamarkdown.archive.components;
 
 @Deprecated
 public class Italics extends SimpleMarkup {
