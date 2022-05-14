@@ -17,7 +17,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build Gradle
     strategy:
       matrix:
         java: [ 11, 16, 17, 18 ]
@@ -92,7 +92,7 @@ jobs:
           publish_dir: ./build/docs/javadoc
 
   build-indicator:
-    name: Build Indicator
+    name: Complete Build
     needs:
       - build
       - analyze
