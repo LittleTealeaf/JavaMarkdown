@@ -4,7 +4,7 @@ public class MarkdownBuilder {
 
 
 
-    public MarkdownBuilder() {
+    public MarkdownBuilder() throws IllegalContentsException {
 
     }
 }

@@ -3,6 +3,7 @@ package org.tealeaf.javamarkdown.components;
 import java.util.Arrays;
 import java.util.function.BinaryOperator;
 
+@Deprecated
 public class BlockQuote extends Component {
 
     private final Object object;

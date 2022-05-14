@@ -1,5 +1,6 @@
 package org.tealeaf.javamarkdown.components;
 
+@Deprecated
 public abstract class SimpleMarkup extends Component {
 
     private final String markup;
