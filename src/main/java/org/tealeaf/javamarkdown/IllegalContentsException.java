@@ -10,6 +10,6 @@ public class IllegalContentsException extends Exception {
 
     @Override
     public String getMessage() {
-        return String.format("Invalid class passed into object: %s", invalidClass.toString());
+        return String.format("Illegal Class class passed into object: %s", invalidClass.toString());
     }
 }
