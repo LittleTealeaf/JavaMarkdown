@@ -27,8 +27,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         name: Checkout Repository
-#       - name: Verify Gradle Wrapper
-#         uses: gradle/wrapper-validation-action@v1
       - name: Set up Java JDK
         uses: actions/setup-java@v3
         with:
@@ -42,8 +40,8 @@ jobs:
         with:
           arguments: build
 
-  analyze:
-    name: Analyze
+  codeql-analyze:
+    name: CodeQL
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -64,10 +62,25 @@ jobs:
         uses: github/codeql-action/autobuild@v2
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
-
-  javadoc:
-    name: Javadocs
+  tests-complete:
+    name: Tests Complete
+    needs:
+      - build
+      - codeql-analyze
+    runs-on: ubuntu-latest
+    steps:
+      - name: Indicates Tests are Complete
+        run: echo Tests Complete
+  build-complete:
+    name: Build Complete
     needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Indicate Builds are Complete
+        run: echo Build Complete
+  javadoc:
+    name: Publish Javadocs
+    needs: build-complete
     runs-on: ubuntu-latest
     if: ${{github.event_name == 'push' || github.event_name == 'schedule'}}
     steps:
@@ -90,13 +103,3 @@ jobs:
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
           publish_dir: ./build/docs/javadoc
-
-  build-indicator:
-    name: Complete Build
-    needs:
-      - build
-      - analyze
-    runs-on: ubuntu-latest
-    steps:
-      - name: Indicate Build Complete
-        run: echo "Tests Complete"
