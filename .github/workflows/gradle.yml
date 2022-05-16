@@ -27,6 +27,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         name: Checkout Repository
+        with:
+          ref: ${{github.event.pull_request.head.sha}}
       - name: Set up Java JDK
         uses: actions/setup-java@v3
         with:
@@ -36,7 +38,7 @@ jobs:
       - name: Make Gradlew Executable
         run: chmod +x gradlew
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@fec4a42eb0c83154e5c9590748ba8337949c5701
+        uses: gradle/gradle-build-action@116ac10f8131939c7e405884cb2456067b0479e9
         with:
           arguments: build
 
@@ -54,6 +56,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          ref: ${{github.event.pull_request.head.sha}}
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
@@ -86,6 +90,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         name: Checkout Repository
+        with:
+          ref: ${{github.event.pull_request.head.sha}}
       - uses: actions/setup-java@v3
         name: Set up Java JDK
         with:
@@ -95,7 +101,7 @@ jobs:
       - name: Make Gradlew Executable
         run: chmod +x gradlew
       - name: Javadoc with Gradle
-        uses: gradle/gradle-build-action@fec4a42eb0c83154e5c9590748ba8337949c5701
+        uses: gradle/gradle-build-action@116ac10f8131939c7e405884cb2456067b0479e9
         with:
           arguments: javadoc
       - name: Publish to Github Pages
