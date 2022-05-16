@@ -6,7 +6,7 @@ import org.tealeaf.javamarkdown.MarkdownItem;
 public abstract class InlineItem extends MarkdownItem {
 
     @Override
-    protected void checkType(Object object) throws IllegalContentsException {
+    protected void checkType(Object object)  {
         if(object instanceof Structure) {
             throw new IllegalContentsException(Structure.class);
         }

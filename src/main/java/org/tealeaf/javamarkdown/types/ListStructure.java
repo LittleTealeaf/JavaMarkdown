@@ -39,11 +39,11 @@ public abstract class ListStructure extends Structure {
     }
 
     @Override
-    protected void checkType(Object object) throws IllegalContentsException {
+    protected void checkType(Object object) {
         super.checkType(object);
     }
 
-    public ListStructure addItem(Object object) throws IllegalContentsException {
+    public ListStructure addItem(Object object) {
         checkType(object);
         objects.add(object);
         return this;

@@ -5,7 +5,7 @@ public class MarkdownBuilder {
     private boolean addSpaceBeforeInserting = true;
 
 
-    public MarkdownBuilder() throws IllegalContentsException {
+    public MarkdownBuilder() {
 
     }
 

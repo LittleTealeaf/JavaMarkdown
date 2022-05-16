@@ -11,7 +11,7 @@ public abstract class Markup extends InlineItem {
     protected final String syntax;
     protected final Object object;
 
-    public Markup(Object object, String syntax) throws IllegalContentsException {
+    public Markup(Object object, String syntax) {
         this.object = object;
         this.syntax = syntax;
         checkType(object);

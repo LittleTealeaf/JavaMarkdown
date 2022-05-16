@@ -3,7 +3,9 @@ package test;
 import org.junit.jupiter.params.provider.Arguments;
 import org.tealeaf.javamarkdown.IllegalContentsException;
 import org.tealeaf.javamarkdown.lists.BulletList;
+import org.tealeaf.javamarkdown.lists.NumberedList;
 import org.tealeaf.javamarkdown.markup.Bold;
+import org.tealeaf.javamarkdown.markup.Code;
 import org.tealeaf.javamarkdown.markup.Italic;
 import org.tealeaf.javamarkdown.markup.Strikethrough;
 
@@ -70,27 +72,51 @@ public class Tests {
     }
 
 
-    public static Stream<Object> provideObjects(Predicate<Object> predicate) throws IllegalContentsException {
-        return Stream.of(randomWord(),bold(), italic(), strikethrough(), bulletList()).filter(predicate).map(Object.class::cast);
+    public static Stream<Object> provideObjects(Predicate<Object> predicate) {
+        return Stream.of(code(),randomWord(),bold(), italic(), strikethrough(), bulletList(), numberedList()).filter(predicate).map(Object.class::cast);
     }
 
-    public static Stream<Arguments> provideArguments(Predicate<Object> predicate) throws IllegalContentsException {
+    public static Stream<Arguments> provideArguments(Predicate<Object> predicate) {
         return provideObjects(predicate).map(Arguments::of);
     }
 
-    public static Bold bold() throws IllegalContentsException {
+    public static Bold bold()  {
         return new Bold(randomSentence(1,10));
     }
 
-    public static Italic italic() throws IllegalContentsException {
+    public static Italic italic()  {
         return new Italic(randomSentence(1,10));
     }
 
-    public static Strikethrough strikethrough() throws IllegalContentsException {
+    public static Strikethrough strikethrough()  {
         return new Strikethrough(randomSentence(1,10));
     }
 
-    public static BulletList bulletList() throws IllegalContentsException {
-        return (BulletList) new BulletList().addItem(randomSentence(1,10)).addItem(randomSentence(1,10));
+    public static BulletList bulletList() {
+        BulletList bulletList = new BulletList();
+        Stream.generate(Tests::randomWord).limit(RANDOM.nextInt(5)).forEach(item -> {
+            try {
+                bulletList.addItem(item);
+            } catch (IllegalContentsException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        return bulletList;
+    }
+
+    public static NumberedList numberedList() {
+        NumberedList numberedList = new NumberedList();
+        Stream.generate(Tests::randomWord).limit(RANDOM.nextInt(5)).forEach(item -> {
+            try {
+                numberedList.addItem(item);
+            } catch (IllegalContentsException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        return numberedList;
+    }
+
+    public static Code code() {
+        return new Code(randomSentence(1,5));
     }
 }

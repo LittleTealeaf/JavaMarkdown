@@ -23,7 +23,7 @@ public abstract class MarkdownItem {
     protected abstract void checkType(Object object) throws IllegalContentsException;
 
     @Deprecated
-    protected void testIllegalTypes(Object object, Set<Class<? extends MarkdownItem>> classStream) throws IllegalContentsException {
+    protected void testIllegalTypes(Object object, Set<Class<? extends MarkdownItem>> classStream) {
         Optional<Class<? extends MarkdownItem>> illegalType = classStream.parallelStream().filter(item -> item.isInstance(object)).findFirst();
         if (illegalType.isPresent()) {
             throw new IllegalContentsException(illegalType.get());
