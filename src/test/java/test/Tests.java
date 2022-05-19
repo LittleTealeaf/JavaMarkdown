@@ -49,22 +49,17 @@ public class Tests {
     }
 
     public static String randomSentence(int min, int max) {
-        return randomSentence(randomRange(min,max));
+        return randomSentence(randomInteger(min, max));
     }
 
     public static String randomSentence() {
-        return randomSentence(15,20);
+        return randomSentence(15, 20);
     }
-
-    public static int randomRange(int low, int high) {
-        return low + RANDOM.nextInt(high - low);
-    }
-
 
     public static Predicate<Object> filterClasses(boolean include, Class<?>... classes) {
         return item -> {
-            for(Class<?> type : classes) {
-                if(type.isInstance(item)) {
+            for (Class<?> type : classes) {
+                if (type.isInstance(item)) {
                     return include;
                 }
             }
@@ -73,7 +68,7 @@ public class Tests {
     }
 
     public static Stream<Object> provideObjects() {
-        return Stream.of(code(),randomWord(),bold(), italic(), strikethrough(), bulletList(), numberedList());
+        return Stream.of(code(), randomWord(), bold(), italic(), strikethrough(), bulletList(), numberedList(), randomSentence(), randomInteger());
     }
 
     public static Stream<Object> provideObjects(Predicate<Object> predicate) {
@@ -88,16 +83,28 @@ public class Tests {
         return provideObjects(predicate).map(Arguments::of);
     }
 
-    public static Bold bold()  {
-        return new Bold(randomSentence(1,10));
+    public static Bold bold() {
+        return new Bold(randomSentence(1, 10));
     }
 
-    public static Italic italic()  {
-        return new Italic(randomSentence(1,10));
+    public static Italic italic() {
+        return new Italic(randomSentence(1, 10));
     }
 
-    public static Strikethrough strikethrough()  {
-        return new Strikethrough(randomSentence(1,10));
+    public static Strikethrough strikethrough() {
+        return new Strikethrough(randomSentence(1, 10));
+    }
+
+    public static Integer randomInteger() {
+        return RANDOM.nextInt();
+    }
+
+    public static Integer randomInteger(int range) {
+        return RANDOM.nextInt(range);
+    }
+
+    public static Integer randomInteger(int min, int max) {
+        return RANDOM.nextInt(max - min) + min;
     }
 
     public static BulletList bulletList() {
@@ -125,6 +132,6 @@ public class Tests {
     }
 
     public static Code code() {
-        return new Code(randomSentence(1,5));
+        return new Code(randomSentence(1, 5));
     }
 }
