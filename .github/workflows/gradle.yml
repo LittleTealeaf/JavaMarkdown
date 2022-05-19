@@ -56,7 +56,7 @@ jobs:
         language: [ 'java' ]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           ref: ${{github.event.pull_request.head.sha}}
       - name: Initialize CodeQL
