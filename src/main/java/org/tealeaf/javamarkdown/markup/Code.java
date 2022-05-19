@@ -1,6 +1,7 @@
 package org.tealeaf.javamarkdown.markup;
 
 import org.tealeaf.javamarkdown.IllegalContentsException;
+import org.tealeaf.javamarkdown.MarkdownItem;
 import org.tealeaf.javamarkdown.types.Markup;
 
 public class Code extends Markup {
@@ -12,8 +13,8 @@ public class Code extends Markup {
     @Override
     protected void checkType(Object object) {
         super.checkType(object);
-        if(object instanceof Code) {
-            throw new IllegalContentsException(Code.class);
+        if(object instanceof MarkdownItem) {
+            throw new IllegalContentsException(MarkdownItem.class);
         }
     }
 }
