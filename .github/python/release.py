@@ -2,7 +2,8 @@
 
 import os
 
-currentVersion = os.popen('git describe --tags --abbrev=0').read().split('\n')[0]
+currentVersion = os.popen('git describe --tags --abbrev=0').read()
+print('Current Version is',currentVersion)
 
 # Increment the last value
 parts = currentVersion.split('.')
