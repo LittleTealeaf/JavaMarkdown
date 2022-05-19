@@ -25,6 +25,8 @@ jobs:
           cache: 'gradle'
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+      - name: Make gradlew executable
+        run: chmod +x gradlew
       - name: Publish package
         uses: gradle/gradle-build-action@116ac10f8131939c7e405884cb2456067b0479e9
         with:
