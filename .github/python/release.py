@@ -2,9 +2,9 @@
 
 import os
 
-os.system('git pull origin main')
+currentVersion = os.popen('gh release list -L 1').read().partition('\t')[0]
 
-currentVersion = os.popen('git describe --tags --abbrev=0').read()
+
 print('Current Version is',currentVersion)
 
 # Increment the last value
@@ -12,10 +12,11 @@ parts = currentVersion.split('.')
 parts[-1] = str(int(parts[-1]) + 1)
 version = '.'.join(parts)
 
+print('Next Version is',version)
+
 # Check the commit list
 commits = os.popen(f'git log {currentVersion}...HEAD --oneline').read().split('\n')
-print(len(commits) - 1)
 
 if(len(commits) - 1 > 0):
     print("Releasing Version",version)
-    os.system(f'gh release create {version} --generate-notes')
+    # os.system(f'gh release create {version} --generate-notes')
