@@ -1,10 +1,13 @@
 plugins {
     id 'java'
+    id 'java-library'
     id 'maven-publish'
     id 'me.qoomon.git-versioning' version '6.1.1'
 }
 
 group 'org.tealeaf'
+
+version="0.0.0-SNAPSHOT"
 gitVersioning.apply {
     refs {
         branch('.+') {
@@ -33,6 +36,16 @@ dependencies {
 }
 
 publishing {
+    publications {
+        githubPackages(MavenPublication) {
+            groupId 'org.tealeaf'
+            artifactId 'javamarkdown'
+
+            from components.java
+
+        }
+    }
+
     repositories {
         maven {
             name = "GitHubPackages"
@@ -44,6 +57,7 @@ publishing {
         }
     }
 }
+
 
 test {
     useJUnitPlatform()
