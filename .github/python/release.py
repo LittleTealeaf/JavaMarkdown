@@ -2,6 +2,8 @@
 
 import os
 
+os.system('git pull origin main')
+
 currentVersion = os.popen('git describe --tags --abbrev=0').read()
 print('Current Version is',currentVersion)
 
