@@ -1,39 +1,73 @@
 package org.tealeaf.javamarkdown;
 
-public class MarkdownBuilder {
+import org.tealeaf.javamarkdown.markup.Bold;
+import org.tealeaf.javamarkdown.markup.Code;
+import org.tealeaf.javamarkdown.markup.Italic;
+import org.tealeaf.javamarkdown.markup.Strikethrough;
 
-    private boolean addSpaceBeforeInserting = true;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
+public class MarkdownBuilder extends Writer {
+
+    private final Writer stringWriter;
 
     public MarkdownBuilder() {
-
+        super();
+        this.stringWriter = new StringWriter();
     }
 
-    public MarkdownBuilder add(Object object) {
+    @Override
+    public void write(char[] cbuf, int off, int len) throws IOException {
+        stringWriter.write(cbuf, off, len);
+    }
+
+    @Override
+    public void flush() throws IOException {
+        stringWriter.flush();
+    }
+
+    @Override
+    public void close() throws IOException {
+        stringWriter.close();
+    }
+
+    public MarkdownBuilder(Writer stringWriter) {
+        this.stringWriter = stringWriter;
+    }
+
+    public MarkdownBuilder append(Object object) throws IOException {
+        stringWriter.append(object.toString());
         return this;
     }
 
-    public MarkdownBuilder addBold(Object object) {
+    public MarkdownBuilder appendBold(Object object) throws IOException {
+        new Bold(object).toWriter(stringWriter);
         return this;
     }
 
-    public MarkdownBuilder addItalic(Object object) {
+    public MarkdownBuilder appendItalic(Object object) throws IOException {
+        new Italic(object).toWriter(stringWriter);
         return this;
     }
 
-    public MarkdownBuilder addStrikethrough(Object object) {
+    public MarkdownBuilder appendStrikethrough(Object object) throws IOException {
+        new Strikethrough(object).toWriter(stringWriter);
         return this;
     }
 
-    public MarkdownBuilder addLink(String url, Object object) {
+    public MarkdownBuilder appendCode(Object object) throws IOException {
+        new Code(object).toWriter(stringWriter);
         return this;
     }
 
-    public MarkdownBuilder addImage(String source) {
-        return this;
+    public Writer getWriter() {
+        return stringWriter;
     }
 
-    public void setAddSpaceBeforeInserting(boolean addSpaceBeforeInserting) {
-        this.addSpaceBeforeInserting = addSpaceBeforeInserting;
+    @Override
+    public String toString() {
+        return stringWriter.toString();
     }
 }
