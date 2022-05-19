@@ -13,7 +13,6 @@ version = '.'.join(parts)
 commits = os.popen(f'git log {currentVersion}...HEAD --oneline').read().split('\n')
 print(len(commits) - 1)
 
-
-print("Releasing Version",version)
-
-os.system(f'gh release create {version} --generate-notes')
+if(len(commits) - 1 > 0):
+    print("Releasing Version",version)
+    os.system(f'gh release create {version} --generate-notes')
