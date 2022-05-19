@@ -149,6 +149,5 @@ jobs:
           python-version: '3.x'
       - name: Release using Python Script
         run: python .github/python/release.py
-        with:
-          env:
-            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
