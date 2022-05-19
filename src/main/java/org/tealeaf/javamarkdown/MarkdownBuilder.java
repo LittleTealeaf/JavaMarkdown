@@ -7,20 +7,37 @@ import org.tealeaf.javamarkdown.markup.Strikethrough;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.Writer;
 
-public class MarkdownBuilder {
+public class MarkdownBuilder extends Writer {
 
-    private final StringWriter stringWriter;
+    private final Writer stringWriter;
 
     public MarkdownBuilder() {
+        super();
         this.stringWriter = new StringWriter();
     }
 
-    public MarkdownBuilder(StringWriter stringWriter) {
+    @Override
+    public void write(char[] cbuf, int off, int len) throws IOException {
+        stringWriter.write(cbuf, off, len);
+    }
+
+    @Override
+    public void flush() throws IOException {
+        stringWriter.flush();
+    }
+
+    @Override
+    public void close() throws IOException {
+        stringWriter.close();
+    }
+
+    public MarkdownBuilder(Writer stringWriter) {
         this.stringWriter = stringWriter;
     }
 
-    public MarkdownBuilder append(Object object) {
+    public MarkdownBuilder append(Object object) throws IOException {
         stringWriter.append(object.toString());
         return this;
     }
@@ -36,7 +53,7 @@ public class MarkdownBuilder {
     }
 
     public MarkdownBuilder appendStrikethrough(Object object) throws IOException {
-        new Italic(object).toWriter(stringWriter);
+        new Strikethrough(object).toWriter(stringWriter);
         return this;
     }
 
@@ -45,7 +62,7 @@ public class MarkdownBuilder {
         return this;
     }
 
-    public StringWriter getStringWriter() {
+    public Writer getWriter() {
         return stringWriter;
     }
 

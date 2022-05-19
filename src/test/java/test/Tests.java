@@ -60,6 +60,7 @@ public class Tests {
         return low + RANDOM.nextInt(high - low);
     }
 
+
     public static Predicate<Object> filterClasses(boolean include, Class<?>... classes) {
         return item -> {
             for(Class<?> type : classes) {
@@ -71,9 +72,16 @@ public class Tests {
         };
     }
 
+    public static Stream<Object> provideObjects() {
+        return Stream.of(code(),randomWord(),bold(), italic(), strikethrough(), bulletList(), numberedList());
+    }
 
     public static Stream<Object> provideObjects(Predicate<Object> predicate) {
-        return Stream.of(code(),randomWord(),bold(), italic(), strikethrough(), bulletList(), numberedList()).filter(predicate).map(Object.class::cast);
+        return provideObjects().filter(predicate).map(Object.class::cast);
+    }
+
+    public static Stream<Arguments> provideArguments() {
+        return provideObjects().map(Arguments::of);
     }
 
     public static Stream<Arguments> provideArguments(Predicate<Object> predicate) {
