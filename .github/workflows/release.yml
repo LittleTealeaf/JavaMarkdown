@@ -10,8 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         name: Checkout Repository
-        with:
-          persistent-credentials: false
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
@@ -24,6 +22,9 @@ jobs:
         uses: gradle/gradle-build-action@116ac10f8131939c7e405884cb2456067b0479e9
         with:
           arguments: publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   javadoc:
     name: Javadoc
     runs-on: ubuntu-latest
