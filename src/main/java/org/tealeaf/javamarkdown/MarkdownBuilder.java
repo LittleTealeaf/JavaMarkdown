@@ -45,8 +45,8 @@ public class MarkdownBuilder extends Writer {
     }
 
     public MarkdownBuilder append(Object object) throws IOException {
-        if(object instanceof MarkdownItem) {
-            return appendMarkdownItem((MarkdownItem) object);
+        if(object instanceof MarkdownElement) {
+            return appendMarkdownItem((MarkdownElement) object);
         } else {
             append(object.toString());
             return this;
@@ -90,12 +90,12 @@ public class MarkdownBuilder extends Writer {
     }
 
 
-    protected MarkdownBuilder appendMarkdownItem(MarkdownItem markdownItem) throws IOException {
-        if(markdownItem.requiresNewlineBefore() && lastChar != '\n') {
+    protected MarkdownBuilder appendMarkdownItem(MarkdownElement markdownElement) throws IOException {
+        if(markdownElement.requiresNewlineBefore() && lastChar != '\n') {
             write("\n");
         }
-        markdownItem.toWriter(this);
-        if(markdownItem.requiresNewlineAfter()) {
+        markdownElement.toWriter(this);
+        if(markdownElement.requiresNewlineAfter()) {
             write("\n");
         }
 

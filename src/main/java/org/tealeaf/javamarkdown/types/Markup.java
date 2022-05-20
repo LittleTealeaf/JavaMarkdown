@@ -1,12 +1,11 @@
 package org.tealeaf.javamarkdown.types;
 
-import org.tealeaf.javamarkdown.IllegalContentsException;
-import org.tealeaf.javamarkdown.MarkdownItem;
+import org.tealeaf.javamarkdown.MarkdownElement;
 
 import java.io.IOException;
 import java.io.Writer;
 
-public abstract class Markup extends InlineItem {
+public abstract class Markup extends InlineElement {
 
     protected final String syntax;
     protected final Object object;
@@ -29,8 +28,8 @@ public abstract class Markup extends InlineItem {
 
     @Override
     public Writer toWriter(Writer writer) throws IOException {
-        if(object instanceof MarkdownItem) {
-            return ((MarkdownItem) object).toWriter(writer.append(syntax)).append(syntax);
+        if(object instanceof MarkdownElement) {
+            return ((MarkdownElement) object).toWriter(writer.append(syntax)).append(syntax);
         } else {
             return writer.append(syntax).append(object.toString()).append(syntax);
         }
