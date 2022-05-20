@@ -18,11 +18,11 @@ import static test.Tests.randomWord;
 class BoldTest {
 
     static Stream<Arguments> provideIllegalObjects() throws IllegalContentsException {
-        return Tests.provideArguments(Tests.filterClasses(true,Bold.class,Structure.class));
+        return Tests.provideArguments(Tests.filterClasses(true, Bold.class, Structure.class));
     }
 
     static Stream<Arguments> provideLegalObjects() throws IllegalContentsException {
-        return Tests.provideArguments(Tests.filterClasses(false,Bold.class,Structure.class));
+        return Tests.provideArguments(Tests.filterClasses(false, Bold.class, Structure.class));
     }
 
     @Test
@@ -57,6 +57,4 @@ class BoldTest {
     void testLegalObject(Object object) {
         assertDoesNotThrow(() -> new Bold(object));
     }
-
-
 }

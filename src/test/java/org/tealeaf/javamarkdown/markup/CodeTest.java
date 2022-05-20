@@ -16,6 +16,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CodeTest {
 
+    static Stream<Arguments> provideIllegalObjects() throws IllegalContentsException {
+        return Tests.provideArguments(Tests.filterClasses(true, MarkdownItem.class));
+    }
+
+    static Stream<Arguments> provideLegalObjects() throws IllegalContentsException {
+        return Tests.provideArguments(Tests.filterClasses(false, MarkdownItem.class));
+    }
+
     @Test
     void toWriter() throws IOException {
         String word = Tests.randomWord();
@@ -35,14 +43,6 @@ class CodeTest {
     void testToString() {
         Code code = new Code(Tests.randomWord());
         assertEquals(code.asString(), code.toString());
-    }
-
-    static Stream<Arguments> provideIllegalObjects() throws IllegalContentsException {
-        return Tests.provideArguments(Tests.filterClasses(true, MarkdownItem.class));
-    }
-
-    static Stream<Arguments> provideLegalObjects() throws IllegalContentsException {
-        return Tests.provideArguments(Tests.filterClasses(false, MarkdownItem.class));
     }
 
     @ParameterizedTest

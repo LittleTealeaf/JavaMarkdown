@@ -16,26 +16,29 @@ public abstract class ListStructure extends Structure {
 
     protected String symbol;
 
-    public ListStructure(String symbol) {
+    public ListStructure(String symbol, Object... objects) {
         this.symbol = symbol;
+        add(objects);
     }
 
     @Override
     public String asString() {
-        return String.format("\n%s", objects.stream().map(this::formatItem).collect(Collectors.joining("\n")));
+        return String.format("%s", objects.stream().map(this::formatItem).collect(Collectors.joining("\n")));
     }
 
     @Override
     public Writer toWriter(Writer writer) throws IOException {
-        writer.write('\n');
-        objects.stream().map(this::formatItem).forEach(item -> {
-            try {
-                writer.append(item).append("\n");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        return writer;
+        return writer.append(objects.stream().map(this::formatItem).collect(Collectors.joining("\n")));
+    }
+
+    @Override
+    public boolean requiresNewlineBefore() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresNewlineAfter() {
+        return true;
     }
 
     @Override
@@ -43,6 +46,20 @@ public abstract class ListStructure extends Structure {
         super.checkType(object);
     }
 
+    public ListStructure add(Object... objects) {
+        for(Object object : objects) {
+            checkType(object);
+            this.objects.add(object);
+        }
+        return this;
+    }
+
+    /**
+     * @deprecated Use {@link #add(Object...)} instead
+     * @param object
+     * @return
+     */
+    @Deprecated
     public ListStructure addItem(Object object) {
         checkType(object);
         objects.add(object);
@@ -57,5 +74,4 @@ public abstract class ListStructure extends Structure {
         String indent = String.format("\n%s", " ".repeat(symbol.length()));
         return item.replace("\n",indent);
     }
-
 }

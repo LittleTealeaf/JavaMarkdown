@@ -20,6 +20,10 @@ public abstract class MarkdownItem {
         return asString();
     }
 
+    public abstract boolean requiresNewlineBefore();
+
+    public abstract boolean requiresNewlineAfter();
+
     protected abstract void checkType(Object object) throws IllegalContentsException;
 
     @Deprecated

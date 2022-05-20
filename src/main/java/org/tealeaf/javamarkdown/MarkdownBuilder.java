@@ -1,5 +1,7 @@
 package org.tealeaf.javamarkdown;
 
+import org.tealeaf.javamarkdown.inline.Image;
+import org.tealeaf.javamarkdown.inline.Link;
 import org.tealeaf.javamarkdown.markup.Bold;
 import org.tealeaf.javamarkdown.markup.Code;
 import org.tealeaf.javamarkdown.markup.Italic;
@@ -13,6 +15,8 @@ public class MarkdownBuilder extends Writer {
 
     private final Writer stringWriter;
 
+    private char lastChar = '\u0000';
+
     public MarkdownBuilder() {
         super();
         this.stringWriter = new StringWriter();
@@ -21,6 +25,7 @@ public class MarkdownBuilder extends Writer {
     @Override
     public void write(char[] cbuf, int off, int len) throws IOException {
         stringWriter.write(cbuf, off, len);
+        lastChar = len > 0 ? cbuf[off + len - 1] : '\u0000';
     }
 
     @Override
@@ -38,27 +43,48 @@ public class MarkdownBuilder extends Writer {
     }
 
     public MarkdownBuilder append(Object object) throws IOException {
-        stringWriter.append(object.toString());
-        return this;
+        if(object instanceof MarkdownItem) {
+            return appendMarkdownItem((MarkdownItem) object);
+        } else {
+            append(object.toString());
+            return this;
+        }
     }
 
     public MarkdownBuilder appendBold(Object object) throws IOException {
-        new Bold(object).toWriter(stringWriter);
-        return this;
+        return appendMarkdownItem(new Bold(object));
     }
 
     public MarkdownBuilder appendItalic(Object object) throws IOException {
-        new Italic(object).toWriter(stringWriter);
-        return this;
+        return appendMarkdownItem(new Italic(object));
     }
 
     public MarkdownBuilder appendStrikethrough(Object object) throws IOException {
-        new Strikethrough(object).toWriter(stringWriter);
-        return this;
+        return appendMarkdownItem(new Strikethrough(object));
     }
 
     public MarkdownBuilder appendCode(Object object) throws IOException {
-        new Code(object).toWriter(stringWriter);
+        return appendMarkdownItem(new Code(object));
+    }
+
+    public MarkdownBuilder appendLink(Object content, String href) throws IOException {
+        return appendMarkdownItem(new Link(content,href));
+    }
+
+    public MarkdownBuilder appendImage(String url) throws IOException {
+        return appendMarkdownItem(new Image(url));
+    }
+
+
+    protected MarkdownBuilder appendMarkdownItem(MarkdownItem markdownItem) throws IOException {
+        if(markdownItem.requiresNewlineBefore() && lastChar != '\n') {
+            write("\n");
+        }
+        markdownItem.toWriter(this);
+        if(markdownItem.requiresNewlineAfter()) {
+            write("\n");
+        }
+
         return this;
     }
 
