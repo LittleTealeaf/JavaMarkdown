@@ -15,7 +15,6 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -52,7 +51,8 @@ public class Tests {
     }
 
     public static Stream<Object> provideObjects() {
-        return Stream.of(code(), randomWord(), bold(), italic(), strikethrough(), bulletList(), numberedList(), randomSentence(), randomInteger());
+        return Stream.of(code(), randomWord(), bold(), italic(), strikethrough(), bulletList(), numberedList(), randomSentence(), randomInteger(), numberedList(),
+                         bulletList());
     }
 
     public static Stream<Object> provideObjects(Predicate<Object> predicate) {
@@ -104,7 +104,7 @@ public class Tests {
     }
 
     public static String randomSentence() {
-        return randomSentence(randomInteger(15,20));
+        return randomSentence(randomInteger(15, 20));
     }
 
     @Deprecated
@@ -117,22 +117,20 @@ public class Tests {
     }
 
     public static String[] randomWords() {
-        return randomWords(randomInteger(1,10));
+        return randomWords(randomInteger(1, 10));
     }
-
 
     public static String[] randomWords(int count) {
         return randomWordsStream(count).toArray(String[]::new);
     }
 
     public static Stream<String> randomWordsStream() {
-        return randomWordsStream(randomInteger(1,10));
+        return randomWordsStream(randomInteger(1, 10));
     }
 
     public static Stream<String> randomWordsStream(int count) {
         return Stream.generate(Tests::randomWord).limit(count);
     }
-
 
     public static Integer randomInteger(int min, int max) {
         return RANDOM.nextInt(max - min) + min;
