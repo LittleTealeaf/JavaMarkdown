@@ -24,6 +24,12 @@ public class IllegalContentsException extends RuntimeException {
         this.illegalClass = illegalClass;
     }
 
+    /**
+     * Returns the detail message string of this throwable.
+     *
+     * @return  the detail message string of this {@code Throwable} instance.
+     * @since 0.0.8
+     */
     @Override
     public String getMessage() {
         return String.format("Illegal Class class passed into object: %s", illegalClass.toString());
