@@ -1,13 +1,9 @@
 package org.tealeaf.javamarkdown.types;
 
-import org.tealeaf.javamarkdown.IllegalContentsException;
-
 import java.io.IOException;
 import java.io.Writer;
-import java.util.*;
-import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
-import java.util.function.UnaryOperator;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class ListStructure extends Structure {
@@ -47,7 +43,7 @@ public abstract class ListStructure extends Structure {
     }
 
     public ListStructure add(Object... objects) {
-        for(Object object : objects) {
+        for (Object object : objects) {
             checkType(object);
             this.objects.add(object);
         }
@@ -55,9 +51,11 @@ public abstract class ListStructure extends Structure {
     }
 
     /**
-     * @deprecated Use {@link #add(Object...)} instead
      * @param object
+     *
      * @return
+     *
+     * @deprecated Use {@link #add(Object...)} instead
      */
     @Deprecated
     public ListStructure addItem(Object object) {
@@ -67,11 +65,10 @@ public abstract class ListStructure extends Structure {
     }
 
     protected String formatItem(Object item) {
-        return String.format("%s%s", symbol,indentItem(item.toString()));
+        return String.format("%s%s", symbol, indentItem(item.toString()));
     }
 
     protected String indentItem(String item) {
-        String indent = String.format("\n%s", " ".repeat(symbol.length()));
-        return item.replace("\n",indent);
+        return item.replace("\n", String.format("\n%s", " ".repeat(symbol.length())));
     }
 }

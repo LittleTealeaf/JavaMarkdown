@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.tealeaf.javamarkdown.lists.BulletList;
+import org.tealeaf.javamarkdown.lists.NumberedList;
 import org.tealeaf.javamarkdown.markup.Bold;
 import test.Tests;
 
@@ -213,6 +215,35 @@ class MarkdownBuilderTest {
     }
 
     @Test
-    void testToString1() {
+    void appendBulletList() throws IOException {
+        Object[] items = Tests.randomWords();
+        BulletList bulletList = new BulletList(items);
+
+        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+            assertEquals("\n" + bulletList.asString() + "\n", builder.appendBulletList(items).toString());
+        }
     }
+
+    @Test
+    void appendBulletListReturnsBuilder() throws IOException {
+        MarkdownBuilder builder = new MarkdownBuilder();
+        assertSame(builder,builder.appendBulletList((Object[]) Tests.randomWords()));
+    }
+
+    @Test
+    void appendNumberedList() throws IOException {
+        Object[] items = Tests.randomWords();
+        NumberedList numberedList = new NumberedList(items);
+
+        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+            assertEquals("\n" + numberedList.asString() + "\n", builder.appendNumberedList(items).toString());
+        }
+    }
+
+    @Test
+    void appendNumberedListReturnsBuilder() throws IOException {
+        MarkdownBuilder builder = new MarkdownBuilder();
+        assertSame(builder,builder.appendNumberedList((Object[]) Tests.randomWords()));
+    }
+
 }
