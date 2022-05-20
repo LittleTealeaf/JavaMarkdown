@@ -50,6 +50,14 @@ class MarkdownBuilderTest {
     }
 
     @Test
+    void append() throws IOException {
+        String input = Tests.randomSentence();
+        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+            assertEquals(input, builder.appendString(input).toString());
+        }
+    }
+
+    @Test
     void appendBold() throws IOException {
         try (MarkdownBuilder builder = new MarkdownBuilder()) {
             String sentence = Tests.randomSentence();

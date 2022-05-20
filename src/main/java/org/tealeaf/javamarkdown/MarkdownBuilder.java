@@ -53,6 +53,10 @@ public class MarkdownBuilder extends Writer {
         }
     }
 
+    public MarkdownBuilder appendString(String string) throws IOException {
+        return append((Object) string);
+    }
+
     public MarkdownBuilder appendBold(Object object) throws IOException {
         return appendMarkdownItem(new Bold(object));
     }
