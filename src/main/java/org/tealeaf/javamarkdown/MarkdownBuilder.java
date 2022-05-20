@@ -2,6 +2,8 @@ package org.tealeaf.javamarkdown;
 
 import org.tealeaf.javamarkdown.inline.Image;
 import org.tealeaf.javamarkdown.inline.Link;
+import org.tealeaf.javamarkdown.lists.BulletList;
+import org.tealeaf.javamarkdown.lists.NumberedList;
 import org.tealeaf.javamarkdown.markup.Bold;
 import org.tealeaf.javamarkdown.markup.Code;
 import org.tealeaf.javamarkdown.markup.Italic;
@@ -73,6 +75,14 @@ public class MarkdownBuilder extends Writer {
 
     public MarkdownBuilder appendImage(String url) throws IOException {
         return appendMarkdownItem(new Image(url));
+    }
+
+    public MarkdownBuilder appendBulletList(Object... items) throws IOException {
+        return appendMarkdownItem(new BulletList(items));
+    }
+
+    public MarkdownBuilder appendNumberedList(Object... items) throws IOException {
+        return appendMarkdownItem(new NumberedList(items));
     }
 
 
