@@ -30,6 +30,10 @@ public abstract class MarkdownElement {
      */
     public abstract String asString();
 
+    /**
+     * @return The element as a string
+     * @see #asString()
+     */
     @Override
     public String toString() {
         return asString();
