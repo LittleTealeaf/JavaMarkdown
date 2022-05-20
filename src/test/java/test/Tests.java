@@ -1,7 +1,6 @@
 package test;
 
 import org.junit.jupiter.params.provider.Arguments;
-import org.tealeaf.javamarkdown.IllegalContentsException;
 import org.tealeaf.javamarkdown.lists.BulletList;
 import org.tealeaf.javamarkdown.lists.NumberedList;
 import org.tealeaf.javamarkdown.markup.Bold;
@@ -38,22 +37,6 @@ public class Tests {
         WORDS = words_list.toArray(new String[0]);
 
         RANDOM = new Random();
-    }
-
-    public static String randomWord() {
-        return WORDS[RANDOM.nextInt(WORDS.length)];
-    }
-
-    public static String randomSentence(int count) {
-        return Stream.generate(Tests::randomWord).limit(count).collect(Collectors.joining(" "));
-    }
-
-    public static String randomSentence(int min, int max) {
-        return randomSentence(randomInteger(min, max));
-    }
-
-    public static String randomSentence() {
-        return randomSentence(15, 20);
     }
 
     public static Predicate<Object> filterClasses(boolean include, Class<?>... classes) {
@@ -103,35 +86,43 @@ public class Tests {
         return RANDOM.nextInt(range);
     }
 
-    public static Integer randomInteger(int min, int max) {
-        return RANDOM.nextInt(max - min) + min;
-    }
-
     public static BulletList bulletList() {
-        BulletList bulletList = new BulletList();
-        Stream.generate(Tests::randomWord).limit(RANDOM.nextInt(5)).forEach(item -> {
-            try {
-                bulletList.addItem(item);
-            } catch (IllegalContentsException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        return bulletList;
+        return new BulletList(Stream.generate(Tests::randomWord).limit(RANDOM.nextInt(5)).toArray());
     }
 
     public static NumberedList numberedList() {
-        NumberedList numberedList = new NumberedList();
-        Stream.generate(Tests::randomWord).limit(RANDOM.nextInt(5)).forEach(item -> {
-            try {
-                numberedList.addItem(item);
-            } catch (IllegalContentsException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        return numberedList;
+        return new NumberedList(Stream.generate(Tests::randomWord).limit(RANDOM.nextInt(5)).toArray());
     }
 
     public static Code code() {
         return new Code(randomSentence(1, 5));
+    }
+
+    public static String randomURL() {
+        return randomSentence().replace(" ", "/");
+    }
+
+    public static String randomSentence() {
+        return randomSentence(15, 20);
+    }
+
+    public static String randomSentence(int min, int max) {
+        return randomSentence(randomInteger(min, max));
+    }
+
+    public static String randomSentence(int count) {
+        return Stream.generate(Tests::randomWord).limit(count).collect(Collectors.joining(" "));
+    }
+
+    public static Integer randomInteger(int min, int max) {
+        return RANDOM.nextInt(max - min) + min;
+    }
+
+    public static String randomWord() {
+        return WORDS[RANDOM.nextInt(WORDS.length)];
+    }
+
+    public static String randomURL(String extension) {
+        return String.format("%s.%s", randomSentence().replace(" ", "/"), extension);
     }
 }

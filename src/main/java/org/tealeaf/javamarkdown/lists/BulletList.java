@@ -6,7 +6,7 @@ public class BulletList extends ListStructure {
 
     private static final String SYMBOL = "- ";
 
-    public BulletList() {
-        super(SYMBOL);
+    public BulletList(Object... objects) {
+        super(SYMBOL,objects);
     }
 }

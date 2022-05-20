@@ -16,28 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ItalicTest {
 
-    @Test
-    void toWriter() throws IllegalContentsException, IOException {
-        String word = Tests.randomWord();
-        Italic italic = new Italic(word);
-        StringWriter writer = new StringWriter();
-        assertEquals("*" + word + "*",italic.toWriter(writer).toString());
-    }
-
-    @Test
-    void asString() throws IllegalContentsException {
-        String word = Tests.randomWord();
-        Italic italic = new Italic(word);
-        assertEquals("*" + word + "*",italic.asString());
-    }
-
-
-    @Test
-    void testToString() throws IllegalContentsException {
-        Italic italic = new Italic(Tests.randomWord());
-        assertEquals(italic.asString(),italic.toString());
-    }
-
     static Stream<Arguments> provideIllegalObjects() throws IllegalContentsException {
         return Tests.provideArguments(Tests.filterClasses(true, Italic.class, Structure.class));
     }
@@ -46,10 +24,31 @@ class ItalicTest {
         return Tests.provideArguments(Tests.filterClasses(false, Italic.class, Structure.class));
     }
 
+    @Test
+    void toWriter() throws IllegalContentsException, IOException {
+        String word = Tests.randomWord();
+        Italic italic = new Italic(word);
+        StringWriter writer = new StringWriter();
+        assertEquals("*" + word + "*", italic.toWriter(writer).toString());
+    }
+
+    @Test
+    void asString() throws IllegalContentsException {
+        String word = Tests.randomWord();
+        Italic italic = new Italic(word);
+        assertEquals("*" + word + "*", italic.asString());
+    }
+
+    @Test
+    void testToString() throws IllegalContentsException {
+        Italic italic = new Italic(Tests.randomWord());
+        assertEquals(italic.asString(), italic.toString());
+    }
+
     @ParameterizedTest
     @MethodSource("provideIllegalObjects")
     void testIllegalObject(Object object) {
-        assertThrows(IllegalContentsException.class,() -> new Italic(object));
+        assertThrows(IllegalContentsException.class, () -> new Italic(object));
     }
 
     @ParameterizedTest

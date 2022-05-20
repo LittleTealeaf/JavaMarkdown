@@ -16,38 +16,39 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StrikethroughTest {
 
+    static Stream<Arguments> provideIllegalObjects() throws IllegalContentsException {
+        return Tests.provideArguments(Tests.filterClasses(true, Strikethrough.class, Structure.class));
+    }
+
+    static Stream<Arguments> provideLegalObjects() throws IllegalContentsException {
+        return Tests.provideArguments(Tests.filterClasses(false, Strikethrough.class, Structure.class));
+    }
+
     @Test
     void toWriter() throws IllegalContentsException, IOException {
         String word = Tests.randomWord();
         Strikethrough strikethrough = new Strikethrough(word);
         StringWriter writer = new StringWriter();
-        assertEquals("~~" + word + "~~",strikethrough.toWriter(writer).toString());
+        assertEquals("~~" + word + "~~", strikethrough.toWriter(writer).toString());
     }
 
     @Test
     void asString() throws IllegalContentsException {
         String word = Tests.randomWord();
         Strikethrough strikethrough = new Strikethrough(word);
-        assertEquals("~~" + word + "~~",strikethrough.asString());
+        assertEquals("~~" + word + "~~", strikethrough.asString());
     }
 
     @Test
     void testToString() throws IllegalContentsException {
         Strikethrough strikethrough = new Strikethrough(Tests.randomWord());
-        assertEquals(strikethrough.asString(),strikethrough.toString());
-    }
-    static Stream<Arguments> provideIllegalObjects() throws IllegalContentsException {
-        return Tests.provideArguments(Tests.filterClasses(true, Strikethrough.class, Structure.class));
-    }
-
-    static Stream<Arguments> provideLegalObjects() throws IllegalContentsException {
-        return Tests.provideArguments(Tests.filterClasses(false,Strikethrough.class,Structure.class));
+        assertEquals(strikethrough.asString(), strikethrough.toString());
     }
 
     @ParameterizedTest
     @MethodSource("provideIllegalObjects")
     void testIllegalObject(Object object) {
-        assertThrows(IllegalContentsException.class,() -> new Strikethrough(object));
+        assertThrows(IllegalContentsException.class, () -> new Strikethrough(object));
     }
 
     @ParameterizedTest
@@ -55,5 +56,4 @@ class StrikethroughTest {
     void testLegalObject(Object object) {
         assertDoesNotThrow(() -> new Strikethrough(object));
     }
-
 }

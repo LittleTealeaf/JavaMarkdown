@@ -18,6 +18,16 @@ public abstract class Markup extends InlineItem {
     }
 
     @Override
+    public boolean requiresNewlineBefore() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresNewlineAfter() {
+        return false;
+    }
+
+    @Override
     public Writer toWriter(Writer writer) throws IOException {
         if(object instanceof MarkdownItem) {
             return ((MarkdownItem) object).toWriter(writer.append(syntax)).append(syntax);

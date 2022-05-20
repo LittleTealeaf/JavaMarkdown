@@ -5,7 +5,7 @@ import org.tealeaf.javamarkdown.types.ListStructure;
 public class NumberedList extends ListStructure {
     private static final String SYMBOL = "1. ";
 
-    public NumberedList() {
-        super(SYMBOL);
+    public NumberedList(Object... objects) {
+        super(SYMBOL, objects);
     }
 }
