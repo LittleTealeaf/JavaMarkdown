@@ -38,12 +38,9 @@ public class MarkdownWriter extends Writer {
     }
 
     /**
-     * <p>Writes a portion of an array of characters.</p>
+     * {@inheritDoc}
      * <p>Updates the last written character value for use in {@link #appendMarkdownElement(MarkdownElement)}</p>
      *
-     * @param cbuf Array of characters
-     * @param off  Offset from which to start writing characters
-     * @param len  Number of characters to write
      *
      * @throws IOException If an I/O error occurs
      *
@@ -56,6 +53,7 @@ public class MarkdownWriter extends Writer {
     }
 
     /**
+     * {@inheritDoc}
      * @since 0.0.7
      * @throws IOException If an I/O error occurs
      */
@@ -65,6 +63,7 @@ public class MarkdownWriter extends Writer {
     }
 
     /**
+     * {@inheritDoc}
      * @since 0.0.7
      * @throws IOException If an I/O error occurs
      */

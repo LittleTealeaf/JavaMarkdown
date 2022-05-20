@@ -58,6 +58,11 @@ publishing {
     }
 }
 
+javadoc {
+    options.showAll()
+    options.setMemberLevel(JavadocMemberLevel.PACKAGE)
+}
+
 
 test {
     useJUnitPlatform()
