@@ -178,7 +178,7 @@ class MarkdownBuilderTest {
 //        Using bold as an example
         Bold bold = new Bold(Tests.randomWord());
         try (MarkdownBuilder builder = new MarkdownBuilder()) {
-            assertEquals(bold.asString(), builder.appendMarkdownItem(bold).toString());
+            assertEquals(bold.asString(), builder.appendMarkdownElement(bold).toString());
         }
     }
 
@@ -192,11 +192,11 @@ class MarkdownBuilderTest {
         };
 
         try (MarkdownBuilder builder = new MarkdownBuilder()) {
-            assertEquals("\n" + bold.asString(), builder.appendMarkdownItem(bold).toString());
+            assertEquals("\n" + bold.asString(), builder.appendMarkdownElement(bold).toString());
         }
 
         try (MarkdownBuilder builder = new MarkdownBuilder()) {
-            assertEquals("\n" + bold.asString(), builder.append((Object) "\n").appendMarkdownItem(bold).toString());
+            assertEquals("\n" + bold.asString(), builder.append((Object) "\n").appendMarkdownElement(bold).toString());
         }
     }
 
@@ -210,7 +210,7 @@ class MarkdownBuilderTest {
         };
 
         try (MarkdownBuilder builder = new MarkdownBuilder()) {
-            assertEquals(bold.asString() + "\n", builder.appendMarkdownItem(bold).toString());
+            assertEquals(bold.asString() + "\n", builder.appendMarkdownElement(bold).toString());
         }
     }
 

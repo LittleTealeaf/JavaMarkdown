@@ -5,7 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.tealeaf.javamarkdown.IllegalContentsException;
-import org.tealeaf.javamarkdown.MarkdownItem;
+import org.tealeaf.javamarkdown.MarkdownElement;
 import test.Tests;
 
 import java.io.IOException;
@@ -17,11 +17,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class CodeTest {
 
     static Stream<Arguments> provideIllegalObjects() throws IllegalContentsException {
-        return Tests.provideArguments(Tests.filterClasses(true, MarkdownItem.class));
+        return Tests.provideArguments(Tests.filterClasses(true, MarkdownElement.class));
     }
 
     static Stream<Arguments> provideLegalObjects() throws IllegalContentsException {
-        return Tests.provideArguments(Tests.filterClasses(false, MarkdownItem.class));
+        return Tests.provideArguments(Tests.filterClasses(false, MarkdownElement.class));
     }
 
     @Test

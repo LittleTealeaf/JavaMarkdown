@@ -1,11 +1,11 @@
 package org.tealeaf.javamarkdown.inline;
 
-import org.tealeaf.javamarkdown.types.InlineItem;
+import org.tealeaf.javamarkdown.types.InlineElement;
 
 import java.io.IOException;
 import java.io.Writer;
 
-public class Link extends InlineItem {
+public class Link extends InlineElement {
 
     private final Object content;
     private final String url;
