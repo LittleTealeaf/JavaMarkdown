@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MarkdownBuilderTest {
+class MarkdownWriterTest {
 
     static Stream<Arguments> provideAppendObjects() throws IllegalContentsException {
         return Tests.provideArguments();
@@ -24,7 +24,7 @@ class MarkdownBuilderTest {
 
     @Test
     void testConstructorEmpty() throws IOException {
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             assertNotNull(builder.getWriter());
             String sentence = Tests.randomSentence();
             builder.append(sentence);
@@ -36,14 +36,14 @@ class MarkdownBuilderTest {
     void testConstructorNotEmpty() throws IOException {
         Writer writer = new StringWriter();
         writer.append(Tests.randomWord());
-        MarkdownBuilder builder = new MarkdownBuilder(writer);
+        MarkdownWriter builder = new MarkdownWriter(writer);
         assertEquals(writer.toString(), builder.getWriter().toString());
     }
 
     @ParameterizedTest
     @MethodSource("provideAppendObjects")
     void append(Object item) throws IOException {
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             builder.append(item);
             assertTrue(builder.getWriter().toString().length() > 0);
         }
@@ -52,14 +52,14 @@ class MarkdownBuilderTest {
     @Test
     void append() throws IOException {
         String input = Tests.randomSentence();
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             assertEquals(input, builder.appendString(input).toString());
         }
     }
 
     @Test
     void appendBold() throws IOException {
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             String sentence = Tests.randomSentence();
             assertEquals("**" + sentence + "**", builder.appendBold(sentence).getWriter().toString());
         }
@@ -67,13 +67,13 @@ class MarkdownBuilderTest {
 
     @Test
     void appendBoldReturnsBuilder() throws IOException {
-        MarkdownBuilder builder = new MarkdownBuilder();
+        MarkdownWriter builder = new MarkdownWriter();
         assertSame(builder, builder.appendBold(Tests.randomSentence()));
     }
 
     @Test
     void appendItalic() throws IOException {
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             String sentence = Tests.randomSentence();
             assertEquals("*" + sentence + "*", builder.appendItalic(sentence).getWriter().toString());
         }
@@ -81,13 +81,13 @@ class MarkdownBuilderTest {
 
     @Test
     void appendItalicReturnsBuilder() throws IOException {
-        MarkdownBuilder markdownBuilder = new MarkdownBuilder();
-        assertSame(markdownBuilder, markdownBuilder.appendItalic(Tests.randomSentence()));
+        MarkdownWriter markdownWriter = new MarkdownWriter();
+        assertSame(markdownWriter, markdownWriter.appendItalic(Tests.randomSentence()));
     }
 
     @Test
     void appendStrikethrough() throws IOException {
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             String sentence = Tests.randomSentence();
             assertEquals("~~" + sentence + "~~", builder.appendStrikethrough(sentence).getWriter().toString());
         }
@@ -95,13 +95,13 @@ class MarkdownBuilderTest {
 
     @Test
     void appendStrikethroughReturnsBuilder() throws IOException {
-        MarkdownBuilder builder = new MarkdownBuilder();
+        MarkdownWriter builder = new MarkdownWriter();
         assertSame(builder, builder.appendStrikethrough(Tests.randomSentence()));
     }
 
     @Test
     void appendCode() throws IOException {
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             String sentence = Tests.randomSentence();
             assertEquals("`" + sentence + "`", builder.appendCode(sentence).getWriter().toString());
         }
@@ -109,13 +109,13 @@ class MarkdownBuilderTest {
 
     @Test
     void appendCodeReturnsWriter() throws IOException {
-        MarkdownBuilder markdownBuilder = new MarkdownBuilder();
-        assertSame(markdownBuilder, markdownBuilder.appendCode(Tests.randomSentence()));
+        MarkdownWriter markdownWriter = new MarkdownWriter();
+        assertSame(markdownWriter, markdownWriter.appendCode(Tests.randomSentence()));
     }
 
     @Test
     void appendLink() throws IOException {
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             String content = Tests.randomSentence(), url = Tests.randomURL();
             assertEquals("[" + content + "](" + url + ")", builder.appendLink(content, url).toString());
         }
@@ -123,27 +123,27 @@ class MarkdownBuilderTest {
 
     @Test
     void appendLinkReturnsBuilder() throws IOException {
-        MarkdownBuilder builder = new MarkdownBuilder();
+        MarkdownWriter builder = new MarkdownWriter();
         assertSame(builder, builder.appendLink(Tests.randomSentence(), Tests.randomURL()));
     }
 
     @Test
     void getWriter() throws IOException {
         Writer writer = new StringWriter();
-        MarkdownBuilder builder = new MarkdownBuilder(writer);
+        MarkdownWriter builder = new MarkdownWriter(writer);
         assertSame(writer, builder.getWriter());
 
-        try (MarkdownBuilder builder1 = new MarkdownBuilder()) {
+        try (MarkdownWriter builder1 = new MarkdownWriter()) {
             assertNotNull(builder1.getWriter());
         }
     }
 
     @Test
     void testToString() throws IOException {
-        try (MarkdownBuilder markdownBuilder = new MarkdownBuilder()) {
+        try (MarkdownWriter markdownWriter = new MarkdownWriter()) {
             String sentence = Tests.randomSentence();
-            markdownBuilder.append(sentence);
-            assertEquals(sentence, markdownBuilder.toString());
+            markdownWriter.append(sentence);
+            assertEquals(sentence, markdownWriter.toString());
         }
     }
 
@@ -161,7 +161,7 @@ class MarkdownBuilderTest {
 
     @Test
     void appendImage() throws IOException {
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             String url = Tests.randomURL("png");
             assertEquals("![](" + url + ")", builder.appendImage(url).toString());
         }
@@ -169,7 +169,7 @@ class MarkdownBuilderTest {
 
     @Test
     void appendImageReturnsBuilder() throws IOException {
-        MarkdownBuilder builder = new MarkdownBuilder();
+        MarkdownWriter builder = new MarkdownWriter();
         assertSame(builder, builder.appendImage(Tests.randomURL("png")));
     }
 
@@ -177,7 +177,7 @@ class MarkdownBuilderTest {
     void appendMarkdownItem() throws IOException {
 //        Using bold as an example
         Bold bold = new Bold(Tests.randomWord());
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             assertEquals(bold.asString(), builder.appendMarkdownElement(bold).toString());
         }
     }
@@ -191,11 +191,11 @@ class MarkdownBuilderTest {
             }
         };
 
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             assertEquals("\n" + bold.asString(), builder.appendMarkdownElement(bold).toString());
         }
 
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             assertEquals("\n" + bold.asString(), builder.append((Object) "\n").appendMarkdownElement(bold).toString());
         }
     }
@@ -209,7 +209,7 @@ class MarkdownBuilderTest {
             }
         };
 
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             assertEquals(bold.asString() + "\n", builder.appendMarkdownElement(bold).toString());
         }
     }
@@ -219,14 +219,14 @@ class MarkdownBuilderTest {
         Object[] items = Tests.randomWords();
         BulletList bulletList = new BulletList(items);
 
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             assertEquals("\n" + bulletList.asString() + "\n", builder.appendBulletList(items).toString());
         }
     }
 
     @Test
     void appendBulletListReturnsBuilder() throws IOException {
-        MarkdownBuilder builder = new MarkdownBuilder();
+        MarkdownWriter builder = new MarkdownWriter();
         assertSame(builder,builder.appendBulletList((Object[]) Tests.randomWords()));
     }
 
@@ -235,14 +235,14 @@ class MarkdownBuilderTest {
         Object[] items = Tests.randomWords();
         NumberedList numberedList = new NumberedList(items);
 
-        try (MarkdownBuilder builder = new MarkdownBuilder()) {
+        try (MarkdownWriter builder = new MarkdownWriter()) {
             assertEquals("\n" + numberedList.asString() + "\n", builder.appendNumberedList(items).toString());
         }
     }
 
     @Test
     void appendNumberedListReturnsBuilder() throws IOException {
-        MarkdownBuilder builder = new MarkdownBuilder();
+        MarkdownWriter builder = new MarkdownWriter();
         assertSame(builder,builder.appendNumberedList((Object[]) Tests.randomWords()));
     }
 

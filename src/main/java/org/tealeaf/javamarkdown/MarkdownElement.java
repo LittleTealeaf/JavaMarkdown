@@ -57,11 +57,11 @@ public abstract class MarkdownElement {
      *     - item 1
      *     - item 2
      * </pre>
-     * <p>This method is natively used in {@link MarkdownBuilder#appendMarkdownElement(MarkdownElement)} to handle adding newlines when necessary</p>
+     * <p>This method is natively used in {@link MarkdownWriter#appendMarkdownElement(MarkdownElement)} to handle adding newlines when necessary</p>
      *
      * @return {@code true} if element requires a new line beforehand, {@code false} otherwise
      *
-     * @see MarkdownBuilder#appendMarkdownElement(MarkdownElement)
+     * @see MarkdownWriter#appendMarkdownElement(MarkdownElement)
      * @since 0.0.8
      */
     public abstract boolean requiresNewlineBefore();
@@ -82,11 +82,11 @@ public abstract class MarkdownElement {
      *     - item 3
      *     some text
      * </pre>
-     * <p>This method is natively used in {@link MarkdownBuilder#appendMarkdownElement(MarkdownElement)} to handle adding newlines when necessary</p>
+     * <p>This method is natively used in {@link MarkdownWriter#appendMarkdownElement(MarkdownElement)} to handle adding newlines when necessary</p>
      *
      * @return {@code true} if element requires a new line after, {@code false} otherwise
      *
-     * @see MarkdownBuilder#MarkdownBuilder()
+     * @see MarkdownWriter#MarkdownWriter()
      * @since 0.0.8
      */
     public abstract boolean requiresNewlineAfter();
