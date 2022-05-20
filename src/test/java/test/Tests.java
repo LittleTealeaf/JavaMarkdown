@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -67,15 +68,15 @@ public class Tests {
     }
 
     public static Bold bold() {
-        return new Bold(randomSentence(1, 10));
+        return new Bold(randomSentence());
     }
 
     public static Italic italic() {
-        return new Italic(randomSentence(1, 10));
+        return new Italic(randomSentence());
     }
 
     public static Strikethrough strikethrough() {
-        return new Strikethrough(randomSentence(1, 10));
+        return new Strikethrough(randomSentence());
     }
 
     public static Integer randomInteger() {
@@ -87,15 +88,15 @@ public class Tests {
     }
 
     public static BulletList bulletList() {
-        return new BulletList(Stream.generate(Tests::randomWord).limit(RANDOM.nextInt(5)).toArray());
+        return new BulletList((Object[]) randomWords());
     }
 
     public static NumberedList numberedList() {
-        return new NumberedList(Stream.generate(Tests::randomWord).limit(RANDOM.nextInt(5)).toArray());
+        return new NumberedList((Object[]) randomWords());
     }
 
     public static Code code() {
-        return new Code(randomSentence(1, 5));
+        return new Code(randomSentence());
     }
 
     public static String randomURL() {
@@ -103,16 +104,35 @@ public class Tests {
     }
 
     public static String randomSentence() {
-        return randomSentence(15, 20);
+        return randomSentence(randomInteger(15,20));
     }
 
+    @Deprecated
     public static String randomSentence(int min, int max) {
         return randomSentence(randomInteger(min, max));
     }
 
     public static String randomSentence(int count) {
-        return Stream.generate(Tests::randomWord).limit(count).collect(Collectors.joining(" "));
+        return randomWordsStream(count).collect(Collectors.joining(" "));
     }
+
+    public static String[] randomWords() {
+        return randomWords(randomInteger(1,10));
+    }
+
+
+    public static String[] randomWords(int count) {
+        return randomWordsStream(count).toArray(String[]::new);
+    }
+
+    public static Stream<String> randomWordsStream() {
+        return randomWordsStream(randomInteger(1,10));
+    }
+
+    public static Stream<String> randomWordsStream(int count) {
+        return Stream.generate(Tests::randomWord).limit(count);
+    }
+
 
     public static Integer randomInteger(int min, int max) {
         return RANDOM.nextInt(max - min) + min;
