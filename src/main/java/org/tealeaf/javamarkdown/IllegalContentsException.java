@@ -1,5 +1,9 @@
 package org.tealeaf.javamarkdown;
 
+/**
+ * @author Thomas Kwashnak
+ * @since 0.0.8
+ */
 public class IllegalContentsException extends RuntimeException {
 
     private final Class<? extends MarkdownElement> invalidClass;

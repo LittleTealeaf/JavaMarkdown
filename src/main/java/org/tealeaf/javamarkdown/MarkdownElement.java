@@ -9,6 +9,7 @@ import java.util.Set;
  * Represents a markdown item, or component, that contains its own method of printing itself.
  *
  * @author Thomas Kwashnak
+ * @since 0.0.8
  */
 public abstract class MarkdownElement {
 
@@ -20,6 +21,7 @@ public abstract class MarkdownElement {
      * @return The writer passed in the parameters
      *
      * @throws IOException If any exceptions were thrown during writing
+     * @since 0.0.8
      */
     public abstract Writer toWriter(Writer writer) throws IOException;
 
@@ -27,13 +29,10 @@ public abstract class MarkdownElement {
      * Formats the element to a string
      *
      * @return String representation of the formatted item
+     * @since 0.0.8
      */
     public abstract String asString();
 
-    /**
-     * @return The element as a string
-     * @see #asString()
-     */
     @Override
     public String toString() {
         return asString();
@@ -63,6 +62,7 @@ public abstract class MarkdownElement {
      * @return {@code true} if element requires a new line beforehand, {@code false} otherwise
      *
      * @see MarkdownBuilder#appendMarkdownElement(MarkdownElement)
+     * @since 0.0.8
      */
     public abstract boolean requiresNewlineBefore();
 
@@ -87,6 +87,7 @@ public abstract class MarkdownElement {
      * @return {@code true} if element requires a new line after, {@code false} otherwise
      *
      * @see MarkdownBuilder#MarkdownBuilder()
+     * @since 0.0.8
      */
     public abstract boolean requiresNewlineAfter();
 
@@ -99,14 +100,16 @@ public abstract class MarkdownElement {
      * @param object Object to check the data type of
      *
      * @throws IllegalContentsException if the object passed is an illegal type for the element
+     * @since 0.0.8
      */
     protected abstract void checkType(Object object) throws IllegalContentsException;
 
     /**
      * <p>Compares an object to a set of illegal MarkdownElement classes. If the object is an instance of any element, it will throw an {@link IllegalContentsException}</p>
      * @deprecated See {@link #checkType(Object)} for new method of checking
-     * @param object
-     * @param classStream
+     * @param object Object to test
+     * @param classStream Set of illegal classes
+     * @since 0.0.8
      */
     @Deprecated
     protected void testIllegalTypes(Object object, Set<Class<? extends MarkdownElement>> classStream) {

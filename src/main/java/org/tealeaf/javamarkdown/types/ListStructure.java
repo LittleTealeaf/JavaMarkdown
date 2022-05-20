@@ -51,9 +51,9 @@ public abstract class ListStructure extends Structure {
     }
 
     /**
-     * @param object
+     * @param object ?
      *
-     * @return
+     * @return ?
      *
      * @deprecated Use {@link #add(Object...)} instead
      */
