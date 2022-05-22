@@ -50,7 +50,7 @@ public abstract class ListStructure extends Structure {
 
 
     /**
-     * @deprecated use {@link #ListStructure(Object...)}
+     * @deprecated Static symbols are no longer Implemented. Instead, use {@link #ListStructure(Object...)} and define the symbol in {@link #getPrefix(int)}
      * @param symbol ?
      * @param objects ?
      */
