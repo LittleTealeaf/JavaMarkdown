@@ -169,8 +169,4 @@ public abstract class ListStructure extends Structure {
     protected String indentItem(String item) {
         return item.replace("\n", String.format("\n%s", " ".repeat(symbol.length())));
     }
-
-    public ListStructure addList(Object title, NamedListStructure subItems) {
-        return add(String.format("%s\n%s",title.toString(),subItems.asString()));
-    }
 }
