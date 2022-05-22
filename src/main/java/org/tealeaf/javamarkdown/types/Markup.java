@@ -27,9 +27,8 @@ public class Markup extends InlineElement {
      * @param syntax String syntax to put on either side of the content
      */
     public Markup(Object object, String syntax) {
-        this.object = object;
+        this.object = checkType(object);
         this.syntax = syntax;
-        checkType(object);
     }
 
     /**

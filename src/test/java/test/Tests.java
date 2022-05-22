@@ -51,7 +51,7 @@ public class Tests {
     }
 
     public static Stream<Object> provideObjects() {
-        return Stream.of(code(), randomWord(), bold(), italic(), strikethrough(), randomSentence(), randomInteger());
+        return Stream.of(code(), randomWord(), bold(), italic(), strikethrough(), randomSentence(), randomInteger(), bulletList(), numberedList());
     }
 
     public static Stream<Object> provideObjects(Predicate<Object> predicate) {
@@ -133,5 +133,13 @@ public class Tests {
 
     public static String randomURL(String extension) {
         return String.format("%s.%s", randomSentence().replace(" ", "/"), extension);
+    }
+
+    public static BulletList bulletList() {
+        return new BulletList((Object[]) randomWords());
+    }
+
+    public static NumberedList numberedList() {
+        return new NumberedList((Object[]) randomWords());
     }
 }

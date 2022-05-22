@@ -3,8 +3,12 @@ package org.tealeaf.javamarkdown.types;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  *
@@ -13,12 +17,15 @@ import java.util.stream.Collectors;
  * @since 0.0.7
  *
  */
-public class ListStructure extends Structure {
+public abstract class ListStructure extends Structure {
 
     /**
      * List of objects to include
      */
+    @Deprecated
     protected List<Object> objects = new ArrayList<>();
+
+    protected final List<Object> items = new LinkedList<>();
 
     /**
      * Symbol to put in front of each item
@@ -26,8 +33,12 @@ public class ListStructure extends Structure {
     @Deprecated
     protected String symbol;
 
+    /**
+     * Creates a new ListStructure, initialized with the provided items
+     * @param items Items to add to the list structure.
+     */
     public ListStructure(Object... items) {
-
+        add(items);
     }
 
 
@@ -43,6 +54,19 @@ public class ListStructure extends Structure {
         add(objects);
     }
 
+    protected abstract String getPrefix(int index);
+
+    /**
+     * <p>Prints an item using the {@link #getPrefix(int)} to determine the prefix to use.</p>
+     * @param index Item index to use
+     * @return Formatted Item as a String
+     * @since 0.0.11
+     */
+    protected String printItem(int index) {
+        String prefix = getPrefix(index);
+        return String.format("%s%s",prefix,items.get(index).toString().replace("\n", String.format("\n%s", " ".repeat(prefix.length()))));
+    }
+
     /**
      * {@inheritDoc}
      * @return Markdown Element as String
@@ -50,7 +74,7 @@ public class ListStructure extends Structure {
      */
     @Override
     public String asString() {
-        return String.format("%s", objects.stream().map(this::formatItem).collect(Collectors.joining("\n")));
+        return IntStream.range(0,items.size()).mapToObj(this::printItem).collect(Collectors.joining("\n"));
     }
 
     /**
@@ -61,7 +85,7 @@ public class ListStructure extends Structure {
      */
     @Override
     public Writer toWriter(Writer writer) throws IOException {
-        return writer.append(objects.stream().map(this::formatItem).collect(Collectors.joining("\n")));
+        return writer.append(IntStream.range(0,items.size()).mapToObj(this::printItem).collect(Collectors.joining("\n")));
     }
 
     /**
@@ -92,8 +116,7 @@ public class ListStructure extends Structure {
      */
     public ListStructure add(Object... objects) {
         for (Object object : objects) {
-            checkType(object);
-            this.objects.add(object);
+            this.items.add(checkType(object));
         }
         return this;
     }
