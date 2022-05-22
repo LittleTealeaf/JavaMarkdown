@@ -10,10 +10,11 @@ public class Italic extends Markup {
     }
 
     @Override
-    protected void checkType(Object object)  {
-        super.checkType(object);
+    protected <T> T checkType(T object)  {
         if(object instanceof Italic) {
             throw new IllegalContentsException(Italic.class);
+        } else {
+            return super.checkType(object);
         }
     }
 }

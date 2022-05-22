@@ -10,10 +10,11 @@ public class Bold extends Markup {
     }
 
     @Override
-    protected void checkType(Object object)  {
-        super.checkType(object);
+    protected <T> T checkType(T object)  {
         if(object instanceof Bold) {
             throw new IllegalContentsException(Bold.class);
+        } else {
+            return super.checkType(object);
         }
     }
 }
