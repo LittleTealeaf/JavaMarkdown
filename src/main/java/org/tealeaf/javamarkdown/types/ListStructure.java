@@ -60,6 +60,11 @@ public abstract class ListStructure extends Structure {
         add(objects);
     }
 
+    /**
+     * Indicates the prefix of an item that should be used for a specific index
+     * @param index Index of the item
+     * @return The prefix used for that index
+     */
     protected abstract String getPrefix(int index);
 
     /**
