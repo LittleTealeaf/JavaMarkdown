@@ -11,10 +11,11 @@ public class Code extends Markup {
     }
 
     @Override
-    protected void checkType(Object object) {
-        super.checkType(object);
+    protected <T> T checkType(T object) {
         if(object instanceof MarkdownElement) {
             throw new IllegalContentsException(MarkdownElement.class);
+        } else {
+            return super.checkType(object);
         }
     }
 }

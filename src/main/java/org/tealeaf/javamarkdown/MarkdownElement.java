@@ -92,17 +92,16 @@ public abstract class MarkdownElement {
     public abstract boolean requiresNewlineAfter();
 
     /**
-     * <p>Checks the type of some passed object. This method is specific to the element and throws an {@link IllegalContentsException} if an illegal object type is passed
-     * through. This prevents instances such as tables or other similar elements being directly inserted into elements such as a {@link org.tealeaf.javamarkdown.markup.Bold
-     * Bold} or {@link org.tealeaf.javamarkdown.lists.NumberedList NumberedList} element.
-     * </p>
-     *
-     * @param object Object to check the data type of
-     *
+     * <p>Checks the type of a passed object. This method is specific to each element and throws an {@link IllegalContentsException} if the passed object cannot be put
+     * in as a content of that element. This prevents instances such as nested tables, where a table is put inside another table. If such feature is necessary, using the
+     * {@link #toString()} of any markdown element will force it to be accepted in any spot</p>
+     * @param item The item to check it's class
+     * @return That item if it is not an instance of any illegal types
+     * @param <T> The type of the item
      * @throws IllegalContentsException if the object passed is an illegal type for the element
-     * @since 0.0.8
+     * @since 0.0.11
      */
-    protected abstract void checkType(Object object) throws IllegalContentsException;
+    protected abstract <T> T checkType(T item) throws IllegalContentsException;
 
     /**
      * <p>Compares an object to a set of illegal MarkdownElement classes. If the object is an instance of any element, it will throw an {@link IllegalContentsException}</p>

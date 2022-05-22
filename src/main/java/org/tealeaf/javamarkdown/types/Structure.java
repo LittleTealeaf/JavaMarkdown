@@ -19,9 +19,11 @@ public abstract class Structure extends MarkdownElement {
      * @since 0.0.7
      */
     @Override
-    protected void checkType(Object object) throws IllegalContentsException {
+    protected <T> T checkType(T object) throws IllegalContentsException {
         if(object instanceof Structure) {
             throw new IllegalContentsException(Structure.class);
+        } else {
+            return object;
         }
     }
 }
