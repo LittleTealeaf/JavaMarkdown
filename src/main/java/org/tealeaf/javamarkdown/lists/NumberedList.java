@@ -6,6 +6,8 @@ public class NumberedList extends ListStructure {
     @Deprecated
     private static final String SYMBOL = "1. ";
 
+    private static final String FORMAT = "%s. ";
+
     private final int start;
 
     public NumberedList(Object... items) {
@@ -20,6 +22,6 @@ public class NumberedList extends ListStructure {
 
     @Override
     protected String getPrefix(int index) {
-        return String.format("%s. ",index + start);
+        return String.format(FORMAT,index + start);
     }
 }

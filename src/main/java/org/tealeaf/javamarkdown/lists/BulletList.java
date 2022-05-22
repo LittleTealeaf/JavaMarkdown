@@ -4,8 +4,7 @@ import org.tealeaf.javamarkdown.types.ListStructure;
 
 public class BulletList extends ListStructure {
 
-    @Deprecated
-    private static final String SYMBOL = "- ";
+    private static final String PREFIX = "- ";
 
     public BulletList(Object... objects) {
         super(objects);
@@ -13,6 +12,6 @@ public class BulletList extends ListStructure {
 
     @Override
     protected String getPrefix(int index) {
-        return "- ";
+        return PREFIX;
     }
 }
