@@ -51,8 +51,7 @@ public class Tests {
     }
 
     public static Stream<Object> provideObjects() {
-        return Stream.of(code(), randomWord(), bold(), italic(), strikethrough(), bulletList(), numberedList(), randomSentence(), randomInteger(), numberedList(),
-                         bulletList());
+        return Stream.of(code(), randomWord(), bold(), italic(), strikethrough(), randomSentence(), randomInteger());
     }
 
     public static Stream<Object> provideObjects(Predicate<Object> predicate) {
@@ -85,14 +84,6 @@ public class Tests {
 
     public static Integer randomInteger(int range) {
         return RANDOM.nextInt(range);
-    }
-
-    public static BulletList bulletList() {
-        return new BulletList((Object[]) randomWords());
-    }
-
-    public static NumberedList numberedList() {
-        return new NumberedList((Object[]) randomWords());
     }
 
     public static Code code() {
