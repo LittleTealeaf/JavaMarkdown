@@ -20,15 +20,20 @@ import java.util.stream.Stream;
 public abstract class ListStructure extends Structure {
 
     /**
-     * List of objects to include
+     * @deprecated Changed to {@link #items}
      */
     @Deprecated
     protected List<Object> objects = new ArrayList<>();
 
+    /**
+     * List of items within the list
+     * @since 0.0.11
+     */
     protected final List<Object> items = new LinkedList<>();
 
     /**
      * Symbol to put in front of each item
+     * @deprecated Static symbols are no longer used, implement symbols using {@link #getPrefix(int)}
      */
     @Deprecated
     protected String symbol;
@@ -36,6 +41,7 @@ public abstract class ListStructure extends Structure {
     /**
      * Creates a new ListStructure, initialized with the provided items
      * @param items Items to add to the list structure.
+     * @since 0.0.11
      */
     public ListStructure(Object... items) {
         add(items);
@@ -45,8 +51,8 @@ public abstract class ListStructure extends Structure {
 
     /**
      * @deprecated use {@link #ListStructure(Object...)}
-     * @param symbol
-     * @param objects
+     * @param symbol ?
+     * @param objects ?
      */
     @Deprecated
     public ListStructure(String symbol, Object... objects) {
@@ -130,9 +136,7 @@ public abstract class ListStructure extends Structure {
      */
     @Deprecated
     public ListStructure addItem(Object object) {
-        checkType(object);
-        objects.add(object);
-        return this;
+        return add(object);
     }
 
     /**
@@ -140,7 +144,7 @@ public abstract class ListStructure extends Structure {
      * <p>Uses the provided symbol and indents the item using {@link #indentItem(String)}</p>
      * @param item Item to format into the list
      * @return A string with the formatted item
-     * @deprecated Use new format of formatting items
+     * @deprecated Implemented as {@link #printItem(int)}
      * @since 0.0.7
      */
     @Deprecated
@@ -153,7 +157,7 @@ public abstract class ListStructure extends Structure {
      * <p>Takes each {@code \n} and adds spaces after it to indent it to the indentation required by the symbol</p>
      * @param item String to format
      * @return String formatted to the indentation of the item
-     * @deprecated Use new format for formatting items
+     * @deprecated Implemented in {@link #printItem(int)}
      * @since 0.0.7
      */
     @Deprecated
