@@ -1,18 +1,18 @@
-package org.tealeaf.javamarkdown.markup;
+package org.tealeaf.javamarkdown.elements;
 
 import org.tealeaf.javamarkdown.IllegalContentsException;
 import org.tealeaf.javamarkdown.types.Markup;
 
-public class Bold extends Markup {
+public class Italic extends Markup {
 
-    public Bold(Object object)  {
-        super(object, "**");
+    public Italic(Object object)  {
+        super(object, "*");
     }
 
     @Override
     protected <T> T checkType(T object)  {
-        if(object instanceof Bold) {
-            throw new IllegalContentsException(Bold.class);
+        if(object instanceof Italic) {
+            throw new IllegalContentsException(Italic.class);
         } else {
             return super.checkType(object);
         }

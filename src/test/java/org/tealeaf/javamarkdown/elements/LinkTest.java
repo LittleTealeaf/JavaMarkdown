@@ -1,6 +1,8 @@
-package org.tealeaf.javamarkdown.inline;
+package org.tealeaf.javamarkdown.elements;
 import org.junit.jupiter.api.Test;
 import org.tealeaf.javamarkdown.IllegalContentsException;
+import org.tealeaf.javamarkdown.elements.Link;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,7 +13,7 @@ public class LinkTest {
     @Test
     void testToWriter() throws IllegalContentsException, IOException{
 
-       Link link = new Link(content,url);
+       Link link = new Link(content, url);
        StringWriter writer = new StringWriter();
        assertEquals( "["+content+"]" + "("+url+")" ,link.toWriter(writer).toString());
     }

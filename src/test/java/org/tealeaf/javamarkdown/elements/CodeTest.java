@@ -1,11 +1,12 @@
-package org.tealeaf.javamarkdown.markup;
+package org.tealeaf.javamarkdown.elements;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.tealeaf.javamarkdown.IllegalContentsException;
-import org.tealeaf.javamarkdown.types.Structure;
+import org.tealeaf.javamarkdown.MarkdownElement;
+import org.tealeaf.javamarkdown.elements.Code;
 import test.Tests;
 
 import java.io.IOException;
@@ -14,46 +15,46 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ItalicTest {
+class CodeTest {
 
     static Stream<Arguments> provideIllegalObjects() throws IllegalContentsException {
-        return Tests.provideArguments(Tests.filterClasses(true, Italic.class, Structure.class));
+        return Tests.provideArguments(Tests.filterClasses(true, MarkdownElement.class));
     }
 
     static Stream<Arguments> provideLegalObjects() throws IllegalContentsException {
-        return Tests.provideArguments(Tests.filterClasses(false, Italic.class, Structure.class));
+        return Tests.provideArguments(Tests.filterClasses(false, MarkdownElement.class));
     }
 
     @Test
-    void toWriter() throws IllegalContentsException, IOException {
+    void toWriter() throws IOException {
         String word = Tests.randomWord();
-        Italic italic = new Italic(word);
+        Code code = new Code(word);
         StringWriter writer = new StringWriter();
-        assertEquals("*" + word + "*", italic.toWriter(writer).toString());
+        assertEquals("`" + word + "`", code.toWriter(writer).toString());
     }
 
     @Test
-    void asString() throws IllegalContentsException {
+    void asString() {
         String word = Tests.randomWord();
-        Italic italic = new Italic(word);
-        assertEquals("*" + word + "*", italic.asString());
+        Code code = new Code(word);
+        assertEquals("`" + word + "`", code.asString());
     }
 
     @Test
-    void testToString() throws IllegalContentsException {
-        Italic italic = new Italic(Tests.randomWord());
-        assertEquals(italic.asString(), italic.toString());
+    void testToString() {
+        Code code = new Code(Tests.randomWord());
+        assertEquals(code.asString(), code.toString());
     }
 
     @ParameterizedTest
     @MethodSource("provideIllegalObjects")
     void testIllegalObject(Object object) {
-        assertThrows(IllegalContentsException.class, () -> new Italic(object));
+        assertThrows(IllegalContentsException.class, () -> new Code(object));
     }
 
     @ParameterizedTest
     @MethodSource("provideLegalObjects")
     void testLegalObjects(Object object) {
-        assertDoesNotThrow(() -> new Italic(object));
+        assertDoesNotThrow(() -> new Code(object));
     }
 }

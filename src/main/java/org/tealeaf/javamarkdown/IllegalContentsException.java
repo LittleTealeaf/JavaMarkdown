@@ -1,9 +1,12 @@
 package org.tealeaf.javamarkdown;
 
+import org.tealeaf.javamarkdown.elements.Italic;
+import org.tealeaf.javamarkdown.elements.NumberedList;
+
 /**
  * <p>
  * When thrown, indicates that an illegal element was attempted to be passed as content of another element. For example, if a
- * {@link org.tealeaf.javamarkdown.lists.NumberedList NumberedList} was passed into a {@link org.tealeaf.javamarkdown.markup.Italic Italic} element, then this error woudl
+ * {@link NumberedList NumberedList} was passed into a {@link Italic Italic} element, then this error woudl
  * be thrown
  * </p>
  *
