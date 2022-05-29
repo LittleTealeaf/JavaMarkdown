@@ -195,8 +195,8 @@ public class MarkdownWriter extends Writer {
      * @return A reference to this writer
      * @throws IOException If an I/O error occurs
      */
-    public MarkdownWriter appendImage(String url) throws IOException {
-        return appendMarkdownElement(new Image(url));
+    public MarkdownWriter appendImage(String desc, String url) throws IOException {
+        return appendMarkdownElement(new Image(desc,url));
     }
 
     /**
