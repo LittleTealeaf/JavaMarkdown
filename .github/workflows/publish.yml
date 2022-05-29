@@ -1,0 +1,50 @@
+name: Publish
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  package:
+    name: Publish Github package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout Repository
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: 'gradle'
+      - name: Make Gradlew executable
+        run: chmod +x gradlew
+      - name: Publish Packages
+        uses: gradle/gradle-build-action@116ac10f8131939c7e405884cb2456067b0479e9
+        with:
+          arguments: publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  javadoc:
+    name: Javadoc
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout Repository
+      - uses: actions/setup-java@v3
+        name: Set up Java JDK
+        with:
+          java-version: 18
+          distribution: 'temurin'
+          cache: 'gradle'
+      - name: Make Gradlew Executable
+        run: chmod +x gradlew
+      - name: Javadoc with Gradle
+        uses: gradle/gradle-build-action@116ac10f8131939c7e405884cb2456067b0479e9
+        with:
+          arguments: javadoc
+      - name: Publish to Github Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          publish_dir: ./build/docs/javadoc

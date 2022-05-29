@@ -136,10 +136,10 @@ public class Tests {
     }
 
     public static BulletList bulletList() {
-        return new BulletList((Object[]) randomWords());
+        return new BulletList(randomWords());
     }
 
     public static NumberedList numberedList() {
-        return new NumberedList((Object[]) randomWords());
+        return new NumberedList(randomWords());
     }
 }
