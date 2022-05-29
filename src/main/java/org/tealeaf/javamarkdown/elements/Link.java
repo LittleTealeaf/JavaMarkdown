@@ -1,4 +1,4 @@
-package org.tealeaf.javamarkdown.inline;
+package org.tealeaf.javamarkdown.elements;
 
 import org.tealeaf.javamarkdown.types.InlineElement;
 

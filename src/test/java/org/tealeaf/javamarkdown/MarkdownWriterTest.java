@@ -5,9 +5,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.tealeaf.javamarkdown.elements.Header;
-import org.tealeaf.javamarkdown.lists.BulletList;
-import org.tealeaf.javamarkdown.lists.NumberedList;
-import org.tealeaf.javamarkdown.markup.Bold;
+import org.tealeaf.javamarkdown.elements.BulletList;
+import org.tealeaf.javamarkdown.elements.NumberedList;
+import org.tealeaf.javamarkdown.elements.Bold;
 import test.Tests;
 
 import java.io.IOException;

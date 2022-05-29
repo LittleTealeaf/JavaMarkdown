@@ -1,8 +1,7 @@
-package org.tealeaf.javamarkdown.markup;
+package org.tealeaf.javamarkdown.elements;
 
 import org.tealeaf.javamarkdown.IllegalContentsException;
 import org.tealeaf.javamarkdown.types.Markup;
-import org.tealeaf.javamarkdown.types.Structure;
 
 public class Strikethrough extends Markup {
 

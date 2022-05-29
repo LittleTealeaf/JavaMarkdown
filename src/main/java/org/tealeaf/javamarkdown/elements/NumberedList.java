@@ -1,4 +1,4 @@
-package org.tealeaf.javamarkdown.lists;
+package org.tealeaf.javamarkdown.elements;
 
 import org.tealeaf.javamarkdown.types.ListStructure;
 

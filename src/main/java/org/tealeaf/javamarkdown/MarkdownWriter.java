@@ -1,14 +1,14 @@
 package org.tealeaf.javamarkdown;
 
 import org.tealeaf.javamarkdown.elements.Header;
-import org.tealeaf.javamarkdown.inline.Image;
-import org.tealeaf.javamarkdown.inline.Link;
-import org.tealeaf.javamarkdown.lists.BulletList;
-import org.tealeaf.javamarkdown.lists.NumberedList;
-import org.tealeaf.javamarkdown.markup.Bold;
-import org.tealeaf.javamarkdown.markup.Code;
-import org.tealeaf.javamarkdown.markup.Italic;
-import org.tealeaf.javamarkdown.markup.Strikethrough;
+import org.tealeaf.javamarkdown.elements.Image;
+import org.tealeaf.javamarkdown.elements.Link;
+import org.tealeaf.javamarkdown.elements.BulletList;
+import org.tealeaf.javamarkdown.elements.NumberedList;
+import org.tealeaf.javamarkdown.elements.Bold;
+import org.tealeaf.javamarkdown.elements.Code;
+import org.tealeaf.javamarkdown.elements.Italic;
+import org.tealeaf.javamarkdown.elements.Strikethrough;
 
 import java.io.IOException;
 import java.io.StringWriter;

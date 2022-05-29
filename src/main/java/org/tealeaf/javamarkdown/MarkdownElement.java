@@ -1,5 +1,8 @@
 package org.tealeaf.javamarkdown;
 
+import org.tealeaf.javamarkdown.elements.Bold;
+import org.tealeaf.javamarkdown.elements.NumberedList;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Optional;
@@ -40,8 +43,8 @@ public abstract class MarkdownElement {
 
     /**
      * <p>Whether the element requires at least one {@code \n} before printing itself in a document</p>
-     * <p>In instances such as in-line elements (like {@link org.tealeaf.javamarkdown.markup.Bold markup.Bold}), this would return {@code false} because bolds can be inserted
-     * directly in-line. However, in instances such as {@link org.tealeaf.javamarkdown.lists.NumberedList lists.NumberedList}, it would be required that there is a new line
+     * <p>In instances such as in-line elements (like {@link Bold markup.Bold}), this would return {@code false} because bolds can be inserted
+     * directly in-line. However, in instances such as {@link NumberedList lists.NumberedList}, it would be required that there is a new line
      * to prevent
      * the
      * following

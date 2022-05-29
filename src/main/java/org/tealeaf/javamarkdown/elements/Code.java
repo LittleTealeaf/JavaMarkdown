@@ -1,4 +1,4 @@
-package org.tealeaf.javamarkdown.markup;
+package org.tealeaf.javamarkdown.elements;
 
 import org.tealeaf.javamarkdown.IllegalContentsException;
 import org.tealeaf.javamarkdown.MarkdownElement;
