@@ -238,6 +238,10 @@ public class MarkdownWriter extends Writer {
         return appendMarkdownElement(new NumberedList(items));
     }
 
+    public MarkdownWriter appendHeader(Object content) throws IOException {
+        return appendMarkdownElement(new Header(content));
+    }
+
     public MarkdownWriter appendHeader(int level, Object content) throws IOException {
         return appendMarkdownElement(new Header(level,content));
     }
