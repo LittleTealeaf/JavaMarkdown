@@ -32,7 +32,7 @@ public class BulletList extends ListStructure {
     }
 
     /**
-     * Creates a bullet list with a initial set of items and no name
+     * Creates a bullet list with an initial set of items and no name
      * @param objects The initial objects to add, in order
      * @since 0.0.12
      */
