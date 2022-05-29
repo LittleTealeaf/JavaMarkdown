@@ -17,12 +17,21 @@ public class BulletList extends ListStructure {
 
     private static final String PREFIX = "- ";
 
-    /**
-     * <p>Creates a new bulleted list with a preset list of objects</p>
-     * @param items List of initial items to include
-     */
-    public BulletList(Object... items) {
-        super(items);
+
+    public BulletList() {
+        super();
+    }
+
+    public BulletList(Object[] objects) {
+        super(objects);
+    }
+
+    public BulletList(String name) {
+        super(name);
+    }
+
+    public BulletList(String name, Object[] objects) {
+        super(name,objects);
     }
 
     /**

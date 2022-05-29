@@ -2,49 +2,69 @@ package org.tealeaf.javamarkdown.lists;
 
 import org.tealeaf.javamarkdown.types.ListStructure;
 
-/**
- * <p>Implements a numbered list. Allows adding items, which will be formatted and printed into a list</p>
- * <p>By default, the lists format as the following</p>
- * <pre>
- *     1. Content
- *     2. Content
- *     3. Content
- * </pre>
- * <p>However, by using {@link #NumberedList(int, Object...)}, it is possible to specify the first index so the following can be possible</p>
- * <pre>
- *     3. Content
- *     4. Content
- *     5. Content
- * </pre>
- * @author Thomas Kwashnak
- * @since 0.0.11
- */
+///**
+// * <p>Implements a numbered list. Allows adding items, which will be formatted and printed into a list</p>
+// * <p>By default, the lists format as the following</p>
+// * <pre>
+// *     1. Content
+// *     2. Content
+// *     3. Content
+// * </pre>
+// * <p>However, by using {@link #NumberedList(int, Object...)}, it is possible to specify the first index so the following can be possible</p>
+// * <pre>
+// *     3. Content
+// *     4. Content
+// *     5. Content
+// * </pre>
+// * @author Thomas Kwashnak
+// * @since 0.0.11
+// */
 public class NumberedList extends ListStructure {
 
     private static final String FORMAT = "%s. ";
 
     private final int start;
 
-    /**
-     * <p>Creates a numbered list with indexing starting at 1.</p>
-     * @param items Initial set of items to include in the list
-     * @since 0.0.11
-     */
-    public NumberedList(Object... items) {
-        super(items);
+    public NumberedList() {
+        super();
         start = 1;
     }
 
-    /**
-     * <p>Creates a numbered list with indexing starting at the provided index</p>
-     * @param start Number of the first element in the list
-     * @param items Initial set of items to include in the list
-     * @since 0.0.11
-     */
-    public NumberedList(int start, Object... items) {
-        super(items);
+    public NumberedList(String name) {
+        super(name);
+        start = 1;
+    }
+
+    public NumberedList(int start) {
+        super();
         this.start = start;
     }
+
+    public NumberedList(String name, int start) {
+        super(name);
+        this.start = start;
+    }
+
+    public NumberedList(Object[] objects) {
+        super(objects);
+        this.start = 1;
+    }
+
+    public NumberedList(String name, Object[] objects) {
+        super(name,objects);
+        this.start = 1;
+    }
+
+    public NumberedList(int start, Object[] objects) {
+        super(objects);
+        this.start = start;
+    }
+
+    public NumberedList(String name, int start, Object[] objects) {
+        super(name,objects);
+        this.start = start;
+    }
+
 
     /**
      * {@inheritDoc}
