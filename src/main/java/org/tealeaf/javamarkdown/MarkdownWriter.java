@@ -1,5 +1,6 @@
 package org.tealeaf.javamarkdown;
 
+import org.tealeaf.javamarkdown.elements.Header;
 import org.tealeaf.javamarkdown.inline.Image;
 import org.tealeaf.javamarkdown.inline.Link;
 import org.tealeaf.javamarkdown.lists.BulletList;
@@ -237,6 +238,12 @@ public class MarkdownWriter extends Writer {
         return appendMarkdownElement(new NumberedList(items));
     }
 
+    public MarkdownWriter appendHeader(int level, Object content) throws IOException {
+        return appendMarkdownElement(new Header(level,content));
+    }
+
+
+
     /**
      * <p>Adds a {@link MarkdownElement} to the writer, handling any special conditions</p>
      * <p>If {@link MarkdownElement#requiresNewlineBefore() markdownElement.requiresNewlineBefore()} returns true, and the last character written was not a <code>\n</code>,
@@ -260,6 +267,8 @@ public class MarkdownWriter extends Writer {
 
         return this;
     }
+
+
 
     /**
      * Gets the writer used to handle core functionality
