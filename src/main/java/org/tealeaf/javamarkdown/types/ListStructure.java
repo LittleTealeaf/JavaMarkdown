@@ -1,118 +1,133 @@
 package org.tealeaf.javamarkdown.types;
 
+import org.tealeaf.javamarkdown.IllegalContentsException;
+
+import javax.management.RuntimeErrorException;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 /**
- *
- * Represents a structure that lists elements in a list-like structure
+ * <p>Abstract structure that represents an element that lists elements in a list-like structure</p>
+ * <p>Handles adding items and printing the final result. Classes extending this provide the prefix structure used in the list through {@link #getPrefix(int)}</p>
+ * <p>Additionally, the option to add a name to the list provides easy nesting of lists. For this reason, objects that extend this class are allowed to be added. Adding a
+ * name field through one of the named constructors ({@link #ListStructure(String)} or {@link #ListStructure(String, Object[])}) will remove the before-newline requirement
+ * (see {@link #requiresNewlineBefore()})
+ * </p>
  * @author Thomas Kwashnak
- * @since 0.0.7
- *
+ * @since 0.0.11
  */
 public abstract class ListStructure extends Structure {
 
     /**
-     * @deprecated Changed to {@link #items}
-     */
-    @Deprecated
-    protected List<Object> objects = new ArrayList<>();
-
-    /**
-     * List of items within the list
+     * List of objects to print, in order that they are printed
      * @since 0.0.11
      */
     protected final List<Object> items = new LinkedList<>();
 
     /**
-     * Symbol to put in front of each item
-     * @deprecated Static symbols are no longer used, implement symbols using {@link #getPrefix(int)}
+     * Name to print before printing the list
+     * @since 0.0.12
      */
-    @Deprecated
-    protected String symbol;
+    protected final String name;
 
     /**
-     * Creates a new ListStructure, initialized with the provided items
-     * @param items Items to add to the list structure.
-     * @since 0.0.11
+     * Creates an empty list with no name
+     * @since 0.0.12
      */
-    public ListStructure(Object... items) {
-        add(items);
+    public ListStructure() {
+        name = null;
     }
 
-
+    /**
+     * Creates an empty list with a name
+     * @param name The string to print immediately before the list
+     * @since 0.0.12
+     */
+    public ListStructure(String name) {
+        this.name = name;
+    }
 
     /**
-     * @deprecated Static symbols are no longer Implemented. Instead, use {@link #ListStructure(Object...)} and define the symbol in {@link #getPrefix(int)}
-     * @param symbol ?
-     * @param objects ?
+     * Creates a list with initial contents and no name
+     * @param objects The initial objects to add, in order
+     * @since 0.0.12
      */
-    @Deprecated
-    public ListStructure(String symbol, Object... objects) {
-        this.symbol = symbol;
+    public ListStructure(Object[] objects) {
+        name = null;
         add(objects);
     }
 
     /**
-     * Indicates the prefix of an item that should be used for a specific index
-     * @param index Index of the item
-     * @return The prefix used for that index
+     * Creates a list with initial contents and a set name
+     * @param name The string to print immediately before the list
+     * @param objects The initial objects to add, in order
+     * @since 0.0.12
+     */
+    public ListStructure(String name, Object[] objects) {
+        this.name = name;
+        add(objects);
+    }
+
+    /**
+     * <p>Generates the prefix to insert before a given item in the list.</p>
+     * @param index Item's index to get the prefix for
+     * @return Prefix to insert before the item at the provided index
+     * @since 0.0.11
      */
     protected abstract String getPrefix(int index);
 
     /**
-     * <p>Prints an item using the {@link #getPrefix(int)} to determine the prefix to use.</p>
-     * @param index Item index to use
-     * @return Formatted Item as a String
+     * <p>Formats and prints an item at the provided index.</p>
+     * <p>Handles multi-lined items by indenting each item a number of spaces equal to the prefix's length</p>
+     * @param index Item's index to print
+     * @return Formatted and prefixed item in the list
      * @since 0.0.11
      */
     protected String printItem(int index) {
-        String prefix = getPrefix(index);
-        return String.format("%s%s",prefix,items.get(index).toString().replace("\n", String.format("\n%s", " ".repeat(prefix.length()))));
+        final String prefix = getPrefix(index);
+        final String newlineIndent = "\n".concat(" ".repeat(prefix.length()));
+        return prefix.concat(items.get(index).toString().replace("\n", newlineIndent));
     }
 
     /**
      * {@inheritDoc}
-     * @return Markdown Element as String
-     * @since 0.0.7
      */
     @Override
     public String asString() {
-        return IntStream.range(0,items.size()).mapToObj(this::printItem).collect(Collectors.joining("\n"));
+        String list = IntStream.range(0,items.size()).mapToObj(this::printItem).collect(Collectors.joining("\n"));
+        if(name != null) {
+            return name.concat("\n").concat(list);
+        } else {
+            return list;
+        }
     }
 
     /**
      * {@inheritDoc}
-     * @param writer Writer to write contents to
-     *
-     * @since 0.0.7
      */
     @Override
     public Writer toWriter(Writer writer) throws IOException {
-        return writer.append(IntStream.range(0,items.size()).mapToObj(this::printItem).collect(Collectors.joining("\n")));
+        return writer.append(asString());
     }
 
     /**
      * {@inheritDoc}
-     * @return {@code true}
-     * @since 0.0.7
+     * @return {@code true} if there was no name provided, {@code false} if a name is provided
+     * @since 0.0.12
      */
     @Override
     public boolean requiresNewlineBefore() {
-        return true;
+        return name == null;
     }
 
     /**
      * {@inheritDoc}
      * @return {@code true}
-     * @since 0.0.7
+     * @since 0.0.11
      */
     @Override
     public boolean requiresNewlineAfter() {
@@ -120,53 +135,24 @@ public abstract class ListStructure extends Structure {
     }
 
     /**
-     * <p>Adds an element to the end of the list</p>
-     * @param objects List of objects to append to the end of the list
-     * @return A reference to this ListStructure
-     * @since 0.0.11
+     * <p>Adds objects to the end of the list.</p>
+     * @param objects Set of objects to append to the end of the list
+     * @return A reference to this list structure
+     * @since 0.0.12
      */
     public ListStructure add(Object... objects) {
-        for (Object object : objects) {
-            this.items.add(checkType(object));
+        for(Object object : objects) {
+            items.add(checkType(object));
         }
         return this;
     }
 
     /**
-     * @param object ?
-     *
-     * @return ?
-     *
-     * @deprecated Use {@link #add(Object...)} instead
+     * {@inheritDoc}
+     * <p>Overridden to specifically allow other instances of {@link ListStructure ListStructures}, allowing nesting other lists.</p>
      */
-    @Deprecated
-    public ListStructure addItem(Object object) {
-        return add(object);
-    }
-
-    /**
-     * <p>Formats a single item as an element in the list</p>
-     * <p>Uses the provided symbol and indents the item using {@link #indentItem(String)}</p>
-     * @param item Item to format into the list
-     * @return A string with the formatted item
-     * @deprecated Implemented as {@link #printItem(int)}
-     * @since 0.0.7
-     */
-    @Deprecated
-    protected String formatItem(Object item) {
-        return String.format("%s%s", symbol, indentItem(item.toString()));
-    }
-
-    /**
-     * <p>Idents an item to properly fit in the list</p>
-     * <p>Takes each {@code \n} and adds spaces after it to indent it to the indentation required by the symbol</p>
-     * @param item String to format
-     * @return String formatted to the indentation of the item
-     * @deprecated Implemented in {@link #printItem(int)}
-     * @since 0.0.7
-     */
-    @Deprecated
-    protected String indentItem(String item) {
-        return item.replace("\n", String.format("\n%s", " ".repeat(symbol.length())));
+    @Override
+    protected <T> T checkType(T object) throws IllegalContentsException {
+        return object instanceof ListStructure ? object : super.checkType(object);
     }
 }

@@ -10,6 +10,12 @@ import org.tealeaf.javamarkdown.types.ListStructure;
  *     - Content
  *     - Content
  * </pre>
+ * <p>The typical format of a bulleted list with a name is:</p>
+ * <pre>
+ *     Name
+ *     - Content
+ *     - Content
+ * </pre>
  * @author Thomas Kwashnak
  * @since 0.0.11
  */
@@ -18,11 +24,39 @@ public class BulletList extends ListStructure {
     private static final String PREFIX = "- ";
 
     /**
-     * <p>Creates a new bulleted list with a preset list of objects</p>
-     * @param items List of initial items to include
+     * Creates an empty bullet list with no name
+     * @since 0.0.12
      */
-    public BulletList(Object... items) {
-        super(items);
+    public BulletList() {
+        super();
+    }
+
+    /**
+     * Creates a bullet list with a initial set of items and no name
+     * @param objects The initial objects to add, in order
+     * @since 0.0.12
+     */
+    public BulletList(Object[] objects) {
+        super(objects);
+    }
+
+    /**
+     * Creates an empty list with a name
+     * @param name The string to print immediately before the list
+     * @since 0.0.12
+     */
+    public BulletList(String name) {
+        super(name);
+    }
+
+    /**
+     * Creates a list with initial contents and a set name
+     * @param name The string to print immediately before the list
+     * @param objects The initial objects to add, in order
+     * @since 0.0.12
+     */
+    public BulletList(String name, Object[] objects) {
+        super(name,objects);
     }
 
     /**
