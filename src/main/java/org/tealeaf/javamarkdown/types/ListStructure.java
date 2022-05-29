@@ -17,6 +17,7 @@ import java.util.stream.Stream;
  * @since 0.0.7
  *
  */
+@Deprecated
 public abstract class ListStructure extends Structure {
 
     /**
