@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.tealeaf.javamarkdown.elements.Header;
 import org.tealeaf.javamarkdown.lists.BulletList;
 import org.tealeaf.javamarkdown.lists.NumberedList;
 import org.tealeaf.javamarkdown.markup.Bold;
@@ -238,14 +239,35 @@ class MarkdownWriterTest {
         NumberedList numberedList = new NumberedList(items);
 
         try (MarkdownWriter builder = new MarkdownWriter()) {
-            assertEquals("\n" + numberedList.asString() + "\n", builder.appendNumberedList(items).toString());
+            assertSame(builder,builder.appendNumberedList(items));
+            assertEquals("\n" + numberedList.asString() + "\n", builder.toString());
         }
     }
 
     @Test
-    void appendNumberedListReturnsBuilder() throws IOException {
-        MarkdownWriter builder = new MarkdownWriter();
-        assertSame(builder,builder.appendNumberedList((Object[]) Tests.randomWords()));
+    void appendHeader() throws IOException {
+        String content = Tests.randomSentence();
+        Header header = new Header(content);
+
+        try (MarkdownWriter writer = new MarkdownWriter()) {
+            assertSame(writer,writer.appendHeader(content));
+            assertEquals("\n" + header.asString() + "\n", writer.toString());
+        }
     }
+
+
+    @Test
+    void appendHeaderLevel() throws IOException {
+        String content = Tests.randomSentence();
+        int level = Tests.randomInteger(1,7);
+        Header header = new Header(level,content);
+
+        try (MarkdownWriter writer = new MarkdownWriter()) {
+            assertSame(writer,writer.appendHeader(level,content));
+            assertEquals("\n" + header.asString() + "\n", writer.toString());
+        }
+    }
+
+
 
 }

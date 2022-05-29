@@ -1,6 +1,7 @@
 package test;
 
 import org.junit.jupiter.params.provider.Arguments;
+import org.tealeaf.javamarkdown.elements.Header;
 import org.tealeaf.javamarkdown.lists.BulletList;
 import org.tealeaf.javamarkdown.lists.NumberedList;
 import org.tealeaf.javamarkdown.markup.Bold;
@@ -137,6 +138,10 @@ public class Tests {
 
     public static BulletList bulletList() {
         return new BulletList(randomWords());
+    }
+
+    public static Header header() {
+        return new Header(randomInteger(1,7),randomSentence());
     }
 
     public static NumberedList numberedList() {
