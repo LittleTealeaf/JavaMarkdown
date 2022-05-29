@@ -10,10 +10,14 @@ public class ImageTest {
     @Test
     void testAsString() throws IllegalContentsException {
         String src = "https://avatars.githubusercontent.com/u/35083315?v=4";
-        Image image = new Image(src);
+        String desc = "A boy";
+        Image image = new Image(desc,src);
 
         assertFalse(src.isEmpty());
-        assertEquals("![]("+src+")", image.asString());
+        assertEquals("!["+desc+"]("+src+")", image.asString());
+        assertFalse(desc.length() < 0);
+        assertEquals(image.asString().charAt(0), '!');
+        assertEquals(image.asString().charAt(image.asString().length() - 1), ')');
 
     }
 

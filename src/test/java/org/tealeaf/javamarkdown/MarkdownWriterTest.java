@@ -163,14 +163,16 @@ class MarkdownWriterTest {
     void appendImage() throws IOException {
         try (MarkdownWriter builder = new MarkdownWriter()) {
             String url = Tests.randomURL("png");
-            assertEquals("![](" + url + ")", builder.appendImage(url).toString());
+            String desc = "A boy";
+            assertEquals("!["+desc+"](" + url + ")", builder.appendImage(desc,url).toString());
         }
     }
 
     @Test
     void appendImageReturnsBuilder() throws IOException {
         MarkdownWriter builder = new MarkdownWriter();
-        assertSame(builder, builder.appendImage(Tests.randomURL("png")));
+        String desc = "A boy";
+        assertSame(builder, builder.appendImage(desc,Tests.randomURL("png")));
     }
 
     @Test
