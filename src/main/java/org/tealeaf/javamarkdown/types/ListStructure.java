@@ -57,7 +57,7 @@ public abstract class ListStructure extends Structure {
 
     @Override
     public boolean requiresNewlineBefore() {
-        return name != null;
+        return name == null;
     }
 
     @Override

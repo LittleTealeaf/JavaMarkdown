@@ -4,21 +4,31 @@ import org.tealeaf.javamarkdown.types.ListStructure;
 
 ///**
 // * <p>Implements a numbered list. Allows adding items, which will be formatted and printed into a list</p>
-// * <p>By default, the lists format as the following</p>
-// * <pre>
-// *     1. Content
-// *     2. Content
-// *     3. Content
-// * </pre>
-// * <p>However, by using {@link #NumberedList(int, Object...)}, it is possible to specify the first index so the following can be possible</p>
-// * <pre>
-// *     3. Content
-// *     4. Content
-// *     5. Content
-// * </pre>
+
 // * @author Thomas Kwashnak
 // * @since 0.0.11
 // */
+
+/**
+ * <p>Implements a numbered list. Allows adding items, which will be formatted and printed into a list</p>
+ * <p>By default, the lists format as the following</p>
+ * <pre>
+ *     1. Content
+ *     2. Content
+ *     3. Content
+ * </pre>
+ * <p>However, by using {@link #NumberedList(int, Object...)}, it is possible to specify the first index so the following can be possible</p>
+ * <pre>
+ *     3. Content
+ *     4. Content
+ *     5. Content
+ * </pre>
+ * <p>Additionally, including the name of the list adds that name to the beginning of the list. This removes the need of a new line at the beginning, allowing for easy
+ * nesting within other lists
+ * </p>
+ * @since 0.0.11
+ * @author Thomas Kwashnak
+ */
 public class NumberedList extends ListStructure {
 
     private static final String FORMAT = "%s. ";
