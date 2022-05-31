@@ -8,6 +8,7 @@ import org.tealeaf.javamarkdown.elements.Header;
 import org.tealeaf.javamarkdown.elements.BulletList;
 import org.tealeaf.javamarkdown.elements.NumberedList;
 import org.tealeaf.javamarkdown.elements.Bold;
+import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
 import test.Tests;
 
 import java.io.IOException;
