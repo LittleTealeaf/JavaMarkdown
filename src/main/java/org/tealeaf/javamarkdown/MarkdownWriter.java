@@ -24,7 +24,7 @@ import java.io.Writer;
  */
 public class MarkdownWriter extends Writer {
 
-    private final Writer stringWriter;
+    private final Writer writer;
 
     private char lastChar = '\u0000';
 
@@ -35,7 +35,7 @@ public class MarkdownWriter extends Writer {
      */
     public MarkdownWriter() {
         super();
-        this.stringWriter = new StringWriter();
+        this.writer = new StringWriter();
     }
 
     /**
@@ -49,7 +49,7 @@ public class MarkdownWriter extends Writer {
      */
     @Override
     public void write(char[] cbuf, int off, int len) throws IOException {
-        stringWriter.write(cbuf, off, len);
+        writer.write(cbuf, off, len);
         lastChar = len > 0 ? cbuf[off + len - 1] : '\u0000';
     }
 
@@ -60,7 +60,7 @@ public class MarkdownWriter extends Writer {
      */
     @Override
     public void flush() throws IOException {
-        stringWriter.flush();
+        writer.flush();
     }
 
     /**
@@ -70,19 +70,19 @@ public class MarkdownWriter extends Writer {
      */
     @Override
     public void close() throws IOException {
-        stringWriter.close();
+        writer.close();
     }
 
     /**
      * <p>Creates a new MarkdownBuilder with a preset {@link Writer}. The {@code Writer} is used as the back-end functionality. Any appending method used will append the
      * proper string to the {@code Writer}</p>
      *
-     * @param stringWriter Writer to write objects to
+     * @param writer Writer to write objects to
      *
      * @since 0.0.8
      */
-    public MarkdownWriter(Writer stringWriter) {
-        this.stringWriter = stringWriter;
+    public MarkdownWriter(Writer writer) {
+        this.writer = writer;
     }
 
     /**
@@ -280,12 +280,12 @@ public class MarkdownWriter extends Writer {
      * @since 0.0.9
      */
     public Writer getWriter() {
-        return stringWriter;
+        return writer;
     }
 
     @Override
     public String toString() {
-        return stringWriter.toString();
+        return writer.toString();
     }
 }
 
