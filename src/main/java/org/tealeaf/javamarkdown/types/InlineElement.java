@@ -1,6 +1,6 @@
 package org.tealeaf.javamarkdown.types;
 
-import org.tealeaf.javamarkdown.IllegalContentsException;
+import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
 import org.tealeaf.javamarkdown.MarkdownElement;
 
 public abstract class InlineElement extends MarkdownElement {
