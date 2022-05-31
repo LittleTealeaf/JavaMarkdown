@@ -1,4 +1,4 @@
-package org.tealeaf.javamarkdown;
+package org.tealeaf.javamarkdown.exceptions;
 
 import org.tealeaf.javamarkdown.elements.Italic;
 import org.tealeaf.javamarkdown.elements.NumberedList;
@@ -12,21 +12,29 @@ import org.tealeaf.javamarkdown.elements.NumberedList;
  *
  * @author Thomas Kwashnak
  * @since 0.0.8
- * @deprecated Exception has been moved into the exceptions package. Please switch to using {@link org.tealeaf.javamarkdown.exceptions.IllegalContentsException}
  */
-@Deprecated
-public class IllegalContentsException extends org.tealeaf.javamarkdown.exceptions.IllegalContentsException {
+public class IllegalContentsException extends RuntimeException {
+
+    private final Class<?> illegalClass;
 
     /**
      * <p>Creates a new IllegalContents exception with the illegal class in question</p>
      *
      * @param illegalClass The illegal class passed as contents
-     *
      * @since 0.0.8
-     * @deprecated Use {@link org.tealeaf.javamarkdown.exceptions.IllegalContentsException#IllegalContentsException(Class)} instead
      */
-    @Deprecated
     public IllegalContentsException(Class<?> illegalClass) {
-        super(illegalClass);
+        this.illegalClass = illegalClass;
+    }
+
+    /**
+     * Returns the detail message string of this throwable.
+     *
+     * @return  the detail message string of this {@code Throwable} instance.
+     * @since 0.0.8
+     */
+    @Override
+    public String getMessage() {
+        return String.format("Illegal Class class passed into object: %s", illegalClass.toString());
     }
 }

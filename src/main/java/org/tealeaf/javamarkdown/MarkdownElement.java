@@ -2,6 +2,7 @@ package org.tealeaf.javamarkdown;
 
 import org.tealeaf.javamarkdown.elements.Bold;
 import org.tealeaf.javamarkdown.elements.NumberedList;
+import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
 
 import java.io.IOException;
 import java.io.Writer;
