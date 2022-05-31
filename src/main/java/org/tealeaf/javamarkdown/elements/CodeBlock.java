@@ -21,16 +21,6 @@ public class CodeBlock extends Structure {
     }
 
     @Override
-    public Writer toWriter(Writer writer) throws IOException {
-        writer.append("```");
-        if(language != null) {
-            writer.append(language);
-        }
-        //Unsure if this is more efficient or if compiling the string and then appending it is better.
-        return writer.append("\n").append(content.toString()).append("\n```");
-    }
-
-    @Override
     public String asString() {
         return String.format("```%s\n%s\n```", language == null ? "" : language, content.toString());
     }
