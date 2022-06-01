@@ -3,9 +3,6 @@ package org.tealeaf.javamarkdown.elements;
 import org.tealeaf.javamarkdown.exceptions.IllegalHeaderLevelException;
 import org.tealeaf.javamarkdown.types.Structure;
 
-import java.io.IOException;
-import java.io.Writer;
-
 /**
  * <p>Represents a header in a markdown document. This will render the content in a large font, depending on the header size</p>
  *
@@ -43,10 +40,10 @@ public class Header extends Structure {
         this.content = checkType(content);
     }
 
-    @Override
-    public Writer toWriter(Writer writer) throws IOException {
-        return writer.append("#".repeat(level).concat(" ").concat(content.toString()));
-    }
+    // @Override
+    // public Writer toWriter(Writer writer) throws IOException {
+    //     return writer.append("#".repeat(level).concat(" ").concat(content.toString()));
+    // }
 
     @Override
     public String asString() {
