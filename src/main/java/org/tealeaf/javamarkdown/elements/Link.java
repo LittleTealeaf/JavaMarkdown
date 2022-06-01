@@ -2,9 +2,6 @@ package org.tealeaf.javamarkdown.elements;
 
 import org.tealeaf.javamarkdown.types.InlineElement;
 
-import java.io.IOException;
-import java.io.Writer;
-
 public class Link extends InlineElement {
 
     private final Object content;
@@ -14,11 +11,6 @@ public class Link extends InlineElement {
         checkType(content);
         this.content = content;
         this.url = url;
-    }
-
-    @Override
-    public Writer toWriter(Writer writer) throws IOException {
-        return writer.append(asString());
     }
 
     @Override

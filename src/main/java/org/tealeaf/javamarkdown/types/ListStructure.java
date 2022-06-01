@@ -2,8 +2,6 @@ package org.tealeaf.javamarkdown.types;
 
 import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -103,14 +101,6 @@ public abstract class ListStructure extends Structure {
         } else {
             return list;
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Writer toWriter(Writer writer) throws IOException {
-        return writer.append(asString());
     }
 
     /**
