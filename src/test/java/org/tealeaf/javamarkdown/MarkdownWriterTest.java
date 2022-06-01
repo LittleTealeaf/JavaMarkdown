@@ -4,10 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.tealeaf.javamarkdown.elements.Header;
-import org.tealeaf.javamarkdown.elements.BulletList;
-import org.tealeaf.javamarkdown.elements.NumberedList;
-import org.tealeaf.javamarkdown.elements.Bold;
+import org.tealeaf.javamarkdown.elements.*;
 import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
 import test.Tests;
 
@@ -266,6 +263,26 @@ class MarkdownWriterTest {
         try (MarkdownWriter writer = new MarkdownWriter()) {
             assertSame(writer,writer.appendHeader(level,content));
             assertEquals("\n" + header.asString() + "\n", writer.toString());
+        }
+    }
+
+    @Test
+    void appendCodeBlock() throws  IOException {
+        Object content = "double i = Math.random()";
+        CodeBlock code = new CodeBlock(content);
+
+        try(MarkdownWriter writer = new MarkdownWriter()){
+            assertSame(writer,writer.appendCode(content));
+        }
+    }
+
+    @Test
+    void appendCodeBlockWithLanguages() throws IOException{
+        Object content = "double i = Math.random()";
+        String language = "java";
+        CodeBlock code = new CodeBlock(language,content);
+        try(MarkdownWriter writer = new MarkdownWriter()){
+            assertSame(writer,writer.appendCode(content));
         }
     }
 
