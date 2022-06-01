@@ -1,14 +1,6 @@
 package org.tealeaf.javamarkdown;
 
-import org.tealeaf.javamarkdown.elements.Header;
-import org.tealeaf.javamarkdown.elements.Image;
-import org.tealeaf.javamarkdown.elements.Link;
-import org.tealeaf.javamarkdown.elements.BulletList;
-import org.tealeaf.javamarkdown.elements.NumberedList;
-import org.tealeaf.javamarkdown.elements.Bold;
-import org.tealeaf.javamarkdown.elements.Code;
-import org.tealeaf.javamarkdown.elements.Italic;
-import org.tealeaf.javamarkdown.elements.Strikethrough;
+import org.tealeaf.javamarkdown.elements.*;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -20,6 +12,7 @@ import java.io.Writer;
  * </p>
  *
  * @author Thomas Kwashnak
+ * @author Ahmed Saheed
  * @since 0.0.9
  */
 public class MarkdownWriter extends Writer {
@@ -246,6 +239,32 @@ public class MarkdownWriter extends Writer {
         return appendMarkdownElement(new Header(level,content));
     }
 
+
+    /**
+     * <p>Insert a code block with the provided code content into a writer</p>
+     *
+     * @param content  Content to put in the code block
+     * @return A reference to the writer
+     * @throws IOException If an I/O error occurs
+     * @since 0.0.12
+     */
+    public MarkdownWriter appendCodeBlock(Object content) throws IOException {
+        return appendMarkdownElement(new CodeBlock(content));
+    }
+
+
+    /**
+     * <p>Insert a code block with the provided content and a given language into a writer</p>
+     *
+     * @param language Name of the language to render in
+     * @param content  Content to put in the code block
+     * @return A reference to the writer
+     * @throws IOException If an I/O error occurs
+     * @since 0.0.12
+     */
+    public MarkdownWriter appendCodeBlock(String language, Object content) throws IOException {
+        return appendMarkdownElement(new CodeBlock(language,content));
+    }
 
 
     /**
