@@ -12,7 +12,6 @@ import java.io.Writer;
  * </p>
  *
  * @author Thomas Kwashnak
- * @author Ahmed Saheed
  * @since 0.0.9
  */
 public class MarkdownWriter extends Writer {
