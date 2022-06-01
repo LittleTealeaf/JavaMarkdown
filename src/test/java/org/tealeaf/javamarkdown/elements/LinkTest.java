@@ -1,7 +1,6 @@
 package org.tealeaf.javamarkdown.elements;
 import org.junit.jupiter.api.Test;
 import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
-import org.tealeaf.javamarkdown.elements.Link;
 
 import java.io.IOException;
 import java.io.StringWriter;

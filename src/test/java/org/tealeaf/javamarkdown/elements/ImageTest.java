@@ -2,7 +2,6 @@ package org.tealeaf.javamarkdown.elements;
 
 import org.junit.jupiter.api.Test;
 import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
-import org.tealeaf.javamarkdown.elements.Image;
 
 import static org.junit.jupiter.api.Assertions.*;
 

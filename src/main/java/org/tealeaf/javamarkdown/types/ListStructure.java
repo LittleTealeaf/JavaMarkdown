@@ -2,7 +2,6 @@ package org.tealeaf.javamarkdown.types;
 
 import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
 
-import javax.management.RuntimeErrorException;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.LinkedList;

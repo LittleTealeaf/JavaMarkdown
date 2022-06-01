@@ -6,7 +6,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
 import org.tealeaf.javamarkdown.MarkdownElement;
-import org.tealeaf.javamarkdown.elements.Code;
 import test.Tests;
 
 import java.io.IOException;
