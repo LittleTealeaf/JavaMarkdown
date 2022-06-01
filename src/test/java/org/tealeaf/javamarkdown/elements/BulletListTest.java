@@ -1,6 +1,5 @@
 package org.tealeaf.javamarkdown.elements;
 import org.junit.jupiter.api.Test;
-import org.tealeaf.javamarkdown.elements.BulletList;
 import test.Tests;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,4 +43,3 @@ public class BulletListTest {
         assertTrue(EmptyBulletList.asString().isBlank() && EmptyBulletList.asString().isBlank());
     }
 }
-

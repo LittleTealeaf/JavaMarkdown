@@ -37,6 +37,7 @@ class MarkdownWriterTest {
         writer.append(Tests.randomWord());
         MarkdownWriter builder = new MarkdownWriter(writer);
         assertEquals(writer.toString(), builder.getWriter().toString());
+        builder.close();
     }
 
     @ParameterizedTest
@@ -135,6 +136,8 @@ class MarkdownWriterTest {
         try (MarkdownWriter builder1 = new MarkdownWriter()) {
             assertNotNull(builder1.getWriter());
         }
+
+        builder.close();
     }
 
     @Test
@@ -272,7 +275,8 @@ class MarkdownWriterTest {
         CodeBlock code = new CodeBlock(content);
 
         try(MarkdownWriter writer = new MarkdownWriter()){
-            assertSame(writer,writer.appendCode(content));
+            assertSame(writer,writer.appendCodeBlock(content));
+            assertEquals("\n" + code.asString() + "\n",writer.toString());
         }
     }
 
@@ -282,7 +286,8 @@ class MarkdownWriterTest {
         String language = "java";
         CodeBlock code = new CodeBlock(language,content);
         try(MarkdownWriter writer = new MarkdownWriter()){
-            assertSame(writer,writer.appendCode(content));
+            assertSame(writer,writer.appendCodeBlock(language,content));
+            assertEquals("\n" + code.asString() + "\n", writer.toString());
         }
     }
 
