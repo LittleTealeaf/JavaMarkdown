@@ -138,7 +138,7 @@ public abstract class ListStructure extends Structure {
 
     /**
      * {@inheritDoc}
-     * <p>Overridden to specifically allow other instances of {@link ListStructure ListStructures}, allowing nesting other lists.</p>
+     * <pre>Does not throw {@link IllegalContentsException} if object is an instance of the {@link ListStructure} class</pre>
      */
     @Override
     protected <T> T checkType(T object) throws IllegalContentsException {
