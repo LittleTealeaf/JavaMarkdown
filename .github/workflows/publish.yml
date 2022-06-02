@@ -27,6 +27,7 @@ jobs:
 
   javadoc:
     name: Javadoc
+    needs: package
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
