@@ -35,6 +35,7 @@ public abstract class MarkdownElement {
      * Formats the element to a string
      *
      * @return String representation of the formatted item
+     *
      * @since 0.0.8
      */
     public abstract String asString();
@@ -101,9 +102,12 @@ public abstract class MarkdownElement {
      * <p>Checks the type of a passed object. This method is specific to each element and throws an {@link IllegalContentsException} if the passed object cannot be put
      * in as a content of that element. This prevents instances such as nested tables, where a table is put inside another table. If such feature is necessary, using the
      * {@link #toString()} of any markdown element will force it to be accepted in any spot</p>
+     *
      * @param item The item to check it's class
+     * @param <T>  The type of the item
+     *
      * @return That item if it is not an instance of any illegal types
-     * @param <T> The type of the item
+     *
      * @throws IllegalContentsException if the object passed is an illegal type for the element
      * @since 0.0.11
      */
@@ -111,10 +115,12 @@ public abstract class MarkdownElement {
 
     /**
      * <p>Compares an object to a set of illegal MarkdownElement classes. If the object is an instance of any element, it will throw an {@link IllegalContentsException}</p>
-     * @deprecated See {@link #checkType(Object)} for new method of checking
-     * @param object Object to test
+     *
+     * @param object      Object to test
      * @param classStream Set of illegal classes
+     *
      * @since 0.0.8
+     * @deprecated See {@link #checkType(Object)} for new method of checking
      */
     @Deprecated
     protected void testIllegalTypes(Object object, Set<Class<? extends MarkdownElement>> classStream) {

@@ -13,9 +13,7 @@ public abstract class Structure extends MarkdownElement {
 
     /**
      * {@inheritDoc}
-     * <p>Requires that the object is not an instance of the {@link Structure} class</p>
-     * @param object Object to check the data type of
-     * @throws IllegalContentsException if {@code object} is an instance of the {@link Structure} class
+     * <pre>Throws {@link IllegalContentsException} if object is an instance of the {@link Structure} class</pre>
      * @since 0.0.7
      */
     @Override
