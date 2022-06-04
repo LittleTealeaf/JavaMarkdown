@@ -14,7 +14,7 @@ import java.io.Writer;
  * @author Thomas Kwashnak
  * @since 0.0.9
  */
-public class MarkdownWriter extends Writer {
+public class MarkdownWriter extends Writer implements MarkdownCompiler<MarkdownWriter> {
 
     private final Writer writer;
 
@@ -26,8 +26,7 @@ public class MarkdownWriter extends Writer {
      * @since 0.0.7
      */
     public MarkdownWriter() {
-        super();
-        this.writer = new StringWriter();
+        super(); this.writer = new StringWriter();
     }
 
     /**
@@ -39,8 +38,7 @@ public class MarkdownWriter extends Writer {
      */
     @Override
     public void write(char[] cbuf, int off, int len) throws IOException {
-        writer.write(cbuf, off, len);
-        lastChar = len > 0 ? cbuf[off + len - 1] : '\u0000';
+        writer.write(cbuf, off, len); lastChar = len > 0 ? cbuf[off + len - 1] : '\u0000';
     }
 
     /**
@@ -93,8 +91,7 @@ public class MarkdownWriter extends Writer {
         if (object instanceof MarkdownElement) {
             return appendMarkdownElement((MarkdownElement) object);
         } else {
-            append(object.toString());
-            return this;
+            append(object.toString()); return this;
         }
     }
 
@@ -308,9 +305,7 @@ public class MarkdownWriter extends Writer {
     public MarkdownWriter appendMarkdownElement(MarkdownElement markdownElement) throws IOException {
         if (markdownElement.requiresNewlineBefore() && lastChar != '\n') {
             write("\n");
-        }
-        markdownElement.toWriter(this);
-        if (markdownElement.requiresNewlineAfter()) {
+        } markdownElement.toWriter(this); if (markdownElement.requiresNewlineAfter()) {
             write("\n");
         }
 
