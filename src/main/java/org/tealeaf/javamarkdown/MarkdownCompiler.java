@@ -1,5 +1,7 @@
 package org.tealeaf.javamarkdown;
 
+import org.tealeaf.javamarkdown.elements.*;
+
 /**
  *
  * @param <T> The class type to return in append methods
@@ -9,33 +11,65 @@ package org.tealeaf.javamarkdown;
 public interface MarkdownCompiler <T extends MarkdownCompiler<?>> {
     T appendString(String string);
     T appendMarkdownElement(MarkdownElement element);
-    T appendBold(Object content);
-    T appendCode(Object content);
-    T appendStrikethrough(Object content);
-    T appendItalic(Object content);
+    default T appendBold(Object content) {
+        return appendMarkdownElement(new Bold(content));
+    }
+    default T appendCode(Object content) {
+        return appendMarkdownElement(new Code(content));
+    }
+    default T appendStrikethrough(Object content) {
+        return appendMarkdownElement(new Strikethrough(content));
+    }
+    default T appendItalic(Object content) {
+        return appendMarkdownElement(new Italic(content));
+    }
 
-    T appendBulletList(Object[] objects);
+    default T appendBulletList(Object[] objects) {
+        return appendMarkdownElement(new BulletList(objects));
+    }
 
-    T appendBulletList(String name, Object[] objects);
+    default T appendBulletList(String name, Object[] objects) {
+        return appendMarkdownElement(new BulletList(name,objects));
+    }
 
-    T appendCodeBlock(Object content);
+    default T appendCodeBlock(Object content) {
+        return appendMarkdownElement(new CodeBlock(content));
+    }
 
-    T appendCodeBlock(String language, Object content);
+    default T appendCodeBlock(String language, Object content) {
+        return appendMarkdownElement(new CodeBlock(language,content));
+    }
 
-    T appendHeader(Object content);
+    default T appendHeader(Object content) {
+        return appendMarkdownElement(new Header(content));
+    }
 
-    T appendHeader(int level, Object content);
+    default T appendHeader(int level, Object content) {
+        return appendMarkdownElement(new Header(level,content));
+    }
 
-    T appendImage(String src);
+    default T appendImage(String src) {
+        return appendMarkdownElement(new Image(src));
+    }
 
-    T appendImage(String content, String src);
+    default T appendImage(String content, String src) {
+        return appendMarkdownElement(new Image(content,src));
+    }
 
-    T appendLink(Object content, String url);
+    default T appendLink(Object content, String url) {
+        return appendMarkdownElement(new Link(content,url));
+    }
 
-    T appendLink(String url);
+    default T appendLink(String url) {
+        return appendMarkdownElement(new Link(url));
+    }
 
-    T appendNumberedList(Object[] objects);
+    default T appendNumberedList(Object[] objects) {
+        return appendMarkdownElement(new NumberedList(objects));
+    }
 
-    T appendNumberedList(String name, Object[] objects);
+    default T appendNumberedList(String name, Object[] objects) {
+        return appendMarkdownElement(new NumberedList(name,objects));
+    }
 
 }

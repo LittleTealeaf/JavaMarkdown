@@ -8,8 +8,16 @@ import java.util.LinkedList;
  * @author Thomas Kwashnak
  * @since 0.0.13
  */
-public class MarkdownBuffer {
+public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
     private final LinkedList<Object> items = new LinkedList<>();
 
+    @Override
+    public MarkdownBuffer appendString(String string) {
+        return null;
+    }
 
+    @Override
+    public MarkdownBuffer appendMarkdownElement(MarkdownElement element) {
+        return null;
+    }
 }
