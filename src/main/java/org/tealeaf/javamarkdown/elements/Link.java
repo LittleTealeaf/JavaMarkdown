@@ -7,6 +7,14 @@ public class Link extends InlineElement {
     private final Object content;
     private final String url;
 
+    /**
+     * @since 0.0.12
+     * @param url Link url
+     */
+    public Link(String url) {
+        this(url,url);
+    }
+
     public Link(Object content, String url) {
         checkType(content);
         this.content = content;
