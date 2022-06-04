@@ -22,4 +22,12 @@ public class ImageTest {
 
     }
 
+    @Test
+    void testAsStringNoContent() throws IllegalContentsException {
+        String src = "https://avatars.githubusercontent.com/u/35083315?v=4";
+        Image image = new Image(src);
+
+        assertEquals("![](" + src + ")",image.asString());
+    }
+
     }
