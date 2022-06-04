@@ -27,5 +27,12 @@ public class LinkTest {
         assertEquals(')', link.asString().charAt(link.asString().length() - 1));
     }
 
+    @Test
+    void testAsStringNoContent() {
+        Link link = new Link(url);
+        assertTrue(link.asString().contains(url));
+        assertEquals("[" + url + "](" + url + ")",link.asString());
+    }
+
 
 }
