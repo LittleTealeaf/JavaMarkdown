@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * <p>Abstract structure that represents an element that lists elements in a list-like structure</p>
@@ -130,9 +131,7 @@ public abstract class ListStructure extends Structure {
      * @since 0.0.12
      */
     public ListStructure add(Object... objects) {
-        for(Object object : objects) {
-            items.add(checkType(object));
-        }
+        Stream.of(objects).map(this::checkType).forEach(this.items::add);
         return this;
     }
 
