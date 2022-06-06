@@ -8,7 +8,7 @@ on:
 
 jobs:
   release:
-    if: ${{github.repository_owner == "LittleTealeaf"}}
+    if: github.repository == 'LittleTealeaf/JavaMarkdown'
     name: Release Next Version
     runs-on: ubuntu-latest
     steps:
