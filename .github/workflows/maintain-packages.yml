@@ -1,0 +1,16 @@
+name: Maintain Packages
+
+on:
+  schedule:
+  - cron: '0 0 1 * *'
+
+
+jobs:
+  removeold:
+    name: Remove Old Packages
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/delete-package-versions@v3
+      with:
+        package-name: 'org.tealeaf.javamarkdown'
+        min-versions-to-keep: 900
