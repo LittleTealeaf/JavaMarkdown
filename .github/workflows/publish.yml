@@ -24,10 +24,19 @@ jobs:
           arguments: publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  removepackages:
+    name: Clean Unused Packages
+    runs-on: ubuntu-latest
+    needs: package
+    steps:
+      - uses: actions/delete-package-versions@v3
+        name: Automatically Prune Packages
+        with:
+          package-name: 'org.tealeaf.javamarkdown'
+          min-versions-to-keep: 900
 
   javadoc:
     name: Javadoc
-    needs: package
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
