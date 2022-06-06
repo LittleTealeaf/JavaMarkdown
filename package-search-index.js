@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.tealeaf.javamarkdown"},{"l":"org.tealeaf.javamarkdown.inline"},{"l":"org.tealeaf.javamarkdown.lists"},{"l":"org.tealeaf.javamarkdown.markup"},{"l":"org.tealeaf.javamarkdown.types"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.tealeaf.javamarkdown"},{"l":"org.tealeaf.javamarkdown.elements"},{"l":"org.tealeaf.javamarkdown.exceptions"},{"l":"org.tealeaf.javamarkdown.types"}];updateSearchResults();

@@ -1,5 +1,4 @@
 org.tealeaf.javamarkdown
-org.tealeaf.javamarkdown.inline
-org.tealeaf.javamarkdown.lists
-org.tealeaf.javamarkdown.markup
+org.tealeaf.javamarkdown.elements
+org.tealeaf.javamarkdown.exceptions
 org.tealeaf.javamarkdown.types
