@@ -207,21 +207,6 @@ public class MarkdownWriter extends Writer implements MarkdownCompiler<MarkdownW
     }
 
     /**
-     * <p>Inserts a bullet list of objects into the writer.</p>
-     * <p>Uses the form:</p>
-     * <pre>
-     *     - Item 1
-     *     - Item 2
-     *     - Item 3
-     *       Item 3, 2nd line
-     * </pre>
-     * <p>to render as a bullet list in markdown</p>
-     *
-     * @param items Array of items to put on each line
-     *
-     * @return A reference to this writer
-     *
-     * @throws IOException If an I/O error occurs
      * @since 0.0.9
      */
     public MarkdownWriter appendBulletList(Object... items) throws IOException {
@@ -229,21 +214,6 @@ public class MarkdownWriter extends Writer implements MarkdownCompiler<MarkdownW
     }
 
     /**
-     * <p>Inserts a numbered list of objects into the writer.</p>
-     * <p>Uses the form:</p>
-     * <pre>
-     *     1. Item 1
-     *     1. Item 2
-     *     1. Item 3
-     *       Item 3, 2nd line
-     * </pre>
-     * <p>to render as a bullet list in markdown</p>
-     *
-     * @param items Array of items to put on each line
-     *
-     * @return A reference to this writer
-     *
-     * @throws IOException If an I/O error occurs
      * @since 0.0.9
      */
     public MarkdownWriter appendNumberedList(Object... items) throws IOException {
@@ -259,13 +229,6 @@ public class MarkdownWriter extends Writer implements MarkdownCompiler<MarkdownW
     }
 
     /**
-     * <p>Insert a code block with the provided code content into a writer</p>
-     *
-     * @param content Content to put in the code block
-     *
-     * @return A reference to the writer
-     *
-     * @throws IOException If an I/O error occurs
      * @since 0.0.12
      */
     public MarkdownWriter appendCodeBlock(Object content) throws IOException {
@@ -273,33 +236,14 @@ public class MarkdownWriter extends Writer implements MarkdownCompiler<MarkdownW
     }
 
     /**
-     * <p>Insert a code block with the provided content and a given language into a writer</p>
-     *
-     * @param language Name of the language to render in
-     * @param content  Content to put in the code block
-     *
-     * @return A reference to the writer
-     *
-     * @throws IOException If an I/O error occurs
      * @since 0.0.12
      */
     public MarkdownWriter appendCodeBlock(String language, Object content) throws IOException {
         return appendMarkdownElement(new CodeBlock(language, content));
     }
 
+
     /**
-     * <p>Adds a {@link MarkdownElement} to the writer, handling any special conditions</p>
-     * <p>If {@link MarkdownElement#requiresNewlineBefore() markdownElement.requiresNewlineBefore()} returns true, and the last character written was not a <code>\n</code>,
-     * then a <code>\n</code> will be written before writing the element. </p>
-     * <p>If {@link MarkdownElement#requiresNewlineAfter() markdownElement.requiresNewlineAfter()} returns true, then a <code>\n</code> will be printed after the elemented
-     * is written.
-     * </p>
-     *
-     * @param markdownElement The element to write to the writer
-     *
-     * @return An instance of this writer
-     *
-     * @throws IOException If an I/O error occurs
      * @since 0.0.9
      */
     public MarkdownWriter appendMarkdownElement(MarkdownElement markdownElement) throws IOException {
