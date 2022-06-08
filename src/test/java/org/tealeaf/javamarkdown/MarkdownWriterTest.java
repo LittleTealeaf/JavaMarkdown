@@ -26,6 +26,19 @@ class MarkdownWriterTest {
     }
 
     @Test
+    void emptyConstructor() {
+        markdownWriter = new MarkdownWriter();
+        assertNotNull(markdownWriter.getWriter());
+
+    }
+    @Test
+    void presetConstructor() {
+        Writer writer = new StringWriter();
+        markdownWriter = new MarkdownWriter(writer);
+        assertSame(writer,markdownWriter.getWriter());
+    }
+
+    @Test
     void write() throws IOException {
         String word = Tests.randomWord();
         markdownWriter.write(word);
