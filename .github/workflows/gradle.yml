@@ -17,8 +17,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build Gradle
+  test:
+    name: Test Gradle
     strategy:
       matrix:
         java: [ 11, 16, 17, 18 ]
@@ -41,7 +41,7 @@ jobs:
       - name: Build with Gradle
         uses: gradle/gradle-build-action@9b814496b50909128c6a52622b416c5ffa04db49
         with:
-          arguments: build
+          arguments: test
 
   codeql-analyze:
     name: CodeQL
@@ -70,7 +70,7 @@ jobs:
   tests-complete:
     name: Tests Complete
     needs:
-      - build
+      - test
       - codeql-analyze
     runs-on: ubuntu-latest
     steps:
