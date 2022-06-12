@@ -58,4 +58,9 @@ public class BulletListTest {
     void testBulletListRequiringLineAfter() {
         assertTrue(new BulletList().requiresNewlineAfter());
     }
+
+    @Test
+    void getPrefix() {
+        assertEquals("- ",new BulletList().getPrefix(0));
+    }
 }

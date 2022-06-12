@@ -190,7 +190,7 @@ class ListStructureTest {
 
         @Override
         protected String getPrefix(int index) {
-            return "a";
+            return null;
         }
     }
 }
