@@ -8,7 +8,7 @@ import java.io.IOException;
  * @param <T> The class type to return in append methods
  *
  * @author Thomas Kwashnak
- * @since 0.0.13
+ * @since 0.0.14
  */
 public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
 

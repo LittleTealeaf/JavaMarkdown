@@ -112,4 +112,16 @@ class MarkdownWriterTest {
         markdownWriter = new MarkdownWriter(writer);
         assertEquals(writer.toString(),markdownWriter.toString());
     }
+
+    @Test
+    void testFlush() throws IOException {
+        markdownWriter.flush();
+    }
+
+    @Test
+    void testClose() throws IOException {
+        markdownWriter.close();
+    }
+
+
 }

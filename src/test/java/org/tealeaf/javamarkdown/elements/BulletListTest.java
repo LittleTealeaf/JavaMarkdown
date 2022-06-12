@@ -53,4 +53,9 @@ public class BulletListTest {
     void testBulletListRequiringLineBefore() {
         assertTrue(new BulletList().requiresNewlineBefore());
     }
+
+    @Test
+    void testBulletListRequiringLineAfter() {
+        assertTrue(new BulletList().requiresNewlineAfter());
+    }
 }
