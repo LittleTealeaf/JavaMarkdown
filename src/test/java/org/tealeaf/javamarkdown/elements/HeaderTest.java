@@ -1,6 +1,8 @@
 package org.tealeaf.javamarkdown.elements;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.tealeaf.javamarkdown.exceptions.IllegalHeaderLevelException;
 import test.Tests;
 
@@ -11,12 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HeaderTest {
 
-    @Test
-    void legalHeaderLevel() {
-        for(int i = 1; i <= 6; i++) {
-            final int level = i;
-            assertDoesNotThrow(() -> new Header(level,Tests.randomSentence()));
-        }
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3, 4, 5, 6})
+    void legalHeaderLevel(int level) {
+        assertDoesNotThrow(() -> new Header(level,Tests.randomSentence()));
     }
 
     @Test
