@@ -75,19 +75,38 @@ class MarkdownCompilerTest {
     }
 
     @Test
-    void appendBulletList() {
+    void appendBulletList() throws IOException {
+        Object[] objects = new Object[] {"test","test2"};
+        BulletList bulletList = new BulletList(objects);
+        assertSame(testCompiler,testCompiler.appendBulletList(objects));
+        assertEquals(Method.MARKDOWN,testCompiler.method);
+        assertEquals(bulletList.toString(),testCompiler.string);
     }
 
     @Test
-    void testAppendBulletList() {
+    void testAppendBulletList() throws IOException {
+        String name = "testname";
+        Object[] objects = new Object[] {"test","test2"};
+        assertSame(testCompiler,testCompiler.appendBulletList(name,objects));
+        assertEquals(Method.MARKDOWN,testCompiler.method);
+        assertEquals(new BulletList(name,objects).toString(),testCompiler.string);
     }
 
     @Test
-    void appendCodeBlock() {
+    void appendCodeBlock() throws IOException {
+        String code = "cmd + alt + x";
+        assertSame(testCompiler,testCompiler.appendCodeBlock(code));
+        assertEquals(Method.MARKDOWN,testCompiler.method);
+        assertEquals(new CodeBlock(code).toString(),testCompiler.string);
     }
 
     @Test
-    void testAppendCodeBlock() {
+    void testAppendCodeBlock() throws IOException {
+        String language = "python";
+        String code = "print(f'testing')";
+        assertSame(testCompiler,testCompiler.appendCodeBlock(language,code));
+        assertEquals(Method.MARKDOWN,testCompiler.method);
+        assertEquals(new CodeBlock(language,code).toString(),testCompiler.string);
     }
 
     @Test
@@ -110,27 +129,54 @@ class MarkdownCompilerTest {
     }
 
     @Test
-    void appendImage() {
+    void appendImage() throws IOException {
+        String url = "https://randomurl.com/image.png";
+        assertSame(testCompiler,testCompiler.appendImage(url));
+        assertEquals(Method.MARKDOWN,testCompiler.method);
+        assertEquals(new Image(url).toString(),testCompiler.string);
     }
 
     @Test
-    void testAppendImage() {
+    void testAppendImage() throws IOException {
+        String alt = "test";
+        String url = "https://randomurl.com/image.png";
+        assertSame(testCompiler,testCompiler.appendImage(alt,url));
+        assertEquals(Method.MARKDOWN,testCompiler.method);
+        assertEquals(new Image(alt,url).toString(),testCompiler.string);
     }
 
     @Test
-    void appendLink() {
+    void appendLink() throws IOException {
+        String url = "url";
+        assertSame(testCompiler,testCompiler.appendLink(url));
+        assertEquals(Method.MARKDOWN,testCompiler.method);
+        assertEquals(new Link(url).toString(),testCompiler.string);
     }
 
     @Test
-    void testAppendLink() {
+    void testAppendLink() throws IOException {
+        String text = "display";
+        String url = "url";
+        assertSame(testCompiler,testCompiler.appendLink(text,url));
+        assertEquals(Method.MARKDOWN,testCompiler.method);
+        assertEquals(new Link(text,url).toString(),testCompiler.string);
     }
 
     @Test
-    void appendNumberedList() {
+    void appendNumberedList() throws IOException {
+        Object[] objects = new Object[] {"test","test2"};
+        assertSame(testCompiler,testCompiler.appendNumberedList(objects));
+        assertEquals(Method.MARKDOWN,testCompiler.method);
+        assertEquals(new NumberedList(objects).toString(),testCompiler.string);
     }
 
     @Test
-    void testAppendNumberedList() {
+    void testAppendNumberedList() throws IOException {
+        String name = "list name";
+        Object[] objects = new Object[] {"test","test2"};
+        assertSame(testCompiler,testCompiler.appendNumberedList(name,objects));
+        assertEquals(Method.MARKDOWN,testCompiler.method);
+        assertEquals(new NumberedList(name,objects).toString(),testCompiler.string);
     }
 
     static class TestCompiler implements MarkdownCompiler<TestCompiler> {
@@ -153,7 +199,7 @@ class MarkdownCompilerTest {
         }
     }
 
-    static enum Method {
+    enum Method {
         MARKDOWN,
         STRING;
     }

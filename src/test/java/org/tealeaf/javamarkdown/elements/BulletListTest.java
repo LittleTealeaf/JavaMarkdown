@@ -42,4 +42,15 @@ public class BulletListTest {
         assertEquals("",EmptyBulletList.asString());
         assertTrue(EmptyBulletList.asString().isBlank() && EmptyBulletList.asString().isBlank());
     }
+
+    @Test
+    void testNamedBulletListNotRequiringLineBefore() {
+        BulletList bulletList = new BulletList("name");
+        assertFalse(bulletList.requiresNewlineBefore());
+    }
+
+    @Test
+    void testBulletListRequiringLineBefore() {
+        assertTrue(new BulletList().requiresNewlineBefore());
+    }
 }
