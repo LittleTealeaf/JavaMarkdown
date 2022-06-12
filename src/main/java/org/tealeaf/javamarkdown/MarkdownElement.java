@@ -113,21 +113,4 @@ public abstract class MarkdownElement {
      * @since 0.0.11
      */
     protected abstract <T> T checkType(T item) throws IllegalContentsException;
-
-    /**
-     * <p>Compares an object to a set of illegal MarkdownElement classes. If the object is an instance of any element, it will throw an {@link IllegalContentsException}</p>
-     *
-     * @param object      Object to test
-     * @param classStream Set of illegal classes
-     *
-     * @since 0.0.8
-     * @deprecated See {@link #checkType(Object)} for new method of checking
-     */
-    @Deprecated
-    protected void testIllegalTypes(Object object, Set<Class<? extends MarkdownElement>> classStream) {
-        Optional<Class<? extends MarkdownElement>> illegalType = classStream.parallelStream().filter(item -> item.isInstance(object)).findFirst();
-        if (illegalType.isPresent()) {
-            throw new IllegalContentsException(illegalType.get());
-        }
-    }
 }
