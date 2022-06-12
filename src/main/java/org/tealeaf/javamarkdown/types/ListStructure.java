@@ -197,4 +197,12 @@ public abstract class ListStructure extends Structure {
     protected <T> T checkType(T object) throws IllegalContentsException {
         return object instanceof ListStructure ? object : super.checkType(object);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Object> getItems() {
+        return items;
+    }
 }
