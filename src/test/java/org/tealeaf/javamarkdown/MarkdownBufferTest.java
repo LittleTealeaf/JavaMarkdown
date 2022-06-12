@@ -14,6 +14,10 @@ class MarkdownBufferTest {
 
     MarkdownBuffer markdownBuffer;
 
+    void assertStringEquals(String text) {
+        assertEquals(text,markdownBuffer.toString());
+    }
+
     @BeforeEach
     void setup() {
         markdownBuffer = new MarkdownBuffer();
@@ -41,7 +45,14 @@ class MarkdownBufferTest {
     @Test
     void requiredLineDoesNotPrintWhenFirst() throws IOException {
         markdownBuffer.appendHeader("test");
-        assertEquals(new Header("test") + "\n",markdownBuffer.toString());
+        assertStringEquals(new Header("test") + "\n");
+    }
+
+    @Test
+    void insertsSingleNewlineBetweenStructures() throws IOException {
+        markdownBuffer.appendHeader("a");
+        markdownBuffer.appendHeader("b");
+        assertStringEquals(new Header("a") + "\n" + new Header("b") + "\n");
     }
 
 
