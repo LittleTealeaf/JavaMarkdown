@@ -3,6 +3,7 @@ package org.tealeaf.javamarkdown;
 //Change to @since 0.0.12 if this is released before 0.0.12
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.LinkedList;
 
@@ -16,6 +17,7 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
     @Override
     public MarkdownBuffer appendString(String string) {
         items.add(string);
+
         return this;
     }
 
@@ -25,12 +27,26 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
         return this;
     }
 
-    public void toWriter(Writer writer) throws IOException {
-
+    public <T extends Writer> T toWriter(T writer) {
+        boolean newLine = true;
+        for(Object item : items) {
+            try {
+                if(!newLine && item instanceof MarkdownElement && ((MarkdownElement) item).requiresNewlineBefore()) {
+                    writer.write('\n');
+                }
+                writer.write(item.toString());
+                newLine = false;
+                if(item instanceof MarkdownElement && ((MarkdownElement) item).requiresNewlineAfter()) {
+                    writer.write('\n');
+                    newLine = true;
+                }
+            } catch(IOException ignored) {}
+        }
+        return writer;
     }
 
     @Override
     public String toString() {
-        return "";
+        return toWriter(new StringWriter()).toString();
     }
 }

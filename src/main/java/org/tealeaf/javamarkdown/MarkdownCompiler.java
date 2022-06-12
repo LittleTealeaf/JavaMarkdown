@@ -10,7 +10,7 @@ import java.io.IOException;
  * @author Thomas Kwashnak
  * @since 0.0.14
  */
-public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
+public interface MarkdownCompiler<T extends MarkdownCompiler<?>>{
 
     T appendString(String string) throws IOException;
 
