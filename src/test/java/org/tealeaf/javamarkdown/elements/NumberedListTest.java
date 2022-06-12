@@ -76,4 +76,14 @@ public class NumberedListTest {
         assertEquals(allParam.toString(), allParam.asString());
     }
 
+    @Test
+    void getPrefix() {
+        assertEquals("1. ",new NumberedList().getPrefix(0));
+    }
+
+    @Test
+    void getPrefixOffset() {
+        assertEquals("4. ",new NumberedList(4).getPrefix(0));
+    }
+
 }
