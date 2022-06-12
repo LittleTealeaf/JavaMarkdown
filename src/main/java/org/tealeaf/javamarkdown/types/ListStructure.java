@@ -60,6 +60,50 @@ public abstract class ListStructure extends Structure {
     }
 
     /**
+     * Creates a list with initial contents and no name
+     * @param list The initial objects to add, in order
+     * @since 0.0.14
+     */
+    public ListStructure(List<?> list) {
+        name = null;
+        add(list.stream());
+    }
+
+    /**
+     * Creates a list with initial contents and a set name
+     * @param name The string to print immediately before the list
+     * @param list The initial objects to add, in order
+     * @since 0.0.14
+     */
+    public ListStructure(String name, List<?> list) {
+        this.name = name;
+        add(list.stream());
+    }
+
+    /**
+     * <p>Creates a list with initial contents and no name.</p>
+     * <p>The stream will be depleted when created</p>
+     * @param stream Stream of objects to add
+     * @since 0.0.14
+     */
+    public ListStructure(Stream<?> stream) {
+        this.name = null;
+        add(stream);
+    }
+
+    /**
+     * <p>Creates a list with initial contents and a set name.</p>
+     * <p>The stream will be depleted when created</p>
+     * @param name The string to print out immediately before the list
+     * @param stream Stream of objects to add
+     * @since 0.0.14
+     */
+    public ListStructure(String name, Stream<?> stream) {
+        this.name = name;
+        add(stream);
+    }
+
+    /**
      * Creates a list with initial contents and a set name
      * @param name The string to print immediately before the list
      * @param objects The initial objects to add, in order
@@ -131,7 +175,17 @@ public abstract class ListStructure extends Structure {
      * @since 0.0.12
      */
     public ListStructure add(Object... objects) {
-        Stream.of(objects).map(this::checkType).forEach(this.items::add);
+        return add(Stream.of(objects));
+    }
+
+    /**
+     * <p>Adds objects to the end of the list.</p>
+     * @param objectStream Stream of objects to append to the end of the list
+     * @return A reference to this list structure
+     * @since 0.0.14
+     */
+    public ListStructure add(Stream<?> objectStream) {
+        objectStream.map(this::checkType).forEach(this.items::add);
         return this;
     }
 
