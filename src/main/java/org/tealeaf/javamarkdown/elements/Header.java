@@ -40,11 +40,6 @@ public class Header extends Structure {
         this.content = checkType(content);
     }
 
-    // @Override
-    // public Writer toWriter(Writer writer) throws IOException {
-    //     return writer.append("#".repeat(level).concat(" ").concat(content.toString()));
-    // }
-
     @Override
     public String asString() {
         return "#".repeat(level).concat(" ").concat(content.toString());
