@@ -2,6 +2,9 @@ package org.tealeaf.javamarkdown.elements;
 
 import org.tealeaf.javamarkdown.types.ListStructure;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 /**
  * <p>Implements a numbered list. Allows adding items, which will be formatted and printed into a list</p>
  *
@@ -185,6 +188,47 @@ public class NumberedList extends ListStructure {
         this.start = start;
     }
 
+    public NumberedList(List<?> objects) {
+        super(objects);
+        this.start = 1;
+    }
+
+    public NumberedList(Stream<?> stream) {
+        super(stream);
+        this.start = 1;
+    }
+
+    public NumberedList(int start, List<?> objects) {
+        super(objects);
+        this.start = start;
+    }
+
+    public NumberedList(int start, Stream<?> stream) {
+        super(stream);
+        this.start = start;
+    }
+
+    public NumberedList(String name, List<?> objects) {
+        super(name,objects);
+        this.start = 1;
+    }
+
+    public NumberedList(String name, Stream<?> stream) {
+        super(name,stream);
+        this.start = 1;
+    }
+
+    public NumberedList(String name, int start, List<?> objects) {
+        super(name,objects);
+        this.start = start;
+    }
+
+    public NumberedList(String name, int start, Stream<?> stream) {
+        super(name,stream);
+        this.start = start;
+    }
+
+
     /**
      * {@inheritDoc}
      *
@@ -193,5 +237,9 @@ public class NumberedList extends ListStructure {
     @Override
     protected String getPrefix(int index) {
         return String.format(FORMAT, index + start);
+    }
+
+    public int getStart() {
+        return start;
     }
 }
