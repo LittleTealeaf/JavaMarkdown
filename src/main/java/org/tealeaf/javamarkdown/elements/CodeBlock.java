@@ -2,6 +2,9 @@ package org.tealeaf.javamarkdown.elements;
 
 import org.tealeaf.javamarkdown.types.Structure;
 
+import java.io.File;
+import java.nio.file.Path;
+
 /**
  * <p>An element that displays its contents within a code block. It can display with syntax highlighting for a specific coding language as long as the markdown renderer
  * supports it</p>

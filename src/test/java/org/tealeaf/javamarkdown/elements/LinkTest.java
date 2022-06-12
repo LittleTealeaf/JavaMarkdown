@@ -34,5 +34,13 @@ public class LinkTest {
         assertEquals("[" + url + "](" + url + ")",link.asString());
     }
 
+    @Test
+    void requiresNewlineBefore() {
+        assertFalse(new Link("url").requiresNewlineBefore());
+    }
 
+    @Test
+    void requiresNewlineAfter() {
+        assertFalse(new Link("url").requiresNewlineAfter());
+    }
 }

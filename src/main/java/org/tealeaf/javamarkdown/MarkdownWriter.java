@@ -14,7 +14,7 @@ import java.io.Writer;
  * @author Thomas Kwashnak
  * @since 0.0.9
  */
-public class MarkdownWriter extends Writer {
+public class MarkdownWriter extends Writer implements MarkdownCompiler<MarkdownWriter> {
 
     private final Writer writer;
 
@@ -77,26 +77,25 @@ public class MarkdownWriter extends Writer {
         this.writer = writer;
     }
 
-    /**
-     * <p>Writes an object to the writer</p>
-     * <p>If the object is an instance of {@link MarkdownElement}, then {@link #appendMarkdownElement(MarkdownElement)} will instead be used to handle additional required
-     * functionality. Otherwise, {@link Object#toString()} will be used to print the object</p>
-     *
-     * @param object Object to print to the writer
-     *
-     * @return A reference to this Writer
-     *
-     * @throws IOException If an I/O error occurs
-     * @since 0.0.7
-     */
-    public MarkdownWriter append(Object object) throws IOException {
-        if (object instanceof MarkdownElement) {
-            return appendMarkdownElement((MarkdownElement) object);
-        } else {
-            append(object.toString());
-            return this;
-        }
-    }
+//    /**
+//     * <p>Writes an object to the writer</p>
+//     * <p>If the object is an instance of {@link MarkdownElement}, then {@link #appendMarkdownElement(MarkdownElement)} will instead be used to handle additional required
+//     * functionality. Otherwise, {@link Object#toString()} will be used to print the object</p>
+//     *
+//     * @param object Object to print to the writer
+//     *
+//     * @return A reference to this Writer
+//     *
+//     * @throws IOException If an I/O error occurs
+//     * @since 0.0.7
+//     */
+//    public MarkdownWriter append(Object object) throws IOException {
+//        if (object instanceof MarkdownElement) {
+//            return appendMarkdownElement((MarkdownElement) object);
+//        } else {
+//            append(object.toString()); return this;
+//        }
+//    }
 
     /**
      * <p>Writes a string to the writer</p>
@@ -111,198 +110,142 @@ public class MarkdownWriter extends Writer {
      * @since 0.0.9
      */
     public MarkdownWriter appendString(String string) throws IOException {
-        return append((Object) string);
+       write(string);
+       return this;
     }
+
+//    /**
+//     * <p>Writes text to the writer as <b>Bold Text</b></p>
+//     * <p>Uses the <code>**Text**</code> syntax to render the text as bold in Markdown</p>
+//     *
+//     * @param object The object to be rendered in bold
+//     *
+//     * @return A reference to this writer
+//     *
+//     * @throws IOException If an I/O error occurs
+//     * @see Bold
+//     * @since 0.0.7
+//     */
+//    public MarkdownWriter appendBold(Object object) throws IOException {
+//        return appendMarkdownElement(new Bold(object));
+//    }
+
+//    /**
+//     * <p>Writes text to the writer as <i>Italicized Text</i></p>
+//     * <p>Uses the <code>*Text*</code> syntax to render the text as italicized in Markdown</p>
+//     *
+//     * @param object The object to render in italics
+//     *
+//     * @return A reference to this writer
+//     *
+//     * @throws IOException If an I/O error occurs
+//     * @see Italic
+//     * @since 0.0.7
+//     */
+//    public MarkdownWriter appendItalic(Object object) throws IOException {
+//        return appendMarkdownElement(new Italic(object));
+//    }
+
+//    /**
+//     * <p>Writes text to the writer as <s>Struck Out Text</s></p>
+//     * <p>Uses the <code>~~Text~~</code> syntax to render the text as struck out in Markdown</p>
+//     *
+//     * @param object Object to render struck out
+//     *
+//     * @return A reference to this writer
+//     *
+//     * @throws IOException If an I/O error occurs
+//     * @see Strikethrough
+//     * @since 0.0.7
+//     */
+//    public MarkdownWriter appendStrikethrough(Object object) throws IOException {
+//        return appendMarkdownElement(new Strikethrough(object));
+//    }
+
+//    /**
+//     * <p>Writes text to the writer as a <code style="background-color: 383e47; border-radius: 6px; padding: 2px 4px;">Code Snippet</code></p>
+//     * <p>Uses the <code>`Text`</code> syntax to render the text as a code snippet in Markdown</p>
+//     *
+//     * @param object Object to be rendered in a Code Snippet
+//     *
+//     * @return A reference to this writer
+//     *
+//     * @throws IOException If an I/O error occurs
+//     * @see Code
+//     * @since 0.0.7
+//     */
+//    public MarkdownWriter appendCode(Object object) throws IOException {
+//        return appendMarkdownElement(new Code(object));
+//    }
+//
+//    /**
+//     * <p>Inserts a link into the writer</p>
+//     * <p>Uses the <code>[content](url)</code> syntax to insert a link in Markdown</p>
+//     *
+//     * @param content The content to display in the link.
+//     * @param href    The url that the link should direct to
+//     *
+//     * @return A reference to this writer
+//     *
+//     * @throws IOException If an I/O error occurs
+//     * @since 0.0.9
+//     */
+//    public MarkdownWriter appendLink(Object content, String href) throws IOException {
+//        return appendMarkdownElement(new Link(content, href));
+//    }
+
+//    /**
+//     * <p>Inserts an image into the writer</p>
+//     * <p>Uses the <code>![](url)</code> syntax to insert an image in Markdown</p>
+//     *
+//     * @param url The source url of the image
+//     *
+//     * @return A reference to this writer
+//     *
+//     * @throws IOException If an I/O error occurs
+//     * @since 0.0.9
+//     */
+//    public MarkdownWriter appendImage(String desc, String url) throws IOException {
+//        return appendMarkdownElement(new Image(desc, url));
+//    }
+//
+//    /**
+//     * @since 0.0.9
+//     */
+//    public MarkdownWriter appendBulletList(Object... items) throws IOException {
+//        return appendMarkdownElement(new BulletList(items));
+//    }
+
+//    /**
+//     * @since 0.0.9
+//     */
+//    public MarkdownWriter appendNumberedList(Object... items) throws IOException {
+//        return appendMarkdownElement(new NumberedList(items));
+//    }
+
+//    public MarkdownWriter appendHeader(Object content) throws IOException {
+//        return appendMarkdownElement(new Header(content));
+//    }
+
+//    public MarkdownWriter appendHeader(int level, Object content) throws IOException {
+//        return appendMarkdownElement(new Header(level, content));
+//    }
+
+//    /**
+//     * @since 0.0.12
+//     */
+//    public MarkdownWriter appendCodeBlock(Object content) throws IOException {
+//        return appendMarkdownElement(new CodeBlock(content));
+//    }
+
+//    /**
+//     * @since 0.0.12
+//     */
+//    public MarkdownWriter appendCodeBlock(String language, Object content) throws IOException {
+//        return appendMarkdownElement(new CodeBlock(language, content));
+//    }
 
     /**
-     * <p>Writes text to the writer as <b>Bold Text</b></p>
-     * <p>Uses the <code>**Text**</code> syntax to render the text as bold in Markdown</p>
-     *
-     * @param object The object to be rendered in bold
-     *
-     * @return A reference to this writer
-     *
-     * @throws IOException If an I/O error occurs
-     * @see Bold
-     * @since 0.0.7
-     */
-    public MarkdownWriter appendBold(Object object) throws IOException {
-        return appendMarkdownElement(new Bold(object));
-    }
-
-    /**
-     * <p>Writes text to the writer as <i>Italicized Text</i></p>
-     * <p>Uses the <code>*Text*</code> syntax to render the text as italicized in Markdown</p>
-     *
-     * @param object The object to render in italics
-     *
-     * @return A reference to this writer
-     *
-     * @throws IOException If an I/O error occurs
-     * @see Italic
-     * @since 0.0.7
-     */
-    public MarkdownWriter appendItalic(Object object) throws IOException {
-        return appendMarkdownElement(new Italic(object));
-    }
-
-    /**
-     * <p>Writes text to the writer as <s>Struck Out Text</s></p>
-     * <p>Uses the <code>~~Text~~</code> syntax to render the text as struck out in Markdown</p>
-     *
-     * @param object Object to render struck out
-     *
-     * @return A reference to this writer
-     *
-     * @throws IOException If an I/O error occurs
-     * @see Strikethrough
-     * @since 0.0.7
-     */
-    public MarkdownWriter appendStrikethrough(Object object) throws IOException {
-        return appendMarkdownElement(new Strikethrough(object));
-    }
-
-    /**
-     * <p>Writes text to the writer as a <code style="background-color: 383e47; border-radius: 6px; padding: 2px 4px;">Code Snippet</code></p>
-     * <p>Uses the <code>`Text`</code> syntax to render the text as a code snippet in Markdown</p>
-     *
-     * @param object Object to be rendered in a Code Snippet
-     *
-     * @return A reference to this writer
-     *
-     * @throws IOException If an I/O error occurs
-     * @see Code
-     * @since 0.0.7
-     */
-    public MarkdownWriter appendCode(Object object) throws IOException {
-        return appendMarkdownElement(new Code(object));
-    }
-
-    /**
-     * <p>Inserts a link into the writer</p>
-     * <p>Uses the <code>[content](url)</code> syntax to insert a link in Markdown</p>
-     *
-     * @param content The content to display in the link.
-     * @param href    The url that the link should direct to
-     *
-     * @return A reference to this writer
-     *
-     * @throws IOException If an I/O error occurs
-     * @since 0.0.9
-     */
-    public MarkdownWriter appendLink(Object content, String href) throws IOException {
-        return appendMarkdownElement(new Link(content, href));
-    }
-
-    /**
-     * <p>Inserts an image into the writer</p>
-     * <p>Uses the <code>![](url)</code> syntax to insert an image in Markdown</p>
-     *
-     * @param url The source url of the image
-     *
-     * @return A reference to this writer
-     *
-     * @throws IOException If an I/O error occurs
-     * @since 0.0.9
-     */
-    public MarkdownWriter appendImage(String desc, String url) throws IOException {
-        return appendMarkdownElement(new Image(desc, url));
-    }
-
-    /**
-     * <p>Inserts a bullet list of objects into the writer.</p>
-     * <p>Uses the form:</p>
-     * <pre>
-     *     - Item 1
-     *     - Item 2
-     *     - Item 3
-     *       Item 3, 2nd line
-     * </pre>
-     * <p>to render as a bullet list in markdown</p>
-     *
-     * @param items Array of items to put on each line
-     *
-     * @return A reference to this writer
-     *
-     * @throws IOException If an I/O error occurs
-     * @since 0.0.9
-     */
-    public MarkdownWriter appendBulletList(Object... items) throws IOException {
-        return appendMarkdownElement(new BulletList(items));
-    }
-
-    /**
-     * <p>Inserts a numbered list of objects into the writer.</p>
-     * <p>Uses the form:</p>
-     * <pre>
-     *     1. Item 1
-     *     1. Item 2
-     *     1. Item 3
-     *       Item 3, 2nd line
-     * </pre>
-     * <p>to render as a bullet list in markdown</p>
-     *
-     * @param items Array of items to put on each line
-     *
-     * @return A reference to this writer
-     *
-     * @throws IOException If an I/O error occurs
-     * @since 0.0.9
-     */
-    public MarkdownWriter appendNumberedList(Object... items) throws IOException {
-        return appendMarkdownElement(new NumberedList(items));
-    }
-
-    public MarkdownWriter appendHeader(Object content) throws IOException {
-        return appendMarkdownElement(new Header(content));
-    }
-
-    public MarkdownWriter appendHeader(int level, Object content) throws IOException {
-        return appendMarkdownElement(new Header(level, content));
-    }
-
-    /**
-     * <p>Insert a code block with the provided code content into a writer</p>
-     *
-     * @param content Content to put in the code block
-     *
-     * @return A reference to the writer
-     *
-     * @throws IOException If an I/O error occurs
-     * @since 0.0.12
-     */
-    public MarkdownWriter appendCodeBlock(Object content) throws IOException {
-        return appendMarkdownElement(new CodeBlock(content));
-    }
-
-    /**
-     * <p>Insert a code block with the provided content and a given language into a writer</p>
-     *
-     * @param language Name of the language to render in
-     * @param content  Content to put in the code block
-     *
-     * @return A reference to the writer
-     *
-     * @throws IOException If an I/O error occurs
-     * @since 0.0.12
-     */
-    public MarkdownWriter appendCodeBlock(String language, Object content) throws IOException {
-        return appendMarkdownElement(new CodeBlock(language, content));
-    }
-
-    /**
-     * <p>Adds a {@link MarkdownElement} to the writer, handling any special conditions</p>
-     * <p>If {@link MarkdownElement#requiresNewlineBefore() markdownElement.requiresNewlineBefore()} returns true, and the last character written was not a <code>\n</code>,
-     * then a <code>\n</code> will be written before writing the element. </p>
-     * <p>If {@link MarkdownElement#requiresNewlineAfter() markdownElement.requiresNewlineAfter()} returns true, then a <code>\n</code> will be printed after the elemented
-     * is written.
-     * </p>
-     *
-     * @param markdownElement The element to write to the writer
-     *
-     * @return An instance of this writer
-     *
-     * @throws IOException If an I/O error occurs
      * @since 0.0.9
      */
     public MarkdownWriter appendMarkdownElement(MarkdownElement markdownElement) throws IOException {
@@ -326,6 +269,10 @@ public class MarkdownWriter extends Writer {
      */
     public Writer getWriter() {
         return writer;
+    }
+
+    public char getLastChar() {
+        return lastChar;
     }
 
     @Override

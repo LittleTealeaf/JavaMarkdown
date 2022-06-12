@@ -56,4 +56,7 @@ class CodeTest {
     void testLegalObjects(Object object) {
         assertDoesNotThrow(() -> new Code(object));
     }
+
+
+
 }
