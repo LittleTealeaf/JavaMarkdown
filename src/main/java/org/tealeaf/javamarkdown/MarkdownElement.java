@@ -41,6 +41,14 @@ public abstract class MarkdownElement {
      */
     public abstract String asString();
 
+    /**
+     * <p>Prints the compiled string representation of the element</p>
+     * <p>Uses the {@link #asString()} to compile</p>
+     *
+     * @return String representation of the element
+     * @see #asString()
+     * @since 0.0.8
+     */
     @Override
     public String toString() {
         return asString();
