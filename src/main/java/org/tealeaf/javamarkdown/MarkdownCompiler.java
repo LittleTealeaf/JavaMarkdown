@@ -12,6 +12,13 @@ import java.io.IOException;
  */
 public interface MarkdownCompiler<T extends MarkdownCompiler<?>>{
 
+    /**
+     * <p>Appends a string to the end of the compiler. Forces the basic use, and does not redirect any inputs to {@link #appendMarkdownElement(MarkdownElement)}.</p>
+     * @param string Text to append to the end of the compiler
+     * @return A reference to the compiler
+     * @throws IOException If an I/O Exception is reached
+     * @since 0.0.14
+     */
     T appendString(String string) throws IOException;
 
     /**
