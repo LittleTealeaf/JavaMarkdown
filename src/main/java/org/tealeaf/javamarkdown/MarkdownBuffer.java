@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Thomas Kwashnak
@@ -19,6 +20,22 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
         items.add(string);
 
         return this;
+    }
+
+    @Override
+    public MarkdownBuffer append(Object object) throws IOException {
+        if(object instanceof MarkdownBuffer) {
+            ((MarkdownBuffer) object).getItems().forEach(item -> {
+                try {
+                    append(item);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            return this;
+        } else {
+            return MarkdownCompiler.super.append(object);
+        }
     }
 
     @Override
@@ -43,6 +60,10 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
             } catch(IOException ignored) {}
         }
         return writer;
+    }
+
+    public List<Object> getItems() {
+        return items;
     }
 
     @Override
