@@ -23,22 +23,6 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
     }
 
     @Override
-    public MarkdownBuffer append(Object object) throws IOException {
-        if(object instanceof MarkdownBuffer) {
-            ((MarkdownBuffer) object).getItems().forEach(item -> {
-                try {
-                    append(item);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            return this;
-        } else {
-            return MarkdownCompiler.super.append(object);
-        }
-    }
-
-    @Override
     public MarkdownBuffer appendMarkdownElement(MarkdownElement element) {
         items.add(element);
         return this;
