@@ -62,9 +62,6 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
         return writer;
     }
 
-    public List<Object> getItems() {
-        return items;
-    }
 
     @Override
     public String toString() {
