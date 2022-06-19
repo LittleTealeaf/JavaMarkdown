@@ -20,6 +20,7 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
      * @param string String to append to the end of the document
      * @return An instance of the MarkdownCompiler used
      * @throws IOException if an I/O exception is raised.
+     * @since 0.0.14
      */
     T appendString(String string) throws IOException;
 
@@ -35,6 +36,7 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
      * @throws IOException if an I/O exception is raised
      * @see #appendString(String)
      * @see #appendMarkdownElement(MarkdownElement)
+     * @since 0.0.14
      */
     default T append(Object object) throws IOException {
         return object instanceof MarkdownElement ? appendMarkdownElement((MarkdownElement) object) : appendString(object.toString());
@@ -47,6 +49,7 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
      * @throws IOException if an I/O exception is raised
      * @see MarkdownElement#requiresNewlineBefore()
      * @see MarkdownElement#requiresNewlineAfter()
+     * @since 0.0.14
      */
     T appendMarkdownElement(MarkdownElement element) throws IOException;
 
