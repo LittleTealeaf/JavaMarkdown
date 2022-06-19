@@ -5,179 +5,224 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.tealeaf.javamarkdown.elements.*;
+import org.tealeaf.javamarkdown.exceptions.IllegalHeaderLevelException;
 import test.Tests;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MarkdownCompilerTest {
 
-    TestCompiler testCompiler;
+    public TestCompiler testCompiler;
+    public String sentence;
+    public String word;
+
+    public String url;
+
+    public Object[] array;
+    public List<Object> list;
+    public List<Object> objectStream;
+
+    public Stream<Object> stream() {
+        return objectStream.stream();
+    }
+
+    int number;
 
     @BeforeEach
     void setup() {
         testCompiler = new TestCompiler();
+        sentence = Tests.randomSentence();
+        word = Tests.randomWord();
+        url = Tests.randomURL();
+        array = Tests.randomWordsStream(Tests.randomInteger(0, 50)).toArray();
+        list = Tests.randomWordsStream(Tests.randomInteger(0,50)).collect(Collectors.toList());
+        objectStream = Tests.randomWordsStream(Tests.randomInteger(0,50)).collect(Collectors.toList());
+        number = Tests.randomInteger(1,100);
     }
 
+    void testMethod(CompilerExecutable compilerExecutable, MarkdownElement markdownElement) throws IOException {
+        testMethod(compilerExecutable,markdownElement.asString());
+    }
 
-
-    @Test
-    void append() throws IOException {
-//        Appends Normal Object
-        String word = Tests.randomWord();
-        assertSame(testCompiler,testCompiler.append(word));
-        assertEquals(Method.STRING, testCompiler.method);
-        assertEquals(word, testCompiler.string);
-
-//        Appends Markdown Element
-        Bold bold = new Bold(Tests.randomWord());
-        assertSame(testCompiler,testCompiler.append(bold));
-        assertEquals(Method.MARKDOWN, testCompiler.method);
-        assertEquals(bold.toString(), testCompiler.string);
+    void testMethod(CompilerExecutable compilerExecutable, String expectedValue) throws IOException {
+        assertEquals(testCompiler, compilerExecutable.execute(testCompiler));
+        assertEquals(Method.MARKDOWN,testCompiler.method);
+        assertEquals(expectedValue,testCompiler.string);
     }
 
     @Test
     void appendBold() throws IOException {
-        String word = Tests.randomWord();
-        Bold bold = new Bold(word);
-        assertSame(testCompiler,testCompiler.appendBold(word));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(bold.toString(),testCompiler.string);
+        testMethod(e -> e.appendBold("test"), "**test**");
     }
 
     @Test
     void appendCode() throws IOException {
-        String word = Tests.randomWord();
-        Code code = new Code(word);
-        assertSame(testCompiler,testCompiler.appendCode(word));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(code.toString(),testCompiler.string);
+        testMethod(e -> e.appendCode("test"), "`test`");
     }
 
     @Test
-    void appendStrikethrough() throws IOException {
-        String word = Tests.randomWord();
-        Strikethrough strikethrough = new Strikethrough(word);
-        assertSame(testCompiler,testCompiler.appendStrikethrough(word));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(strikethrough.toString(),testCompiler.string);
+    void appendBulletListObjects() throws IOException {
+        Object[] objects = {"me","mi","mo"};
+        testMethod(e -> e.appendBulletList(objects),new BulletList(objects).toString());
     }
 
     @Test
-    void appendItalic() throws IOException {
-        String word = Tests.randomWord();
-        Italic italic = new Italic(word);
-        assertSame(testCompiler,testCompiler.appendItalic(word));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(italic.toString(),testCompiler.string);
-    }
-
-    @Test
-    void appendBulletList() throws IOException {
-        Object[] objects = new Object[] {"test","test2"};
-        BulletList bulletList = new BulletList(objects);
-        assertSame(testCompiler,testCompiler.appendBulletList(objects));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(bulletList.toString(),testCompiler.string);
-    }
-
-    @Test
-    void testAppendBulletList() throws IOException {
-        String name = "testname";
-        Object[] objects = new Object[] {"test","test2"};
-        assertSame(testCompiler,testCompiler.appendBulletList(name,objects));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(new BulletList(name,objects).toString(),testCompiler.string);
+    void appendBulletListNameObjects() throws IOException {
+        String name = "testing name";
+        Object[] objects = {"me","mawe","fwe"};
+        testMethod(e -> e.appendBulletList(name,objects),new BulletList(name,objects).toString());
     }
 
     @Test
     void appendCodeBlock() throws IOException {
-        String code = "cmd + alt + x";
-        assertSame(testCompiler,testCompiler.appendCodeBlock(code));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(new CodeBlock(code).toString(),testCompiler.string);
+        String content = Tests.randomSentence();
+        testMethod(e -> e.appendCodeBlock(content),new CodeBlock(content).toString());
     }
 
     @Test
-    void testAppendCodeBlock() throws IOException {
-        String language = "python";
-        String code = "print(f'testing')";
-        assertSame(testCompiler,testCompiler.appendCodeBlock(language,code));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(new CodeBlock(language,code).toString(),testCompiler.string);
+    void appendCodeBlockLanguage() throws IOException {
+        String content = Tests.randomSentence();
+        String language = Tests.randomWord();
+        testMethod(e -> e.appendCodeBlock(language,content),new CodeBlock(language,content).toString());
     }
 
     @Test
     void appendHeader() throws IOException {
-        String word = Tests.randomWord();
-        Header header = new Header(word);
-        assertSame(testCompiler,testCompiler.appendHeader(word));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(header.toString(),testCompiler.string);
+        String content = Tests.randomSentence();
+        testMethod(e -> e.appendHeader(content),new Header(content).toString());
     }
 
     @ParameterizedTest
     @ValueSource(ints = {1,2,3,4,5,6})
-    void appendHeaderLevel(int level) throws IOException {
-        String word = Tests.randomWord();
-        Header header = new Header(level,word);
-        assertSame(testCompiler,testCompiler.appendHeader(level,word));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(header.toString(),testCompiler.string);
+    void appendHeaderValidLevels(int level) throws IOException {
+        String content = Tests.randomSentence();
+        testMethod(e -> e.appendHeader(level,content),new Header(level,content).toString());
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0,-1,7})
+    void appendHeaderInvalidLevels(int level) {
+        assertThrows(IllegalHeaderLevelException.class,() -> testCompiler.appendHeader(level,Tests.randomSentence()));
     }
 
     @Test
     void appendImage() throws IOException {
-        String url = "https://randomurl.com/image.png";
-        assertSame(testCompiler,testCompiler.appendImage(url));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(new Image(url).toString(),testCompiler.string);
+        String url = Tests.randomURL();
+        testMethod(e -> e.appendImage(url),new Image(url).toString());
     }
 
     @Test
-    void testAppendImage() throws IOException {
-        String alt = "test";
-        String url = "https://randomurl.com/image.png";
-        assertSame(testCompiler,testCompiler.appendImage(alt,url));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(new Image(alt,url).toString(),testCompiler.string);
+    void appendImageContent() throws IOException {
+        String url = Tests.randomURL();
+        String content = Tests.randomSentence();
+        testMethod(e -> e.appendImage(content,url),new Image(content,url).toString());
+    }
+
+    @Test
+    void appendStrikethrough() throws IOException {
+        testMethod(e -> e.appendStrikethrough(sentence),new Strikethrough(sentence).toString());
+    }
+
+    @Test
+    void appendItalic() throws IOException {
+        testMethod(e -> e.appendItalic(sentence), new Italic(sentence).toString());
     }
 
     @Test
     void appendLink() throws IOException {
-        String url = "url";
-        assertSame(testCompiler,testCompiler.appendLink(url));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(new Link(url).toString(),testCompiler.string);
+        testMethod(e -> e.appendLink(url),new Link(url).toString());
     }
 
     @Test
-    void testAppendLink() throws IOException {
-        String text = "display";
-        String url = "url";
-        assertSame(testCompiler,testCompiler.appendLink(text,url));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(new Link(text,url).toString(),testCompiler.string);
+    void appendLinkContent() throws IOException {
+        testMethod(e -> e.appendLink(sentence,url),new Link(sentence,url).toString());
     }
 
     @Test
-    void appendNumberedList() throws IOException {
-        Object[] objects = new Object[] {"test","test2"};
-        assertSame(testCompiler,testCompiler.appendNumberedList(objects));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(new NumberedList(objects).toString(),testCompiler.string);
+    void appendNumberedListArray() throws IOException {
+        Object[] objects = {"a","b","c"};
+        testMethod(e -> e.appendNumberedList(objects),new NumberedList(objects).toString());
     }
 
     @Test
-    void testAppendNumberedList() throws IOException {
-        String name = "list name";
-        Object[] objects = new Object[] {"test","test2"};
-        assertSame(testCompiler,testCompiler.appendNumberedList(name,objects));
-        assertEquals(Method.MARKDOWN,testCompiler.method);
-        assertEquals(new NumberedList(name,objects).toString(),testCompiler.string);
+    void appendNumberedListNameArray() throws IOException {
+        Object[] objects = {"a","b","c"};
+        testMethod(e -> e.appendNumberedList(word,objects),new NumberedList(word,objects).toString());
     }
+
+    @Test
+    void appendNumberedListStartArray() throws IOException {
+        Object[] objects = {"a","b","c","d"};
+        int start = Tests.randomInteger();
+        testMethod(e -> e.appendNumberedList(start,objects),new NumberedList(start,objects));
+    }
+
+    @Test
+    void appendNumberedListNameStartArray() throws IOException {
+        testMethod(e -> e.appendNumberedList(word,number,array),new NumberedList(word,number,array));
+    }
+
+    @Test
+    void appendNumberedListList() throws IOException {
+        testMethod(e -> e.appendNumberedList(list),new NumberedList(list));
+    }
+
+    @Test
+    void appendNumberedListStream() throws IOException {
+        testMethod(e -> e.appendNumberedList(stream()), new NumberedList(stream()));
+    }
+
+    @Test
+    void appendNumberedListStartList() throws IOException {
+        testMethod(e -> e.appendNumberedList(number,list), new NumberedList(number,list));
+    }
+
+    @Test
+    void appendNumberedListStartStream() throws IOException {
+        testMethod(e -> e.appendNumberedList(number,stream()), new NumberedList(number,stream()));
+    }
+
+    @Test
+    void appendNumberedListNameList() throws IOException {
+        testMethod(e -> e.appendNumberedList(word,list), new NumberedList(word,list));
+    }
+
+    @Test
+    void appendNumberedListNameStream() throws IOException {
+        testMethod(e -> e.appendNumberedList(word,stream()), new NumberedList(word,stream()));
+    }
+
+    @Test
+    void appendNumberedListNameStartList() throws IOException {
+        testMethod(e -> e.appendNumberedList(word,number,list),new NumberedList(word,number,list));
+    }
+
+    @Test
+    void appendNumberedListNameStartStream() throws IOException {
+        testMethod(e -> e.appendNumberedList(word,number,stream()), new NumberedList(word,number,stream()));
+    }
+
+    @Test
+    void appendWithMarkdownElement() throws IOException {
+        Bold bold = new Bold("test");
+        assertSame(testCompiler,testCompiler.append(bold));
+        assertEquals(Method.MARKDOWN,testCompiler.method);
+        assertEquals(bold.asString(),testCompiler.string);
+    }
+
+    @Test
+    void appendWithString() throws IOException {
+        assertSame(testCompiler,testCompiler.append(word));
+        assertEquals(Method.STRING,testCompiler.method);
+        assertEquals(word,testCompiler.string);
+    }
+
+
 
     static class TestCompiler implements MarkdownCompiler<TestCompiler> {
 
@@ -202,5 +247,9 @@ class MarkdownCompilerTest {
     enum Method {
         MARKDOWN,
         STRING;
+    }
+
+    interface CompilerExecutable {
+        TestCompiler execute(TestCompiler testCompiler) throws IOException;
     }
 }

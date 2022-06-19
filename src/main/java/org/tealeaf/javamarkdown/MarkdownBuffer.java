@@ -62,6 +62,7 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
         return writer;
     }
 
+
     @Override
     public String toString() {
         return toWriter(new StringWriter()).toString();
