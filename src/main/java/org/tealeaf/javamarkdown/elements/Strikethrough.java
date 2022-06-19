@@ -9,12 +9,4 @@ public class Strikethrough extends Markup {
         super(object, "~~");
     }
 
-    @Override
-    protected <T> T checkType(T object) {
-        if(object instanceof Strikethrough) {
-            throw new IllegalContentsException(Strikethrough.class);
-        } else {
-            return super.checkType(object);
-        }
-    }
 }
