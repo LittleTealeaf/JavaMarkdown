@@ -222,6 +222,25 @@ class MarkdownCompilerTest {
         assertEquals(word,testCompiler.string);
     }
 
+    @Test
+    void appendBulletListList() throws IOException {
+        testMethod(e -> e.appendBulletList(list),new BulletList(list));
+    }
+
+    @Test
+    void appendBulletListStream() throws IOException {
+        testMethod(e -> e.appendBulletList(stream()),new BulletList(stream()));
+    }
+
+    @Test
+    void appendBulletListNameList() throws IOException {
+        testMethod(e -> e.appendBulletList(word,list), new BulletList(word,list));
+    }
+
+    @Test
+    void appendBulletListNameStream() throws IOException {
+        testMethod(e -> e.appendBulletList(word,stream()),new BulletList(word,stream()));
+    }
 
 
     static class TestCompiler implements MarkdownCompiler<TestCompiler> {
