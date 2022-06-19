@@ -26,22 +26,15 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
      * Unpacks another markdown buffer and appends each item to the end of the list
      * @param markdownBuffer MarkdownBuffer to unpack
      * @return A reference to the final Markdown Buffer
-     * @throws IOException if an I/O exception is raised
      * @since 0.0.15
      */
-    public MarkdownBuffer appendMarkdownBuffer(MarkdownBuffer markdownBuffer) throws IOException {
-        markdownBuffer.items.forEach(item -> {
-            try {
-                append(item);
-            } catch(IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+    public MarkdownBuffer appendMarkdownBuffer(MarkdownBuffer markdownBuffer) {
+        markdownBuffer.items.forEach(this::append);
         return this;
     }
 
     @Override
-    public MarkdownBuffer append(Object object) throws IOException {
+    public MarkdownBuffer append(Object object) {
         if(object instanceof MarkdownBuffer) {
             return appendMarkdownBuffer((MarkdownBuffer) object);
         } else {
@@ -68,7 +61,9 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
                     writer.write('\n');
                     newLine = true;
                 }
-            } catch(IOException ignored) {}
+            } catch(IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         return writer;
     }

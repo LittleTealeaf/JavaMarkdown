@@ -1,7 +1,5 @@
 package org.tealeaf.javamarkdown;
 
-import org.tealeaf.javamarkdown.elements.*;
-
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -109,152 +107,29 @@ public class MarkdownWriter extends Writer implements MarkdownCompiler<MarkdownW
      * @throws IOException If an I/O error occurs
      * @since 0.0.9
      */
-    public MarkdownWriter appendString(String string) throws IOException {
-       write(string);
-       return this;
+    public MarkdownWriter appendString(String string) {
+        try {
+            write(string);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return this;
     }
-
-//    /**
-//     * <p>Writes text to the writer as <b>Bold Text</b></p>
-//     * <p>Uses the <code>**Text**</code> syntax to render the text as bold in Markdown</p>
-//     *
-//     * @param object The object to be rendered in bold
-//     *
-//     * @return A reference to this writer
-//     *
-//     * @throws IOException If an I/O error occurs
-//     * @see Bold
-//     * @since 0.0.7
-//     */
-//    public MarkdownWriter appendBold(Object object) throws IOException {
-//        return appendMarkdownElement(new Bold(object));
-//    }
-
-//    /**
-//     * <p>Writes text to the writer as <i>Italicized Text</i></p>
-//     * <p>Uses the <code>*Text*</code> syntax to render the text as italicized in Markdown</p>
-//     *
-//     * @param object The object to render in italics
-//     *
-//     * @return A reference to this writer
-//     *
-//     * @throws IOException If an I/O error occurs
-//     * @see Italic
-//     * @since 0.0.7
-//     */
-//    public MarkdownWriter appendItalic(Object object) throws IOException {
-//        return appendMarkdownElement(new Italic(object));
-//    }
-
-//    /**
-//     * <p>Writes text to the writer as <s>Struck Out Text</s></p>
-//     * <p>Uses the <code>~~Text~~</code> syntax to render the text as struck out in Markdown</p>
-//     *
-//     * @param object Object to render struck out
-//     *
-//     * @return A reference to this writer
-//     *
-//     * @throws IOException If an I/O error occurs
-//     * @see Strikethrough
-//     * @since 0.0.7
-//     */
-//    public MarkdownWriter appendStrikethrough(Object object) throws IOException {
-//        return appendMarkdownElement(new Strikethrough(object));
-//    }
-
-//    /**
-//     * <p>Writes text to the writer as a <code style="background-color: 383e47; border-radius: 6px; padding: 2px 4px;">Code Snippet</code></p>
-//     * <p>Uses the <code>`Text`</code> syntax to render the text as a code snippet in Markdown</p>
-//     *
-//     * @param object Object to be rendered in a Code Snippet
-//     *
-//     * @return A reference to this writer
-//     *
-//     * @throws IOException If an I/O error occurs
-//     * @see Code
-//     * @since 0.0.7
-//     */
-//    public MarkdownWriter appendCode(Object object) throws IOException {
-//        return appendMarkdownElement(new Code(object));
-//    }
-//
-//    /**
-//     * <p>Inserts a link into the writer</p>
-//     * <p>Uses the <code>[content](url)</code> syntax to insert a link in Markdown</p>
-//     *
-//     * @param content The content to display in the link.
-//     * @param href    The url that the link should direct to
-//     *
-//     * @return A reference to this writer
-//     *
-//     * @throws IOException If an I/O error occurs
-//     * @since 0.0.9
-//     */
-//    public MarkdownWriter appendLink(Object content, String href) throws IOException {
-//        return appendMarkdownElement(new Link(content, href));
-//    }
-
-//    /**
-//     * <p>Inserts an image into the writer</p>
-//     * <p>Uses the <code>![](url)</code> syntax to insert an image in Markdown</p>
-//     *
-//     * @param url The source url of the image
-//     *
-//     * @return A reference to this writer
-//     *
-//     * @throws IOException If an I/O error occurs
-//     * @since 0.0.9
-//     */
-//    public MarkdownWriter appendImage(String desc, String url) throws IOException {
-//        return appendMarkdownElement(new Image(desc, url));
-//    }
-//
-//    /**
-//     * @since 0.0.9
-//     */
-//    public MarkdownWriter appendBulletList(Object... items) throws IOException {
-//        return appendMarkdownElement(new BulletList(items));
-//    }
-
-//    /**
-//     * @since 0.0.9
-//     */
-//    public MarkdownWriter appendNumberedList(Object... items) throws IOException {
-//        return appendMarkdownElement(new NumberedList(items));
-//    }
-
-//    public MarkdownWriter appendHeader(Object content) throws IOException {
-//        return appendMarkdownElement(new Header(content));
-//    }
-
-//    public MarkdownWriter appendHeader(int level, Object content) throws IOException {
-//        return appendMarkdownElement(new Header(level, content));
-//    }
-
-//    /**
-//     * @since 0.0.12
-//     */
-//    public MarkdownWriter appendCodeBlock(Object content) throws IOException {
-//        return appendMarkdownElement(new CodeBlock(content));
-//    }
-
-//    /**
-//     * @since 0.0.12
-//     */
-//    public MarkdownWriter appendCodeBlock(String language, Object content) throws IOException {
-//        return appendMarkdownElement(new CodeBlock(language, content));
-//    }
 
     /**
      * @since 0.0.9
      */
-    public MarkdownWriter appendMarkdownElement(MarkdownElement markdownElement) throws IOException {
-        if (markdownElement.requiresNewlineBefore() && lastChar != '\n') {
-            write("\n");
-        }
-        markdownElement.toWriter(this);
-        if (markdownElement.requiresNewlineAfter()) {
-            write("\n");
+    public MarkdownWriter appendMarkdownElement(MarkdownElement markdownElement) {
+        try {
+            if (markdownElement.requiresNewlineBefore() && lastChar != '\n') {
+                write("\n");
+            }
+            markdownElement.toWriter(this);
+            if (markdownElement.requiresNewlineAfter()) {
+                write("\n");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         return this;

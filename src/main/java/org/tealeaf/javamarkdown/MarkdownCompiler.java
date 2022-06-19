@@ -19,10 +19,9 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
      * <p>Appends a string to the end of the document.</p>
      * @param string String to append to the end of the document
      * @return An instance of the MarkdownCompiler used
-     * @throws IOException if an I/O exception is raised.
      * @since 0.0.14
      */
-    T appendString(String string) throws IOException;
+    T appendString(String string);
 
     /**
      * <p>Appends any given object to the end of the document. Checks what type of object was passed and uses the correct method accordingly</p>
@@ -33,12 +32,11 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
      * </ul>
      * @param object Content to add to the end of the document
      * @return An instance of the MarkdownCompiler used
-     * @throws IOException if an I/O exception is raised
      * @see #appendString(String)
      * @see #appendMarkdownElement(MarkdownElement)
      * @since 0.0.14
      */
-    default T append(Object object) throws IOException {
+    default T append(Object object) {
         return object instanceof MarkdownElement ? appendMarkdownElement((MarkdownElement) object) : appendString(object.toString());
     }
 
@@ -46,131 +44,130 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
      * <p>Appends a markdown element to the end of the document. Adjusts and manages new lines depending on the requirements set by the Markdown Element</p>
      * @param element Markdown Element to add to the end of the document
      * @return An instance of the MarkdownCompiler used
-     * @throws IOException if an I/O exception is raised
      * @see MarkdownElement#requiresNewlineBefore()
      * @see MarkdownElement#requiresNewlineAfter()
      * @since 0.0.14
      */
-    T appendMarkdownElement(MarkdownElement element) throws IOException;
+    T appendMarkdownElement(MarkdownElement element);
 
-    default T appendBold(Object content) throws IOException {
+    default T appendBold(Object content) {
         return appendMarkdownElement(new Bold(content));
     }
 
-    default T appendBulletList(Object[] objects) throws IOException {
+    default T appendBulletList(Object[] objects) {
         return appendMarkdownElement(new BulletList(objects));
     }
 
-    default T appendBulletList(String name, Object[] objects) throws IOException {
+    default T appendBulletList(String name, Object[] objects) {
         return appendMarkdownElement(new BulletList(name,objects));
     }
 
-    default T appendBulletList(List<?> objects) throws IOException {
+    default T appendBulletList(List<?> objects) {
         return appendMarkdownElement(new BulletList(objects));
     }
 
-    default T appendBulletList(Stream<?> stream) throws IOException {
+    default T appendBulletList(Stream<?> stream) {
         return appendMarkdownElement(new BulletList(stream));
     }
 
-    default T appendBulletList(String name, List<?> objects) throws IOException {
+    default T appendBulletList(String name, List<?> objects) {
         return appendMarkdownElement(new BulletList(name,objects));
     }
 
-    default T appendBulletList(String name, Stream<?> stream) throws IOException {
+    default T appendBulletList(String name, Stream<?> stream) {
         return appendMarkdownElement(new BulletList(name,stream));
     }
 
 
-    default T appendCode(Object content) throws IOException {
+    default T appendCode(Object content) {
         return appendMarkdownElement(new Code(content));
     }
 
-    default T appendCodeBlock(Object content) throws IOException {
+    default T appendCodeBlock(Object content) {
         return appendMarkdownElement(new CodeBlock(content));
     }
 
-    default T appendCodeBlock(String language, Object content) throws IOException {
+    default T appendCodeBlock(String language, Object content) {
         return appendMarkdownElement(new CodeBlock(language,content));
     }
 
-    default T appendHeader(Object content) throws IOException {
+    default T appendHeader(Object content) {
         return appendMarkdownElement(new Header(content));
     }
 
-    default T appendHeader(int level, Object content) throws IOException {
+    default T appendHeader(int level, Object content)  {
         return appendMarkdownElement(new Header(level,content));
     }
-    default T appendImage(String src) throws IOException {
+    default T appendImage(String src)  {
         return appendMarkdownElement(new Image(src));
     }
 
-    default T appendImage(String content, String src) throws IOException {
+    default T appendImage(String content, String src)  {
         return appendMarkdownElement(new Image(content,src));
     }
 
-    default T appendStrikethrough(Object content) throws IOException {
+    default T appendStrikethrough(Object content)  {
         return appendMarkdownElement(new Strikethrough(content));
     }
 
-    default T appendItalic(Object content) throws IOException {
+    default T appendItalic(Object content)  {
         return appendMarkdownElement(new Italic(content));
     }
 
 
-    default T appendLink(Object content, String url) throws IOException {
+    default T appendLink(Object content, String url)  {
         return appendMarkdownElement(new Link(content, url));
     }
 
-    default T appendLink(String url) throws IOException {
+    default T appendLink(String url)  {
         return appendMarkdownElement(new Link(url));
     }
 
-    default T appendNumberedList(Object[] objects) throws IOException {
+    default T appendNumberedList(Object[] objects)  {
         return appendMarkdownElement(new NumberedList(objects));
     }
 
-    default T appendNumberedList(String name, Object[] objects) throws IOException {
+    default T appendNumberedList(String name, Object[] objects)  {
         return appendMarkdownElement(new NumberedList(name,objects));
     }
 
-    default T appendNumberedList(int start, Object[] objects) throws IOException {
+    default T appendNumberedList(int start, Object[] objects)  {
         return appendMarkdownElement(new NumberedList(start,objects));
     }
 
-    default T appendNumberedList(String name, int start, Object[] objects) throws IOException {
+    default T appendNumberedList(String name, int start, Object[] objects)  {
         return appendMarkdownElement(new NumberedList(name,start,objects));
     }
 
-    default T appendNumberedList(List<?> objects) throws IOException {
+    default T appendNumberedList(List<?> objects)  {
         return appendMarkdownElement(new NumberedList(objects));
     }
 
-    default T appendNumberedList(Stream<?> stream) throws IOException {
+    default T appendNumberedList(Stream<?> stream)  {
         return appendMarkdownElement(new NumberedList(stream));
     }
 
-    default T appendNumberedList(int start, List<?> objects) throws IOException {
+    default T appendNumberedList(int start, List<?> objects)  {
         return appendMarkdownElement(new NumberedList(start,objects));
     }
 
-    default T appendNumberedList(int start, Stream<?> stream) throws IOException {
+    default T appendNumberedList(int start, Stream<?> stream)  {
         return appendMarkdownElement(new NumberedList(start,stream));
    }
 
-   default T appendNumberedList(String name, List<?> objects) throws IOException {
+   default T appendNumberedList(String name, List<?> objects)  {
         return appendMarkdownElement(new NumberedList(name,objects));
    }
 
-   default T appendNumberedList(String name, Stream<?> stream) throws IOException {
+   default T appendNumberedList(String name, Stream<?> stream)  {
         return appendMarkdownElement(new NumberedList(name,stream));
    }
 
-   default T appendNumberedList(String name, int start, List<?> objects) throws IOException {
+   default T appendNumberedList(String name, int start, List<?> objects)  {
         return appendMarkdownElement(new NumberedList(name,start,objects));
    }
 
-   default T appendNumberedList(String name, int start, Stream<?> stream) throws IOException {
+   default T appendNumberedList(String name, int start, Stream<?> stream)  {
         return appendMarkdownElement(new NumberedList(name,start,stream));
    }
 }
