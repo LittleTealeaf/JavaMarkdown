@@ -249,14 +249,14 @@ class MarkdownCompilerTest {
         Method method;
 
         @Override
-        public TestCompiler appendString(String string) throws IOException {
+        public TestCompiler appendString(String string) {
             this.string = string;
             method = Method.STRING;
             return this;
         }
 
         @Override
-        public TestCompiler appendMarkdownElement(MarkdownElement element) throws IOException {
+        public TestCompiler appendMarkdownElement(MarkdownElement element) {
             this.string = element.toString();
             method = Method.MARKDOWN;
             return this;
