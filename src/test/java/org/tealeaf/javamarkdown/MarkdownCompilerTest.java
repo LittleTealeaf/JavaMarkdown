@@ -39,7 +39,7 @@ class MarkdownCompilerTest {
         sentence = Tests.randomSentence();
         word = Tests.randomWord();
         url = Tests.randomURL();
-        array = Tests.randomWordsStream(Tests.randomInteger(0,50)).toList().toArray();
+        array = Tests.randomWordsStream(Tests.randomInteger(0, 50)).toArray();
         list = Tests.randomWordsStream(Tests.randomInteger(0,50)).collect(Collectors.toList());
         objectStream = Tests.randomWordsStream(Tests.randomInteger(0,50)).collect(Collectors.toList());
         number = Tests.randomInteger(1,100);
