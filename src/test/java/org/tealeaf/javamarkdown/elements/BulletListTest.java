@@ -1,6 +1,9 @@
 package org.tealeaf.javamarkdown.elements;
 import org.junit.jupiter.api.Test;
 import test.Tests;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -63,4 +66,34 @@ public class BulletListTest {
     void getPrefix() {
         assertEquals("- ",new BulletList().getPrefix(0));
     }
+
+    @Test
+    void testStreamBulletList() {
+        List<Object> objectList = List.of("a","B","c");
+        BulletList bulletList = new BulletList(objectList.stream());
+        assertEquals(new BulletList(objectList).asString(),bulletList.asString());
+    }
+
+    @Test
+    void testListBulletList() {
+        List<Object> objects = List.of("a","b","C");
+        BulletList bulletList = new BulletList(objects);
+        assertEquals(new BulletList(objects.toArray()).asString(),bulletList.asString());
+    }
+
+    @Test
+    void testNameStreamBulletList() {
+        List<Object> objects = List.of("a","b","C");
+        String name = Tests.randomWord();
+        assertEquals(new BulletList(name,objects).asString(),new BulletList(name,objects.stream()).asString());
+    }
+
+    @Test
+    void testNameListBulletList() {
+        List<Object> objects = List.of("a","b","C");
+        String name = Tests.randomWord();
+        assertEquals(new BulletList(name,objects.toArray()).asString(),new BulletList(name,objects).asString());
+    }
+
+
 }

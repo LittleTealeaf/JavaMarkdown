@@ -65,6 +65,22 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
         return appendMarkdownElement(new BulletList(name,objects));
     }
 
+    default T appendBulletList(List<?> objects) throws IOException {
+        return appendMarkdownElement(new BulletList(objects));
+    }
+
+    default T appendBulletList(Stream<?> stream) throws IOException {
+        return appendMarkdownElement(new BulletList(stream));
+    }
+
+    default T appendBulletList(String name, List<?> objects) throws IOException {
+        return appendMarkdownElement(new BulletList(name,objects));
+    }
+
+    default T appendBulletList(String name, Stream<?> stream) throws IOException {
+        return appendMarkdownElement(new BulletList(name,stream));
+    }
+
 
     default T appendCode(Object content) throws IOException {
         return appendMarkdownElement(new Code(content));

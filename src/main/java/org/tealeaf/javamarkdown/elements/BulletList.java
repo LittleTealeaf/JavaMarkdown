@@ -2,6 +2,9 @@ package org.tealeaf.javamarkdown.elements;
 
 import org.tealeaf.javamarkdown.types.ListStructure;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 /**
  * <p>Implements a bulleted list</p>
  * <p>The typical format of a bulleted list is:</p>
@@ -56,6 +59,44 @@ public class BulletList extends ListStructure {
      * @since 0.0.12
      */
     public BulletList(String name, Object[] objects) {
+        super(name,objects);
+    }
+
+    /**
+     * Creates a list with initial contents from a stream
+     * @since 0.0.15
+     * @param stream Stream of objects to insert into the list
+     */
+    public BulletList(Stream<?> stream) {
+        super(stream);
+    }
+
+    /**
+     * Creates a list with a name and initial contents from a stream
+     * @since 0.0.15
+     * @param name The string to print immediately before the list
+     * @param stream Stream of objects to insert into the list
+     */
+    public BulletList(String name, Stream<?> stream) {
+        super(name,stream);
+    }
+
+    /**
+     * Creates a list with initial contents from a list
+     * @since 0.0.15
+     * @param objects List of objects to include in the list
+     */
+    public BulletList(List<?> objects) {
+        super(objects);
+    }
+
+    /**
+     * Creates a list with a set name and initial contents from a list
+     * @since 0.0.15
+     * @param name String to print immediately before the list
+     * @param objects List of objects to include in the list
+     */
+    public BulletList(String name, List<?> objects) {
         super(name,objects);
     }
 
