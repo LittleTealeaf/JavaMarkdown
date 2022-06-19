@@ -17,19 +17,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MarkdownCompilerTest {
 
-    TestCompiler testCompiler;
-    String sentence;
-    String word;
+    public TestCompiler testCompiler;
+    public String sentence;
+    public String word;
 
-    String url;
+    public String url;
 
-    Object[] array;
+    public Object[] array;
+    public List<Object> list;
+    public List<Object> objectStream;
 
-    List<Object> list;
-
-    List<Object> objectStream;
-
-    Stream<Object> stream() {
+    public Stream<Object> stream() {
         return objectStream.stream();
     }
 
