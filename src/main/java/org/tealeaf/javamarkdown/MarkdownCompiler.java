@@ -50,6 +50,13 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
      */
     T appendMarkdownElement(MarkdownElement element);
 
+    /**
+     * <p>Displays provided content as <b>bold</b>.</p>
+     * <p>Wraps the content provided in <code>~</code></p>
+     * @param content The content to be displayed in bold
+     * @return This MarkdownCompiler
+     * @since 0.0.15
+     */
     default T appendBold(Object content) {
         return appendMarkdownElement(new Bold(content));
     }
