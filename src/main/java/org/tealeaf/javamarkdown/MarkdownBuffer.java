@@ -13,7 +13,7 @@ import java.util.List;
  * @since 0.0.14
  */
 public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
-    private final LinkedList<Object> items = new LinkedList<>();
+    protected final LinkedList<Object> items = new LinkedList<>();
 
     @Override
     public MarkdownBuffer appendString(String string) {
@@ -22,17 +22,28 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
         return this;
     }
 
+    /***
+     * Unpacks another markdown buffer and appends each item to the end of the list
+     * @param markdownBuffer MarkdownBuffer to unpack
+     * @return A reference to the final Markdown Buffer
+     * @throws IOException if an I/O exception is raised
+     * @since 0.0.15
+     */
+    public MarkdownBuffer appendMarkdownBuffer(MarkdownBuffer markdownBuffer) throws IOException {
+        markdownBuffer.items.forEach(item -> {
+            try {
+                append(item);
+            } catch(IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        return this;
+    }
+
     @Override
     public MarkdownBuffer append(Object object) throws IOException {
         if(object instanceof MarkdownBuffer) {
-            ((MarkdownBuffer) object).items.forEach(item -> {
-                try {
-                    append(item);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            return this;
+            return appendMarkdownBuffer((MarkdownBuffer) object);
         } else {
             return MarkdownCompiler.super.append(object);
         }
