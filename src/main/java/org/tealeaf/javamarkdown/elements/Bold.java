@@ -21,16 +21,5 @@ public class Bold extends Markup {
         super(content, MARKUP);
     }
 
-    /**
-     * {@inheritDoc}
-     * <pre>Throws {@link IllegalContentsException} if object is an instance of the {@link Bold} class</pre>
-     */
-    @Override
-    protected <T> T checkType(T object) throws IllegalContentsException {
-        if(object instanceof Bold) {
-            throw new IllegalContentsException(Bold.class);
-        } else {
-            return super.checkType(object);
-        }
-    }
+
 }

@@ -9,12 +9,4 @@ public class Italic extends Markup {
         super(object, "*");
     }
 
-    @Override
-    protected <T> T checkType(T object)  {
-        if(object instanceof Italic) {
-            throw new IllegalContentsException(Italic.class);
-        } else {
-            return super.checkType(object);
-        }
-    }
 }

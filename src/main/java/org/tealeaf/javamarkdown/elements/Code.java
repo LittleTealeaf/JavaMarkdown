@@ -13,7 +13,7 @@ public class Code extends Markup {
     @Override
     protected <T> T checkType(T object) {
         if(object instanceof MarkdownElement) {
-            throw new IllegalContentsException(MarkdownElement.class);
+            throw new IllegalContentsException(object.getClass());
         } else {
             return super.checkType(object);
         }
