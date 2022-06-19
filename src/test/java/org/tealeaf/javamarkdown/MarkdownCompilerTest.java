@@ -9,6 +9,9 @@ import org.tealeaf.javamarkdown.exceptions.IllegalHeaderLevelException;
 import test.Tests;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,12 +23,32 @@ class MarkdownCompilerTest {
 
     String url;
 
+    Object[] array;
+
+    List<Object> list;
+
+    List<Object> objectStream;
+
+    Stream<Object> stream() {
+        return objectStream.stream();
+    }
+
+    int number;
+
     @BeforeEach
     void setup() {
         testCompiler = new TestCompiler();
         sentence = Tests.randomSentence();
         word = Tests.randomWord();
         url = Tests.randomURL();
+        array = Tests.randomWordsStream(Tests.randomInteger(0,50)).toList().toArray();
+        list = Tests.randomWordsStream(Tests.randomInteger(0,50)).collect(Collectors.toList());
+        objectStream = Tests.randomWordsStream(Tests.randomInteger(0,50)).collect(Collectors.toList());
+        number = Tests.randomInteger(1,100);
+    }
+
+    void testMethod(CompilerExecutable compilerExecutable, MarkdownElement markdownElement) throws IOException {
+        testMethod(compilerExecutable,markdownElement.asString());
     }
 
     void testMethod(CompilerExecutable compilerExecutable, String expectedValue) throws IOException {
@@ -120,6 +143,85 @@ class MarkdownCompilerTest {
     @Test
     void appendLinkContent() throws IOException {
         testMethod(e -> e.appendLink(sentence,url),new Link(sentence,url).toString());
+    }
+
+    @Test
+    void appendNumberedListArray() throws IOException {
+        Object[] objects = {"a","b","c"};
+        testMethod(e -> e.appendNumberedList(objects),new NumberedList(objects).toString());
+    }
+
+    @Test
+    void appendNumberedListNameArray() throws IOException {
+        Object[] objects = {"a","b","c"};
+        testMethod(e -> e.appendNumberedList(word,objects),new NumberedList(word,objects).toString());
+    }
+
+    @Test
+    void appendNumberedListStartArray() throws IOException {
+        Object[] objects = {"a","b","c","d"};
+        int start = Tests.randomInteger();
+        testMethod(e -> e.appendNumberedList(start,objects),new NumberedList(start,objects));
+    }
+
+    @Test
+    void appendNumberedListNameStartArray() throws IOException {
+        testMethod(e -> e.appendNumberedList(word,number,array),new NumberedList(word,number,array));
+    }
+
+    @Test
+    void appendNumberedListList() throws IOException {
+        testMethod(e -> e.appendNumberedList(list),new NumberedList(list));
+    }
+
+    @Test
+    void appendNumberedListStream() throws IOException {
+        testMethod(e -> e.appendNumberedList(stream()), new NumberedList(stream()));
+    }
+
+    @Test
+    void appendNumberedListStartList() throws IOException {
+        testMethod(e -> e.appendNumberedList(number,list), new NumberedList(number,list));
+    }
+
+    @Test
+    void appendNumberedListStartStream() throws IOException {
+        testMethod(e -> e.appendNumberedList(number,stream()), new NumberedList(number,stream()));
+    }
+
+    @Test
+    void appendNumberedListNameList() throws IOException {
+        testMethod(e -> e.appendNumberedList(word,list), new NumberedList(word,list));
+    }
+
+    @Test
+    void appendNumberedListNameStream() throws IOException {
+        testMethod(e -> e.appendNumberedList(word,stream()), new NumberedList(word,stream()));
+    }
+
+    @Test
+    void appendNumberedListNameStartList() throws IOException {
+        testMethod(e -> e.appendNumberedList(word,number,list),new NumberedList(word,number,list));
+    }
+
+    @Test
+    void appendNumberedListNameStartStream() throws IOException {
+        testMethod(e -> e.appendNumberedList(word,number,stream()), new NumberedList(word,number,stream()));
+    }
+
+    @Test
+    void appendWithMarkdownElement() throws IOException {
+        Bold bold = new Bold("test");
+        assertSame(testCompiler,testCompiler.append(bold));
+        assertEquals(Method.MARKDOWN,testCompiler.method);
+        assertEquals(bold.asString(),testCompiler.string);
+    }
+
+    @Test
+    void appendWithString() throws IOException {
+        assertSame(testCompiler,testCompiler.append(word));
+        assertEquals(Method.STRING,testCompiler.method);
+        assertEquals(word,testCompiler.string);
     }
 
 
