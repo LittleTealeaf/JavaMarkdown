@@ -2,8 +2,9 @@ package org.tealeaf.javamarkdown.elements;
 
 import org.tealeaf.javamarkdown.MarkdownElement;
 import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
+import org.tealeaf.javamarkdown.types.Structure;
 
-public class Table extends MarkdownElement  {
+public class Table extends Structure {
 
     @Override
     public String asString() {
@@ -12,16 +13,11 @@ public class Table extends MarkdownElement  {
 
     @Override
     public boolean requiresNewlineBefore() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean requiresNewlineAfter() {
-        return false;
-    }
-
-    @Override
-    protected <T> T checkType(T item) throws IllegalContentsException {
-        return null;
+        return true;
     }
 }
