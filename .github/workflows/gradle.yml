@@ -41,7 +41,23 @@ jobs:
         uses: gradle/gradle-build-action@e88ed3e650b26bd116cfee53cf198c1f6856682d
         with:
           arguments: test
-
+  javadoc:
+    name: Test Javadoc
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+            ref: ${{github.event.pull_request.head.sha}}
+      - name: Set up Java JDK
+        uses: actions/setup-java@v3
+        with:
+            java-version: 18
+            distribution: 'temurin'
+      - name: Build Javadoc with Gradle
+        uses: gradle/gradle-build-action@e88ed3e650b26bd116cfee53cf198c1f6856682d
+        with:
+          arguments: javadoc
   codeql-analyze:
     name: CodeQL
     runs-on: ubuntu-latest
@@ -71,6 +87,7 @@ jobs:
     needs:
       - test
       - codeql-analyze
+      - javadoc
     runs-on: ubuntu-latest
     steps:
       - name: Indicates Tests are Complete
