@@ -54,6 +54,8 @@ jobs:
         with:
             java-version: 18
             distribution: 'temurin'
+      - name: Make Gradlew Executable
+        run: chmod +x gradlew
       - name: Build Javadoc with Gradle
         uses: gradle/gradle-build-action@e88ed3e650b26bd116cfee53cf198c1f6856682d
         with:
