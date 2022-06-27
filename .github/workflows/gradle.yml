@@ -38,7 +38,7 @@ jobs:
       - name: Make Gradlew Executable
         run: chmod +x gradlew
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@e88ed3e650b26bd116cfee53cf198c1f6856682d
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: test
   javadoc:
@@ -57,7 +57,7 @@ jobs:
       - name: Make Gradlew Executable
         run: chmod +x gradlew
       - name: Build Javadoc with Gradle
-        uses: gradle/gradle-build-action@e88ed3e650b26bd116cfee53cf198c1f6856682d
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: javadoc
   codeql-analyze:
