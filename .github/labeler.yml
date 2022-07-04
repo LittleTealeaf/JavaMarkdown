@@ -6,3 +6,6 @@ test:
 
 github:
   - '.github/**/*'
+
+documentation:
+  - '**/*.md'
