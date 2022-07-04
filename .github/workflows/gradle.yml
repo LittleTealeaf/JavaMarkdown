@@ -38,10 +38,28 @@ jobs:
       - name: Make Gradlew Executable
         run: chmod +x gradlew
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@e88ed3e650b26bd116cfee53cf198c1f6856682d
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: test
-
+  javadoc:
+    name: Test Javadoc
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+            ref: ${{github.event.pull_request.head.sha}}
+      - name: Set up Java JDK
+        uses: actions/setup-java@v3
+        with:
+            java-version: 18
+            distribution: 'temurin'
+      - name: Make Gradlew Executable
+        run: chmod +x gradlew
+      - name: Build Javadoc with Gradle
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        with:
+          arguments: javadoc
   codeql-analyze:
     name: CodeQL
     runs-on: ubuntu-latest
@@ -71,6 +89,7 @@ jobs:
     needs:
       - test
       - codeql-analyze
+      - javadoc
     runs-on: ubuntu-latest
     steps:
       - name: Indicates Tests are Complete

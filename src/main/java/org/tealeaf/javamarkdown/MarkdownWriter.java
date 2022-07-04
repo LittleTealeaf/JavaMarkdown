@@ -104,7 +104,6 @@ public class MarkdownWriter extends Writer implements MarkdownCompiler<MarkdownW
      *
      * @return A reference to this Writer
      *
-     * @throws IOException If an I/O error occurs
      * @since 0.0.9
      */
     public MarkdownWriter appendString(String string) {
