@@ -44,7 +44,17 @@ public class Header extends Structure {
 
     @Override
     public String asString() {
-        return "#".repeat(level).concat(" ").concat(content.toString());
+        String contentString = content.toString();
+        int contentLength = contentString.length();
+        char[] str = new char[1 + level + contentLength];
+        for(int i = 0; i < level; i++) {
+            str[i] = '#';
+        }
+        str[level] = ' ';
+        for(int i = 0; i < contentLength; i++) {
+            str[level + i + 1] = contentString.charAt(i);
+        }
+        return new String(str);
     }
 
     /**
