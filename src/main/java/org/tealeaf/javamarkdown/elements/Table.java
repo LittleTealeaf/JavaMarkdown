@@ -10,8 +10,8 @@ import java.util.stream.Stream;
 
 public class Table extends Structure {
 
-    private Object[] headers;
-    private Alignment[] alignments;
+    private final Object[] headers;
+    private final Alignment[] alignments;
 
     private final List<Object[]> values = new LinkedList<>();
 
@@ -26,12 +26,16 @@ public class Table extends Structure {
         values.add(objects);
     }
 
+    public void appendRows(Object[]... objects) {
+        Stream.of(objects).forEach(this::appendRow);
+    }
+
 
     @Override
     public String asString() {
         List<Stream<String>> streams = new LinkedList<>(List.of(Stream.of(headers).map(Object::toString),Stream.of(alignments).map(Alignment::getAlignment)));
         values.forEach(i -> streams.add(Stream.of(i).map(Object::toString)));
-        return String.format("|%s|", streams.stream().map(s -> s.collect(Collectors.joining(" | "))).collect(Collectors.joining("|\n|")));
+        return String.format("| %s |", streams.stream().map(s -> s.collect(Collectors.joining(" | "))).collect(Collectors.joining("|\n|")));
     }
 
     @Override
@@ -53,6 +57,11 @@ public class Table extends Structure {
         }
 
         public String getAlignment() {
+            return alignment;
+        }
+
+        @Override
+        public String toString() {
             return alignment;
         }
     }
