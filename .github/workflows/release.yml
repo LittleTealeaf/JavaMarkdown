@@ -7,7 +7,49 @@ on:
 
 
 jobs:
+  test:
+    name: Test Gradle
+    strategy:
+      matrix:
+        java: [ 11, 16, 17, 18 ]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout Repository
+      - name: Set up Java JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{matrix.java}}
+          distribution: 'temurin'
+      - name: Make Gradlew Executable
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        with:
+          arguments: test
+  javadoc:
+    name: Test Javadoc
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Set up Java JDK
+        uses: actions/setup-java@v3
+        with:
+            java-version: 18
+            distribution: 'temurin'
+      - name: Make Gradlew Executable
+        run: chmod +x gradlew
+      - name: Build Javadoc with Gradle
+        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+        with:
+          arguments: javadoc
   release:
+    needs:
+    - javadoc
+    - test
     if: github.repository == 'LittleTealeaf/JavaMarkdown'
     name: Release Next Version
     runs-on: ubuntu-latest
