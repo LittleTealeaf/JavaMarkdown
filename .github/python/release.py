@@ -5,6 +5,8 @@ import os
 currentVersion = os.popen('gh release list -L 1').read().partition('\t')[0]
 
 
+
+
 print('Current Version is',currentVersion)
 
 # Increment the last value
