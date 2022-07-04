@@ -136,12 +136,12 @@ class ListStructureTest {
 
     @Test
     void addObjectThrowsIllegal() {
-        assertThrows(IllegalContentsException.class,() -> new TestList().add(new CodeBlock("test")));
+        assertThrows(IllegalContentsException.class, () -> new TestList().add(new CodeBlock("test")));
     }
 
     @Test
     void addStreamThrowsIllegal() {
-        assertThrows(IllegalContentsException.class,() -> new TestList().add(Stream.of(new CodeBlock("test"))));
+        assertThrows(IllegalContentsException.class, () -> new TestList().add(Stream.of(new CodeBlock("test"))));
     }
 
     @Test

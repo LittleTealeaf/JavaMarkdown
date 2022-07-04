@@ -8,11 +8,12 @@ public class Link extends InlineElement {
     private final String url;
 
     /**
-     * @since 0.0.12
      * @param url Link url
+     *
+     * @since 0.0.12
      */
     public Link(String url) {
-        this(url,url);
+        this(url, url);
     }
 
     public Link(Object content, String url) {
@@ -23,7 +24,7 @@ public class Link extends InlineElement {
 
     @Override
     public String asString() {
-        return String.format("[%s](%s)", content,url);
+        return String.format("[%s](%s)", content, url);
     }
 
     @Override

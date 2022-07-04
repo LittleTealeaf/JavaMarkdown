@@ -19,6 +19,7 @@ import java.util.stream.Stream;
  *     - Content
  *     - Content
  * </pre>
+ *
  * @author Thomas Kwashnak
  * @since 0.0.11
  */
@@ -28,6 +29,7 @@ public class BulletList extends ListStructure {
 
     /**
      * Creates an empty bullet list with no name
+     *
      * @since 0.0.12
      */
     public BulletList() {
@@ -36,7 +38,9 @@ public class BulletList extends ListStructure {
 
     /**
      * Creates a bullet list with an initial set of items and no name
+     *
      * @param objects The initial objects to add, in order
+     *
      * @since 0.0.12
      */
     public BulletList(Object[] objects) {
@@ -45,7 +49,9 @@ public class BulletList extends ListStructure {
 
     /**
      * Creates an empty list with a name
+     *
      * @param name The string to print immediately before the list
+     *
      * @since 0.0.12
      */
     public BulletList(String name) {
@@ -54,18 +60,22 @@ public class BulletList extends ListStructure {
 
     /**
      * Creates a list with initial contents and a set name
-     * @param name The string to print immediately before the list
+     *
+     * @param name    The string to print immediately before the list
      * @param objects The initial objects to add, in order
+     *
      * @since 0.0.12
      */
     public BulletList(String name, Object[] objects) {
-        super(name,objects);
+        super(name, objects);
     }
 
     /**
      * Creates a list with initial contents from a stream
-     * @since 0.0.15
+     *
      * @param stream Stream of objects to insert into the list
+     *
+     * @since 0.0.15
      */
     public BulletList(Stream<?> stream) {
         super(stream);
@@ -73,18 +83,22 @@ public class BulletList extends ListStructure {
 
     /**
      * Creates a list with a name and initial contents from a stream
-     * @since 0.0.15
-     * @param name The string to print immediately before the list
+     *
+     * @param name   The string to print immediately before the list
      * @param stream Stream of objects to insert into the list
+     *
+     * @since 0.0.15
      */
     public BulletList(String name, Stream<?> stream) {
-        super(name,stream);
+        super(name, stream);
     }
 
     /**
      * Creates a list with initial contents from a list
-     * @since 0.0.15
+     *
      * @param objects List of objects to include in the list
+     *
+     * @since 0.0.15
      */
     public BulletList(List<?> objects) {
         super(objects);
@@ -92,17 +106,21 @@ public class BulletList extends ListStructure {
 
     /**
      * Creates a list with a set name and initial contents from a list
-     * @since 0.0.15
-     * @param name String to print immediately before the list
+     *
+     * @param name    String to print immediately before the list
      * @param objects List of objects to include in the list
+     *
+     * @since 0.0.15
      */
     public BulletList(String name, List<?> objects) {
-        super(name,objects);
+        super(name, objects);
     }
 
     /**
      * {@inheritDoc}
+     *
      * @param index Index of the item
+     *
      * @return {@code "- "}
      */
     @Override
