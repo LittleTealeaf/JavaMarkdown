@@ -3,11 +3,12 @@ package org.tealeaf.javamarkdown.elements;
 public class Image extends Link {
 
     /**
-     * @since 0.0.12
      * @param src Image Source
+     *
+     * @since 0.0.12
      */
     public Image(String src) {
-        super("",src);
+        super("", src);
     }
 
     public Image(String content, String src) {
@@ -17,6 +18,5 @@ public class Image extends Link {
     @Override
     public String asString() {
         return String.format("!%s", super.asString());
-
     }
 }

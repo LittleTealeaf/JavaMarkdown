@@ -2,6 +2,7 @@ package org.tealeaf.javamarkdown.types;
 
 /**
  * Represents markdown elements that indicates a simple markup syntax to the content text, such as {@code **words**} to indicate <b>bold</b> text.
+ *
  * @author Thomas Kwashnak
  * @since 0.0.1
  */
@@ -18,12 +19,18 @@ public class Markup extends InlineElement {
 
     /**
      * Creates a new markup element with a content object and the wrapping syntax
+     *
      * @param object Content object to display
      * @param syntax String syntax to put on either side of the content
      */
     public Markup(Object object, String syntax) {
         this.object = checkType(object);
         this.syntax = syntax;
+    }
+
+    @Override
+    public String asString() {
+        return String.format("%s%s%s", syntax, object.toString(), syntax);
     }
 
     /**
@@ -36,17 +43,6 @@ public class Markup extends InlineElement {
         return false;
     }
 
-    /**
-     * {@inheritDoc}
-     * @return {@code false}
-     * @since 0.0.7
-     */
-    @Override
-    public boolean requiresNewlineAfter() {
-        return false;
-    }
-
-
     // @Override
     // public Writer toWriter(Writer writer) throws IOException {
     //     if(object instanceof MarkdownElement) {
@@ -56,8 +52,15 @@ public class Markup extends InlineElement {
     //     }
     // }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code false}
+     *
+     * @since 0.0.7
+     */
     @Override
-    public String asString() {
-        return String.format("%s%s%s", syntax,object.toString(),syntax);
+    public boolean requiresNewlineAfter() {
+        return false;
     }
 }

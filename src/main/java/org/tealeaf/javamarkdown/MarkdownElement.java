@@ -6,8 +6,6 @@ import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Optional;
-import java.util.Set;
 
 /**
  * Represents a markdown item, or component, that contains its own method of printing itself.
@@ -46,6 +44,7 @@ public abstract class MarkdownElement {
      * <p>Uses the {@link #asString()} to compile</p>
      *
      * @return String representation of the element
+     *
      * @see #asString()
      * @since 0.0.8
      */

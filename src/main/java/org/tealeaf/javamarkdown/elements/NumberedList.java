@@ -209,25 +209,24 @@ public class NumberedList extends ListStructure {
     }
 
     public NumberedList(String name, List<?> objects) {
-        super(name,objects);
+        super(name, objects);
         this.start = 1;
     }
 
     public NumberedList(String name, Stream<?> stream) {
-        super(name,stream);
+        super(name, stream);
         this.start = 1;
     }
 
     public NumberedList(String name, int start, List<?> objects) {
-        super(name,objects);
+        super(name, objects);
         this.start = start;
     }
 
     public NumberedList(String name, int start, Stream<?> stream) {
-        super(name,stream);
+        super(name, stream);
         this.start = start;
     }
-
 
     /**
      * {@inheritDoc}

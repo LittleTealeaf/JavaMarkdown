@@ -6,19 +6,34 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author Thomas Kwashnak
  * @since 0.0.14
  */
 public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
+
     protected final LinkedList<Object> items = new LinkedList<>();
 
     @Override
     public MarkdownBuffer appendString(String string) {
         items.add(string);
 
+        return this;
+    }
+
+    @Override
+    public MarkdownBuffer append(Object object) {
+        if (object instanceof MarkdownBuffer) {
+            return appendMarkdownBuffer((MarkdownBuffer) object);
+        } else {
+            return MarkdownCompiler.super.append(object);
+        }
+    }
+
+    @Override
+    public MarkdownBuffer appendMarkdownElement(MarkdownElement element) {
+        items.add(element);
         return this;
     }
 
@@ -34,43 +49,27 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
     }
 
     @Override
-    public MarkdownBuffer append(Object object) {
-        if(object instanceof MarkdownBuffer) {
-            return appendMarkdownBuffer((MarkdownBuffer) object);
-        } else {
-            return MarkdownCompiler.super.append(object);
-        }
-    }
-
-    @Override
-    public MarkdownBuffer appendMarkdownElement(MarkdownElement element) {
-        items.add(element);
-        return this;
+    public String toString() {
+        return toWriter(new StringWriter()).toString();
     }
 
     public <T extends Writer> T toWriter(T writer) {
         boolean newLine = true;
-        for(Object item : items) {
+        for (Object item : items) {
             try {
-                if(!newLine && item instanceof MarkdownElement && ((MarkdownElement) item).requiresNewlineBefore()) {
+                if (!newLine && item instanceof MarkdownElement && ((MarkdownElement) item).requiresNewlineBefore()) {
                     writer.write('\n');
                 }
                 writer.write(item.toString());
                 newLine = false;
-                if(item instanceof MarkdownElement && ((MarkdownElement) item).requiresNewlineAfter()) {
+                if (item instanceof MarkdownElement && ((MarkdownElement) item).requiresNewlineAfter()) {
                     writer.write('\n');
                     newLine = true;
                 }
-            } catch(IOException e) {
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
         return writer;
-    }
-
-
-    @Override
-    public String toString() {
-        return toWriter(new StringWriter()).toString();
     }
 }

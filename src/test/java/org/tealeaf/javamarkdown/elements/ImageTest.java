@@ -3,8 +3,8 @@ package org.tealeaf.javamarkdown.elements;
 import org.junit.jupiter.api.Test;
 import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ImageTest {
 
@@ -15,11 +15,10 @@ public class ImageTest {
         Image image = new Image(desc, src);
 
         assertFalse(src.isEmpty());
-        assertEquals("!["+desc+"]("+src+")", image.asString());
+        assertEquals("![" + desc + "](" + src + ")", image.asString());
         assertFalse(desc.length() < 0);
         assertEquals(image.asString().charAt(0), '!');
         assertEquals(image.asString().charAt(image.asString().length() - 1), ')');
-
     }
 
     @Test
@@ -27,7 +26,6 @@ public class ImageTest {
         String src = "https://avatars.githubusercontent.com/u/35083315?v=4";
         Image image = new Image(src);
 
-        assertEquals("![](" + src + ")",image.asString());
+        assertEquals("![](" + src + ")", image.asString());
     }
-
-    }
+}

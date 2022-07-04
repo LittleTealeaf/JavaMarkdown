@@ -16,26 +16,26 @@ class HeaderTest {
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3, 4, 5, 6})
     void legalHeaderLevel(int level) {
-        assertDoesNotThrow(() -> new Header(level,Tests.randomSentence()));
+        assertDoesNotThrow(() -> new Header(level, Tests.randomSentence()));
     }
 
     @Test
     void illegalHeaderLevel() {
-        assertThrows(IllegalHeaderLevelException.class,() -> new Header(Tests.randomInteger(-10000,1),Tests.randomSentence()));
-        assertThrows(IllegalHeaderLevelException.class,() -> new Header(Tests.randomInteger(7,10000),Tests.randomSentence()));
+        assertThrows(IllegalHeaderLevelException.class, () -> new Header(Tests.randomInteger(-10000, 1), Tests.randomSentence()));
+        assertThrows(IllegalHeaderLevelException.class, () -> new Header(Tests.randomInteger(7, 10000), Tests.randomSentence()));
     }
 
     @Test
     void toWriter() throws IOException {
         String contents = Tests.randomSentence();
         Header header = new Header(contents);
-        assertEquals("# " + contents,header.toWriter(new StringWriter()).toString());
+        assertEquals("# " + contents, header.toWriter(new StringWriter()).toString());
     }
 
     @Test
     void asString() {
         String contents = Tests.randomSentence();
-        assertEquals("# " + contents,new Header(contents).asString());
+        assertEquals("# " + contents, new Header(contents).asString());
     }
 
     @Test
