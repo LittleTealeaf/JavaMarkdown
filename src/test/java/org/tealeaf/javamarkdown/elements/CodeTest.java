@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
 import org.tealeaf.javamarkdown.MarkdownElement;
+import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
 import test.Tests;
 
 import java.io.IOException;
@@ -56,7 +56,4 @@ class CodeTest {
     void testLegalObjects(Object object) {
         assertDoesNotThrow(() -> new Code(object));
     }
-
-
-
 }

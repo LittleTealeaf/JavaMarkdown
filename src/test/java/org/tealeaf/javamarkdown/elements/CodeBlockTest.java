@@ -11,13 +11,13 @@ class CodeBlockTest {
     void asString() {
         String code = "sudo apt install python";
         CodeBlock codeBlock = new CodeBlock(code);
-        assertEquals("```\nsudo apt install python\n```",codeBlock.asString());
+        assertEquals("```\nsudo apt install python\n```", codeBlock.asString());
     }
 
     @Test
     void asStringLanguage() {
-        CodeBlock codeBlock = new CodeBlock("bash","sudo apt install python");
-        assertEquals("```bash\nsudo apt install python\n```",codeBlock.asString());
+        CodeBlock codeBlock = new CodeBlock("bash", "sudo apt install python");
+        assertEquals("```bash\nsudo apt install python\n```", codeBlock.asString());
     }
 
     @Test
@@ -32,6 +32,6 @@ class CodeBlockTest {
 
     @Test
     void throwWhenPassedStructure() {
-        assertThrows(IllegalContentsException.class,() -> new CodeBlock(new CodeBlock("test")));
+        assertThrows(IllegalContentsException.class, () -> new CodeBlock(new CodeBlock("test")));
     }
 }

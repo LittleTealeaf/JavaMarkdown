@@ -15,10 +15,6 @@ class MarkdownBufferTest {
 
     MarkdownBuffer markdownBuffer;
 
-    void assertStringEquals(String text) {
-        assertEquals(text, markdownBuffer.toString());
-    }
-
     @BeforeEach
     void setup() {
         markdownBuffer = new MarkdownBuffer();
@@ -49,6 +45,10 @@ class MarkdownBufferTest {
         assertStringEquals(new Header("test") + "\n");
     }
 
+    void assertStringEquals(String text) {
+        assertEquals(text, markdownBuffer.toString());
+    }
+
     @Test
     void insertsSingleNewlineBetweenStructures() throws IOException {
         markdownBuffer.appendHeader("a");
@@ -60,8 +60,7 @@ class MarkdownBufferTest {
     void usesSuperMarkdownAppendByDefault() throws IOException {
         String string = Tests.randomWord();
         markdownBuffer.append(string);
-        assertEquals(string,markdownBuffer.items.get(0));
-
+        assertEquals(string, markdownBuffer.items.get(0));
 
         markdownBuffer.appendHeader(Tests.randomSentence());
         assertTrue(markdownBuffer.items.get(1) instanceof Header);
@@ -75,7 +74,7 @@ class MarkdownBufferTest {
         buffer.appendItalic("testing");
 
         markdownBuffer.append(buffer);
-        assertNotEquals(1,markdownBuffer.items.size());
+        assertNotEquals(1, markdownBuffer.items.size());
     }
 
     @Test
@@ -86,6 +85,6 @@ class MarkdownBufferTest {
         buffer.appendItalic("testing");
 
         markdownBuffer.appendMarkdownBuffer(buffer);
-        assertNotEquals(1,markdownBuffer.items.size());
+        assertNotEquals(1, markdownBuffer.items.size());
     }
 }
