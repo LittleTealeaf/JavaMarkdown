@@ -21,13 +21,33 @@ public class Table extends Structure {
         IntStream.range(0,alignments.length).parallel().forEach(i -> alignments[i] = Alignment.CENTER);
     }
 
+    public Table(Object[] headers, Object[][] content) {
+        //TODO throw error if content width is larger than headers
+        this.headers = headers;
+        this.alignments = new Alignment[headers.length];
+        IntStream.range(0,alignments.length).parallel().forEach(i -> alignments[i] = Alignment.CENTER);
+        appendRows(content);
+    }
+
+    public Table(Object[] headers, Alignment[] alignments) {
+        //TODO throw error if alignments length not equal to headers length
+        this.headers = headers;
+        this.alignments = alignments;
+    }
+
+    public Table(Object[] headers, Alignment[] alignments, Object[][] content) {
+        this.headers = headers;
+        this.alignments = alignments;
+        appendRows(content);
+    }
+
     public void appendRow(Object... objects) {
         Stream.of(objects).forEach(this::checkType);
         values.add(objects);
     }
 
-    public void appendRows(Object[]... objects) {
-        Stream.of(objects).forEach(this::appendRow);
+    public void appendRows(Object[]... rows) {
+        Stream.of(rows).forEach(this::appendRow);
     }
 
 
