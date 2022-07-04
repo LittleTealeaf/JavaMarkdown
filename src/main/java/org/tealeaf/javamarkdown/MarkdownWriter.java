@@ -29,6 +29,18 @@ public class MarkdownWriter extends Writer implements MarkdownCompiler<MarkdownW
     }
 
     /**
+     * <p>Creates a new MarkdownBuilder with a preset {@link Writer}. The {@code Writer} is used as the back-end functionality. Any appending method used will append the
+     * proper string to the {@code Writer}</p>
+     *
+     * @param writer Writer to write objects to
+     *
+     * @since 0.0.8
+     */
+    public MarkdownWriter(Writer writer) {
+        this.writer = writer;
+    }
+
+    /**
      * {@inheritDoc}
      * <p>Updates the last written character value for use in {@link #appendMarkdownElement(MarkdownElement)}</p>
      *
@@ -61,18 +73,6 @@ public class MarkdownWriter extends Writer implements MarkdownCompiler<MarkdownW
     @Override
     public void close() throws IOException {
         writer.close();
-    }
-
-    /**
-     * <p>Creates a new MarkdownBuilder with a preset {@link Writer}. The {@code Writer} is used as the back-end functionality. Any appending method used will append the
-     * proper string to the {@code Writer}</p>
-     *
-     * @param writer Writer to write objects to
-     *
-     * @since 0.0.8
-     */
-    public MarkdownWriter(Writer writer) {
-        this.writer = writer;
     }
 
 //    /**

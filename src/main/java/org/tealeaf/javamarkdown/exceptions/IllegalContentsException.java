@@ -21,6 +21,7 @@ public class IllegalContentsException extends RuntimeException {
      * <p>Creates a new IllegalContents exception with the illegal class in question</p>
      *
      * @param illegalClass The illegal class passed as contents
+     *
      * @since 0.0.8
      */
     public IllegalContentsException(Class<?> illegalClass) {
@@ -30,7 +31,8 @@ public class IllegalContentsException extends RuntimeException {
     /**
      * Returns the detail message string of this throwable.
      *
-     * @return  the detail message string of this {@code Throwable} instance.
+     * @return the detail message string of this {@code Throwable} instance.
+     *
      * @since 0.0.8
      */
     @Override
