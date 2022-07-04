@@ -33,6 +33,7 @@ public class Header extends Structure {
      * @param content The content to display in the header
      *
      * @throws IllegalHeaderLevelException if a level not within 1-6 is passed
+     * @since 0.0.12
      */
     public Header(int level, Object content) {
         if (level < 1 || level > 6) {
@@ -42,6 +43,10 @@ public class Header extends Structure {
         this.content = checkType(content);
     }
 
+    /**
+     * {@inheritDoc}
+     * @since 0.0.12
+     */
     @Override
     public String asString() {
         return "#".repeat(level).concat(" ").concat(content.toString());
@@ -51,6 +56,7 @@ public class Header extends Structure {
      * {@inheritDoc}
      *
      * @return true
+     * @since 0.0.12
      */
     @Override
     public boolean requiresNewlineBefore() {
@@ -61,6 +67,7 @@ public class Header extends Structure {
      * {@inheritDoc}
      *
      * @return true
+     * @since 0.0.12
      */
     @Override
     public boolean requiresNewlineAfter() {

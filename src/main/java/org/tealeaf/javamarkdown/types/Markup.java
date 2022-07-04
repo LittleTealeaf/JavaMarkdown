@@ -22,12 +22,18 @@ public class Markup extends InlineElement {
      *
      * @param object Content object to display
      * @param syntax String syntax to put on either side of the content
+     * @since 0.0.1
      */
     public Markup(Object object, String syntax) {
         this.object = checkType(object);
         this.syntax = syntax;
     }
 
+    /**
+     * {@inheritDoc}
+     * @since 0.0.9
+     *
+     */
     @Override
     public String asString() {
         return String.format("%s%s%s", syntax, object.toString(), syntax);
@@ -37,6 +43,7 @@ public class Markup extends InlineElement {
      * {@inheritDoc}
      *
      * @return {@code false}
+     * @since 0.0.9
      */
     @Override
     public boolean requiresNewlineBefore() {
