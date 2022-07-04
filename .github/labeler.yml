@@ -1,7 +1,7 @@
 source:
   - 'src/main/**/*'
 
-test:
+tests:
   - 'src/test/**/*'
 
 github:
@@ -9,3 +9,4 @@ github:
 
 documentation:
   - '**/*.md'
+
