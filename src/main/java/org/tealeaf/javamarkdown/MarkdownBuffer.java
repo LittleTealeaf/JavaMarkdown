@@ -15,6 +15,10 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
 
     protected final LinkedList<Object> items = new LinkedList<>();
 
+    /**
+     * {@inheritDoc}
+     * @since 0.0.14
+     */
     @Override
     public MarkdownBuffer appendString(String string) {
         items.add(string);
@@ -22,6 +26,11 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     * <pre>If another {@code MarkdownBuffer} object is passed, this buffer will use {@link #appendMarkdownBuffer(MarkdownBuffer)} to append its contents</pre>
+     * @since 0.0.15
+     */
     @Override
     public MarkdownBuffer append(Object object) {
         if (object instanceof MarkdownBuffer) {
@@ -31,6 +40,10 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * @since 0.0.14
+     */
     @Override
     public MarkdownBuffer appendMarkdownElement(MarkdownElement element) {
         items.add(element);
