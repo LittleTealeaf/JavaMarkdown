@@ -122,6 +122,7 @@ public class BulletList extends ListStructure {
      * @param index Index of the item
      *
      * @return {@code "- "}
+     * @since 0.0.11
      */
     @Override
     protected String getPrefix(int index) {

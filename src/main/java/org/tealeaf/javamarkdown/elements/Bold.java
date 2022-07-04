@@ -16,7 +16,8 @@ public class Bold extends Markup {
      * <p>Creates a new bold section of text.</p>
      * <p>Content within this object will be rendered <b>as bold</b></p>
      *
-     * @param content
+     * @param content content to bold
+     * @since 0.0.1
      */
     public Bold(Object content) {
         super(content, MARKUP);
