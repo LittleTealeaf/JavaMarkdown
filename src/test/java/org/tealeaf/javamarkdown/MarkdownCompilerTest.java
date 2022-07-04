@@ -241,6 +241,25 @@ class MarkdownCompilerTest {
         testMethod(e -> e.appendBulletList(word, stream()), new BulletList(word, stream()));
     }
 
+    @Test
+    void appendTableHeadersContent() throws IOException {
+        Object[] headers = Tests.randomWordsStream().limit(3).toArray();
+        Object[][] content = {
+                Stream.of(Tests.randomWords()).toArray(), Stream.of(Tests.randomWords()).toArray(), Stream.of(Tests.randomWords()).toArray()
+        };
+        testMethod(e -> e.appendTable(headers,content),new Table().setHeaders(headers).addRows(content));
+    }
+
+    @Test
+    void appendTableHeadersAlignmentContent() throws IOException {
+        Object[] headers = Tests.randomWordsStream().limit(3).toArray();
+        Object[][] content = {
+                Stream.of(Tests.randomWords()).toArray(), Stream.of(Tests.randomWords()).toArray(), Stream.of(Tests.randomWords()).toArray()
+        };
+        Table.Alignment[] alignments = {Table.Alignment.LEFT, Table.Alignment.RIGHT, Table.Alignment.CENTER};
+        testMethod(e -> e.appendTable(headers,alignments,content), new Table().setHeaders(headers).setAlignments(alignments).addRows(content));
+    }
+
     enum Method {
         MARKDOWN,
         STRING

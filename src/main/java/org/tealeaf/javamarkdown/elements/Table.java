@@ -2,6 +2,7 @@ package org.tealeaf.javamarkdown.elements;
 
 import org.tealeaf.javamarkdown.types.Structure;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +22,7 @@ public class Table extends Structure {
     public Table setHeaders(Object... headers) {
 
         this.headers = Stream.of(headers).map(this::checkType).toArray();
+        Arrays.fill(alignments = new Alignment[headers.length], Alignment.CENTER);
         return this;
     }
 
@@ -41,11 +43,21 @@ public class Table extends Structure {
         return String.format("| %s |", streams.stream().map(s -> s.collect(Collectors.joining(" | "))).collect(Collectors.joining(" |\n| ")));
     }
 
+    /**
+     * {@inheritDoc}
+     * @since 0.0.18
+     * @return {@code true}
+     */
     @Override
     public boolean requiresNewlineBefore() {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     * @since 0.0.18
+     * @return {@code true}
+     */
     @Override
     public boolean requiresNewlineAfter() {
         return true;
