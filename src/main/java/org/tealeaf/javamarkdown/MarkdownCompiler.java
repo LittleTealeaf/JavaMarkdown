@@ -190,10 +190,10 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
     }
 
     default T appendTable(Object[] headers, Object[][] content) {
-        return appendMarkdownElement(new Table(headers,content));
+        return appendMarkdownElement(new Table().setHeaders(headers).addRows(content));
     }
 
     default T appendTable(Object[] headers, Table.Alignment[] alignments, Object[][] content) {
-        return appendMarkdownElement(new Table(headers,alignments,content));
+        return appendMarkdownElement(new Table().setHeaders(headers).setAlignments(alignments).addRows(content));
     }
 }
