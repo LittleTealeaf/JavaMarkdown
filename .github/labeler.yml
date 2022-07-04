@@ -1,2 +1,8 @@
+source:
+  - 'src/main/**/*'
+
+test:
+  - 'src/test/**/*'
+
 github:
-- ['.github/**/*']
+  - '.github/**/*'
