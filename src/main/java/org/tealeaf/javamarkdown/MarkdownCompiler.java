@@ -188,4 +188,12 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
     default T appendNumberedList(String name, int start, Stream<?> stream) {
         return appendMarkdownElement(new NumberedList(name, start, stream));
     }
+
+    default T appendTable(Object[] headers, Object[][] content) {
+        return appendMarkdownElement(new Table(headers,content));
+    }
+
+    default T appendTable(Object[] headers, Table.Alignment[] alignments, Object[][] content) {
+        return appendMarkdownElement(new Table(headers,alignments,content));
+    }
 }
