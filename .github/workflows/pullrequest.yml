@@ -1,5 +1,5 @@
 # Based on https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/automating-dependabot-with-github-actions#enable-auto-merge-on-a-pull-request
-name: Dependabot auto-merge
+name: Pull Request
 on: pull_request_target
 
 permissions:
@@ -23,6 +23,11 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   labeler:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
     - name: Labeler
       uses: actions/labeler@v4.0.0
+      with:
+        repo-token: ${{secrets.GITHUB_TOKEN}}
