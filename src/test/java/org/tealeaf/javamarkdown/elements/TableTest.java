@@ -2,8 +2,12 @@ package org.tealeaf.javamarkdown.elements;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.tealeaf.javamarkdown.elements.Table.Alignment;
+import org.tealeaf.javamarkdown.exceptions.IllegalAlignmentCountException;
+
 import test.Tests;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,6 +29,30 @@ class TableTest {
     @Test
     void setAlignmentsReturnsTable() {
         assertSame(table,table.setAlignments(Table.Alignment.LEFT, Table.Alignment.RIGHT, Table.Alignment.CENTER));
+    }
+
+    @Test
+    void setCorrectAlignmentCountDoesNotThrowException() {
+        int count = Tests.randomInteger(1,20);
+        Object[] headers = new Object[count];
+        Arrays.fill(headers, Tests.randomWord());
+        Alignment[] alignments = new Alignment[count];
+        Arrays.fill(alignments, Alignment.LEFT);
+        assertDoesNotThrow(() -> table.setHeaders(headers).setAlignments(alignments));
+    }
+
+    @Test
+    void setIncorrectAlignmentCountThrowsException() {
+        // check under
+        int headerCount = Tests.randomInteger(2,50);
+        Object[] headers = new Object[headerCount];
+        Arrays.fill(headers, Tests.randomWord());
+        Alignment[] underAlignments = new Alignment[Tests.randomInteger(1,headers.length)];
+        Arrays.fill(underAlignments, Alignment.LEFT);
+        Alignment[] overAlignments = new Alignment[Tests.randomInteger(headers.length + 1,100)];
+        Arrays.fill(overAlignments, Alignment.RIGHT);
+        assertThrows(IllegalAlignmentCountException.class, () -> table.setHeaders(headers).setAlignments(underAlignments));
+        assertThrows(IllegalAlignmentCountException.class, () -> table.setHeaders(headers).setAlignments(overAlignments));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package org.tealeaf.javamarkdown.elements;
 
+import org.tealeaf.javamarkdown.exceptions.IllegalAlignmentCountException;
 import org.tealeaf.javamarkdown.types.Structure;
 
 import java.util.Arrays;
@@ -27,6 +28,10 @@ public class Table extends Structure {
     }
 
     public Table setAlignments(Alignment... alignments) {
+        if (headers != null && alignments.length != headers.length) {
+            throw new IllegalAlignmentCountException(headers.length, alignments.length);
+        }
+
         this.alignments = alignments;
         return this;
     }
@@ -38,13 +43,16 @@ public class Table extends Structure {
 
     @Override
     public String asString() {
-        List<Stream<String>> streams = new LinkedList<>(List.of(Stream.of(headers).map(Object::toString), Stream.of(alignments).map(Alignment::getAlignment)));
+        List<Stream<String>> streams = new LinkedList<>(
+                List.of(Stream.of(headers).map(Object::toString), Stream.of(alignments).map(Alignment::getAlignment)));
         values.forEach(i -> streams.add(Stream.of(i).map(Object::toString)));
-        return String.format("| %s |", streams.stream().map(s -> s.collect(Collectors.joining(" | "))).collect(Collectors.joining(" |\n| ")));
+        return String.format("| %s |",
+                streams.stream().map(s -> s.collect(Collectors.joining(" | "))).collect(Collectors.joining(" |\n| ")));
     }
 
     /**
      * {@inheritDoc}
+     *
      * @since 0.0.18
      * @return {@code true}
      */
@@ -55,6 +63,7 @@ public class Table extends Structure {
 
     /**
      * {@inheritDoc}
+     *
      * @since 0.0.18
      * @return {@code true}
      */
