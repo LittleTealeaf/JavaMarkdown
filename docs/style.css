@@ -1,7 +1,11 @@
 body {
     margin: 0px;
     padding: 0px;
-    background-color: rgb(117, 144, 167);
+    background-color: rgb(72, 95, 116);
+}
+
+* {
+    color: #fff;
 }
 
 #home {
@@ -16,18 +20,18 @@ body {
     width: 100%;
 }
 
-.title {
+#home .title {
     margin: auto;
     width: fit-content;
     margin-bottom: 5px;
 }
 
-.title * {
+#home .title * {
     font-size: 40px;
     color: white;
 }
 
-.subtitle {
+#home .subtitle {
     margin: auto;
     width: fit-content;
     font-size: 15px;
@@ -53,4 +57,22 @@ body {
     90% {
         color: rgb(255,255,255,1);
     }
+}
+
+
+#about {
+    width: 100%;
+    min-height: 100px;
+    height: fit-content;
+    background-color: rgb(58, 89, 124);
+    box-shadow: 0px 0px 100px rgba(0,0,0,0.7);
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#about .title {
+    width: fit-content;
+    margin: auto;
+    font-size: 25px;
+    font-family: monospace;
 }
