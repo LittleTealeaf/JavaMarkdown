@@ -53,8 +53,10 @@ jobs:
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
           arguments: javadoc
+      - name: Move Javadocs to docs
+        run: mv -u ./build/docs/javadoc ./docs/javadoc
       - name: Publish to Github Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
-          publish_dir: ./build/docs/javadoc
+          publish_dir: ./docs
