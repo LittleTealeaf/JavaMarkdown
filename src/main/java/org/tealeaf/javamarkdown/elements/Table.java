@@ -28,6 +28,7 @@ public class Table extends Structure {
      * <p>
      * Creates a new {@code Table} object
      * </p>
+     * @since 0.0.18
      */
     public Table() {
 
