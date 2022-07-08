@@ -9,6 +9,7 @@ import org.tealeaf.javamarkdown.exceptions.IllegalHeaderLevelException;
 import test.Tests;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -58,14 +59,14 @@ class MarkdownCompilerTest {
 
     @Test
     void appendBulletListObjects() throws IOException {
-        Object[] objects = {"me", "mi", "mo"};
+        Object[] objects = { "me", "mi", "mo" };
         testMethod(e -> e.appendBulletList(objects), new BulletList(objects).toString());
     }
 
     @Test
     void appendBulletListNameObjects() throws IOException {
         String name = "testing name";
-        Object[] objects = {"me", "mawe", "fwe"};
+        Object[] objects = { "me", "mawe", "fwe" };
         testMethod(e -> e.appendBulletList(name, objects), new BulletList(name, objects).toString());
     }
 
@@ -89,14 +90,14 @@ class MarkdownCompilerTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {1, 2, 3, 4, 5, 6})
+    @ValueSource(ints = { 1, 2, 3, 4, 5, 6 })
     void appendHeaderValidLevels(int level) throws IOException {
         String content = Tests.randomSentence();
         testMethod(e -> e.appendHeader(level, content), new Header(level, content).toString());
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {0, -1, 7})
+    @ValueSource(ints = { 0, -1, 7 })
     void appendHeaderInvalidLevels(int level) {
         assertThrows(IllegalHeaderLevelException.class, () -> testCompiler.appendHeader(level, Tests.randomSentence()));
     }
@@ -136,19 +137,19 @@ class MarkdownCompilerTest {
 
     @Test
     void appendNumberedListArray() throws IOException {
-        Object[] objects = {"a", "b", "c"};
+        Object[] objects = { "a", "b", "c" };
         testMethod(e -> e.appendNumberedList(objects), new NumberedList(objects).toString());
     }
 
     @Test
     void appendNumberedListNameArray() throws IOException {
-        Object[] objects = {"a", "b", "c"};
+        Object[] objects = { "a", "b", "c" };
         testMethod(e -> e.appendNumberedList(word, objects), new NumberedList(word, objects).toString());
     }
 
     @Test
     void appendNumberedListStartArray() throws IOException {
-        Object[] objects = {"a", "b", "c", "d"};
+        Object[] objects = { "a", "b", "c", "d" };
         int start = Tests.randomInteger();
         testMethod(e -> e.appendNumberedList(start, objects), new NumberedList(start, objects));
     }
@@ -239,6 +240,31 @@ class MarkdownCompilerTest {
     @Test
     void appendBulletListNameStream() throws IOException {
         testMethod(e -> e.appendBulletList(word, stream()), new BulletList(word, stream()));
+    }
+
+    @Test
+    void appendTableHeadersContent() throws IOException {
+        Object[] headers = Tests.randomWordsStream().limit(3).toArray();
+        Object[][] content = {
+                Stream.of(Tests.randomWords()).toArray(), Stream.of(Tests.randomWords()).toArray(),
+                Stream.of(Tests.randomWords()).toArray()
+        };
+        testMethod(e -> e.appendTable(headers, content), new Table().setHeaders(headers).addRows(content));
+    }
+
+    @Test
+    void appendTableHeadersAlignmentContent() throws IOException {
+        Object[] headers = {
+                Tests.randomWord(), Tests.randomWord(), Tests.randomWord()
+        };
+        System.out.println(Arrays.toString(headers));
+        Object[][] content = {
+                Stream.of(Tests.randomWords()).toArray(), Stream.of(Tests.randomWords()).toArray(),
+                Stream.of(Tests.randomWords()).toArray()
+        };
+        Table.Alignment[] alignments = { Table.Alignment.LEFT, Table.Alignment.RIGHT, Table.Alignment.CENTER };
+        testMethod(e -> e.appendTable(headers, alignments, content),
+                new Table().setHeaders(headers).setAlignments(alignments).addRows(content));
     }
 
     enum Method {
