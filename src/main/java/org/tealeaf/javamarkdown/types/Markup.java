@@ -36,7 +36,19 @@ public class Markup extends InlineElement {
      */
     @Override
     public String asString() {
-        return String.format("%s%s%s", syntax, object.toString(), syntax);
+        String contents = object.toString();
+
+        char[] string = new char[contents.length() + syntax.length() * 2];
+
+        for(int i = 0; i < syntax.length(); i++) {
+            //Prints the syntax string at both the start and the end
+            string[i] = string[i + syntax.length() + contents.length()] = syntax.charAt(i);
+        }
+
+        for(int i = 0; i < contents.length(); i++) {
+            string[syntax.length() + i] = contents.charAt(i);
+        }
+        return new String(string);
     }
 
     /**
