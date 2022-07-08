@@ -1,0 +1,10 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+header {
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+}
