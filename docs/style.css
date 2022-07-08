@@ -3,8 +3,37 @@ body {
     padding: 0px;
 }
 
-header {
+#home {
     width: 100%;
-    height: fit-content;
-    padding: 10px;
+    height: 100vh;
+    background-color: rgb(117, 144, 167);
+}
+
+#title {
+    margin: auto;
+    width: fit-content;
+}
+
+#title * {
+    font-size: 40px;
+    color: white;
+}
+
+
+.cursor {
+    color: white;
+    animation: cursorblink 1s infinite;
+    margin: 0px;
+}
+
+@keyframes cursorblink {
+    0% {
+        color: rgb(255,255,255,1);
+    }
+    45% {
+        color: rgb(255,255,255,0);
+    }
+    90% {
+        color: rgb(255,255,255,1);
+    }
 }
