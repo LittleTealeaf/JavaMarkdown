@@ -49,16 +49,29 @@ public class Header extends Structure {
      */
     @Override
     public String asString() {
+        //Converts content to a string
         String contentString = content.toString();
+
+        //Gets the contents length
         int contentLength = contentString.length();
+
+        //Creates a string equal to 1 (the space) + level (the number of #) + contentLength (the length of content)
         char[] str = new char[1 + level + contentLength];
+
+        //Sets the # characters in each of the first n chars
         for(int i = 0; i < level; i++) {
             str[i] = '#';
         }
+
+        //Sets space to the next char
         str[level] = ' ';
+
+        //Fills in the content characters
         for(int i = 0; i < contentLength; i++) {
             str[level + i + 1] = contentString.charAt(i);
         }
+
+        //Converts to a String
         return new String(str);
     }
 
