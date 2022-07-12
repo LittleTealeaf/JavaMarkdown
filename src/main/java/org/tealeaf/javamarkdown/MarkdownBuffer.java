@@ -8,6 +8,7 @@ import java.io.Writer;
 import java.util.LinkedList;
 
 /**
+ * A MarkdownCompiler that first takes all objects passed in and compiles it to an array, only rendering them when requested.
  * @author Thomas Kwashnak
  * @since 0.0.14
  */
