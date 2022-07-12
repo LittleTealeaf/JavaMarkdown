@@ -2,7 +2,6 @@ package org.tealeaf.javamarkdown.elements;
 
 import org.tealeaf.javamarkdown.types.Markup;
 
-//Putting 0.0.19 just because that's when this was added
 /**
  *
  * <p>Creates an element whose contents are crossed out, <del>such as this</del>.</p>
