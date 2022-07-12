@@ -19,7 +19,6 @@
 
     var interval = null;
 
-
     function step() {
         if (deleting) {
             showCount--;
@@ -48,7 +47,4 @@
     }
 
     interval = setInterval(step, speed_typing);
-
-
-
 })();
