@@ -61,11 +61,23 @@ public class MarkdownBuffer implements MarkdownCompiler<MarkdownBuffer> {
         return this;
     }
 
+
+    /**
+     * {@inheritDoc}
+     * @since 0.0.14
+     */
     @Override
     public String toString() {
         return toWriter(new StringWriter()).toString();
     }
 
+    /**
+     * Attempts to render and write all objects to a {@link Writer}.
+     * @param <T> The writer's original type, which should extend the {@link Writer} class
+     * @param writer The writer itself
+     * @return The writer after attempting to write the objects to the writer
+     * @since 0.0.14
+     */
     public <T extends Writer> T toWriter(T writer) {
         boolean newLine = true;
         for (Object item : items) {
