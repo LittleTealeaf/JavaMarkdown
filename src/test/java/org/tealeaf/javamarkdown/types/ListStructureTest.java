@@ -72,6 +72,17 @@ class ListStructureTest {
     }
 
     @Test
+    void nameObjectsConstructor() {
+        String name = "name";
+        List<Object> items = List.of("a","c","d");
+        TestList testList = new TestList(name,items);
+        for(int i = 0; i < items.size(); i++) {
+            assertEquals(items.get(i), testList.getItems().get(i));
+        }
+        assertEquals(name, testList.getName());
+    }
+
+    @Test
     void listConstructorNoName() {
         assertNull(new TestList(List.of("a", "b")).getName());
     }
