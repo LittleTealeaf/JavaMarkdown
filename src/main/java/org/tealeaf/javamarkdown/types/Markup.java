@@ -36,18 +36,24 @@ public class Markup extends InlineElement {
      */
     @Override
     public String asString() {
+        //Converts the object to a string
         String contents = object.toString();
 
+        //Creates a char array with a length equals to the contents length, plus the syntax length on both sides
         char[] string = new char[contents.length() + syntax.length() * 2];
 
+        //Manually sets the characters for the syntax on both sides of the word simultaneously using char string
         for(int i = 0; i < syntax.length(); i++) {
             //Prints the syntax string at both the start and the end
             string[i] = string[i + syntax.length() + contents.length()] = syntax.charAt(i);
         }
 
+        //Sets the characters from the contents string
         for(int i = 0; i < contents.length(); i++) {
             string[syntax.length() + i] = contents.charAt(i);
         }
+
+        //Converts to a string
         return new String(string);
     }
 
