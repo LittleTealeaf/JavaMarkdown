@@ -96,11 +96,9 @@ body {
 
 #links > div {
     flex-grow: 1;
-
 }
 
 #links a {
-
     text-decoration: none;
     background: rgb(92, 143, 200);
     padding: 20px;
