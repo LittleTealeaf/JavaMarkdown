@@ -75,26 +75,6 @@ public class MarkdownWriter extends Writer implements MarkdownCompiler<MarkdownW
         writer.close();
     }
 
-//    /**
-//     * <p>Writes an object to the writer</p>
-//     * <p>If the object is an instance of {@link MarkdownElement}, then {@link #appendMarkdownElement(MarkdownElement)} will instead be used to handle additional required
-//     * functionality. Otherwise, {@link Object#toString()} will be used to print the object</p>
-//     *
-//     * @param object Object to print to the writer
-//     *
-//     * @return A reference to this Writer
-//     *
-//     * @throws IOException If an I/O error occurs
-//     * @since 0.0.7
-//     */
-//    public MarkdownWriter append(Object object) throws IOException {
-//        if (object instanceof MarkdownElement) {
-//            return appendMarkdownElement((MarkdownElement) object);
-//        } else {
-//            append(object.toString()); return this;
-//        }
-//    }
-
     /**
      * <p>Writes a string to the writer</p>
      * <p>This method allows the forcing of writing a String that would otherwise be using {@link #append(CharSequence)}, which returns a {@link Writer} instead of a
@@ -154,4 +134,3 @@ public class MarkdownWriter extends Writer implements MarkdownCompiler<MarkdownW
         return writer.toString();
     }
 }
-

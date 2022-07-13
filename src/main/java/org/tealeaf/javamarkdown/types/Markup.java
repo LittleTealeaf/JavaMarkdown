@@ -68,15 +68,6 @@ public class Markup extends InlineElement {
         return false;
     }
 
-    // @Override
-    // public Writer toWriter(Writer writer) throws IOException {
-    //     if(object instanceof MarkdownElement) {
-    //         return ((MarkdownElement) object).toWriter(writer.append(syntax)).append(syntax);
-    //     } else {
-    //         return writer.append(syntax).append(object.toString()).append(syntax);
-    //     }
-    // }
-
     /**
      * {@inheritDoc}
      *
