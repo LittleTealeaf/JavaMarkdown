@@ -9,10 +9,21 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
- * <p>Abstract structure that represents an element that lists elements in a list-like structure</p>
- * <p>Handles adding items and printing the final result. Classes extending this provide the prefix structure used in the list through {@link #getPrefix(int)}</p>
- * <p>Additionally, the option to add a name to the list provides easy nesting of lists. For this reason, objects that extend this class are allowed to be added. Adding a
- * name field through one of the named constructors ({@link #ListStructure(String)} or {@link #ListStructure(String, Object[])}) will remove the before-newline requirement
+ * <p>
+ * Abstract structure that represents an element that lists elements in a
+ * list-like structure
+ * </p>
+ * <p>
+ * Handles adding items and printing the final result. Classes extending this
+ * provide the prefix structure used in the list through {@link #getPrefix(int)}
+ * </p>
+ * <p>
+ * Additionally, the option to add a name to the list provides easy nesting of
+ * lists. For this reason, objects that extend this class are allowed to be
+ * added. Adding a
+ * name field through one of the named constructors
+ * ({@link #ListStructure(String)} or {@link #ListStructure(String, Object[])})
+ * will remove the before-newline requirement
  * (see {@link #requiresNewlineBefore()})
  * </p>
  *
@@ -68,7 +79,9 @@ public abstract class ListStructure extends Structure {
     }
 
     /**
-     * <p>Adds objects to the end of the list.</p>
+     * <p>
+     * Adds objects to the end of the list.
+     * </p>
      *
      * @param objects Set of objects to append to the end of the list
      *
@@ -81,7 +94,9 @@ public abstract class ListStructure extends Structure {
     }
 
     /**
-     * <p>Adds objects to the end of the list.</p>
+     * <p>
+     * Adds objects to the end of the list.
+     * </p>
      *
      * @param objectStream Stream of objects to append to the end of the list
      *
@@ -96,6 +111,7 @@ public abstract class ListStructure extends Structure {
 
     /**
      * {@inheritDoc}
+     *
      * <pre>Does not throw {@link IllegalContentsException} if object is an instance of the {@link ListStructure} class</pre>
      */
     @Override
@@ -129,8 +145,12 @@ public abstract class ListStructure extends Structure {
     }
 
     /**
-     * <p>Creates a list with initial contents and no name.</p>
-     * <p>The stream will be depleted when created</p>
+     * <p>
+     * Creates a list with initial contents and no name.
+     * </p>
+     * <p>
+     * The stream will be depleted when created
+     * </p>
      *
      * @param stream Stream of objects to add
      *
@@ -142,8 +162,12 @@ public abstract class ListStructure extends Structure {
     }
 
     /**
-     * <p>Creates a list with initial contents and a set name.</p>
-     * <p>The stream will be depleted when created</p>
+     * <p>
+     * Creates a list with initial contents and a set name.
+     * </p>
+     * <p>
+     * The stream will be depleted when created
+     * </p>
      *
      * @param name   The string to print out immediately before the list
      * @param stream Stream of objects to add
@@ -182,8 +206,13 @@ public abstract class ListStructure extends Structure {
     }
 
     /**
-     * <p>Formats and prints an item at the provided index.</p>
-     * <p>Handles multi-lined items by indenting each item a number of spaces equal to the prefix's length</p>
+     * <p>
+     * Formats and prints an item at the provided index.
+     * </p>
+     * <p>
+     * Handles multi-lined items by indenting each item a number of spaces equal to
+     * the prefix's length
+     * </p>
      *
      * @param index Item's index to print
      *
@@ -198,7 +227,9 @@ public abstract class ListStructure extends Structure {
     }
 
     /**
-     * <p>Generates the prefix to insert before a given item in the list.</p>
+     * <p>
+     * Generates the prefix to insert before a given item in the list.
+     * </p>
      *
      * @param index Item's index to get the prefix for
      *
@@ -211,7 +242,8 @@ public abstract class ListStructure extends Structure {
     /**
      * {@inheritDoc}
      *
-     * @return {@code true} if there was no name provided, {@code false} if a name is provided
+     * @return {@code true} if there was no name provided, {@code false} if a name
+     *         is provided
      *
      * @since 0.0.12
      */
@@ -232,10 +264,22 @@ public abstract class ListStructure extends Structure {
         return true;
     }
 
+    /**
+     * Gets the current set name of the list structure
+     *
+     * @since 0.0.11
+     * @return Name of the ListStructure
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the currnet list of items
+     *
+     * @return List of items in the ListStructure
+     * @since 0.0.11
+     */
     public List<Object> getItems() {
         return items;
     }
