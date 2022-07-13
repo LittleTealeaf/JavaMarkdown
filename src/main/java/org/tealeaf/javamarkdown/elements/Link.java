@@ -44,22 +44,4 @@ public class Link extends InlineElement {
     public String asString() {
         return String.format("[%s](%s)", content, url);
     }
-
-    /**
-     * {@inheritDoc}}
-     * @return false
-     */
-    @Override
-    public boolean requiresNewlineBefore() {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     * @return false
-     */
-    @Override
-    public boolean requiresNewlineAfter() {
-        return false;
-    }
 }

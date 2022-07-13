@@ -7,8 +7,11 @@ public abstract class InlineElement extends MarkdownElement {
 
     /**
      * {@inheritDoc}
+     *
      * <pre>Throws {@link IllegalContentsException} if object is an instance of the {@link Structure} class</pre>
+     *
      * <pre>Throws {@link IllegalContentsException} if object is an instance of the child class of {@link InlineElement}</pre>
+     *
      * @since 0.0.11
      */
     @Override
@@ -19,4 +22,27 @@ public abstract class InlineElement extends MarkdownElement {
             return object;
         }
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return false
+     * @since 0.0.19
+     */
+    @Override
+    public boolean requiresNewlineAfter() {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return false
+     * @since 0.0.19
+     */
+    @Override
+    public boolean requiresNewlineBefore() {
+        return false;
+    }
+
 }
