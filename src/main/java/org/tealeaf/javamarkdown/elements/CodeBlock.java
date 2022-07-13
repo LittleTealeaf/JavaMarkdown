@@ -48,28 +48,4 @@ public class CodeBlock extends Structure {
     public String asString() {
         return String.format("```%s\n%s\n```", language == null ? "" : language, content.toString());
     }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return true
-     *
-     * @since 0.0.12
-     */
-    @Override
-    public boolean requiresNewlineBefore() {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return true
-     *
-     * @since 0.0.12
-     */
-    @Override
-    public boolean requiresNewlineAfter() {
-        return true;
-    }
 }
