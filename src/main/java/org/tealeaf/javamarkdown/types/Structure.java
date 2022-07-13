@@ -26,4 +26,26 @@ public abstract class Structure extends MarkdownElement {
             return object;
         }
     }
+
+    /**
+     * {@inheritDoc}
+     * @return true
+     * @since 0.0.19
+     */
+    @Override
+    public boolean requiresNewlineAfter() {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @return true
+     * @since 0.0.19
+     */
+    @Override
+    public boolean requiresNewlineBefore() {
+        return true;
+    }
+
+
 }

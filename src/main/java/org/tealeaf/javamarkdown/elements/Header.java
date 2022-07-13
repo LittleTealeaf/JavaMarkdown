@@ -74,26 +74,4 @@ public class Header extends Structure {
         //Converts to a String
         return new String(str);
     }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return true
-     * @since 0.0.12
-     */
-    @Override
-    public boolean requiresNewlineBefore() {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return true
-     * @since 0.0.12
-     */
-    @Override
-    public boolean requiresNewlineAfter() {
-        return true;
-    }
 }

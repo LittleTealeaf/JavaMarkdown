@@ -99,28 +99,6 @@ public class Table extends Structure {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @since 0.0.18
-     * @return {@code true}
-     */
-    @Override
-    public boolean requiresNewlineBefore() {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @since 0.0.18
-     * @return {@code true}
-     */
-    @Override
-    public boolean requiresNewlineAfter() {
-        return true;
-    }
-
-    /**
      * <p>
      * Represents the alignment value used for columns in a {@link Table}
      * </p>
