@@ -194,6 +194,7 @@ public abstract class ListStructure extends Structure {
 
     /**
      * {@inheritDoc}
+     * @since 0.0.12
      */
     @Override
     public String asString() {
