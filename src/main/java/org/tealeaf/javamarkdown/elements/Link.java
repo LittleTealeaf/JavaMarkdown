@@ -42,7 +42,26 @@ public class Link extends InlineElement {
      */
     @Override
     public String asString() {
-        return String.format("[%s](%s)", content, url);
+        String display = content.toString();
+
+        char[] string = new char[display.length() + url.length() + 4];
+
+        //Constants
+        string[0] = '[';
+        string[display.length()  + 1] = ']';
+        string[display.length() + 2] = '(';
+        string[string.length - 1] = ')';
+
+        //Display
+        for(int i = 0; i < display.length(); i++) {
+            string[i+1] = display.charAt(i);
+        }
+
+        //URL
+        for(int i = 0; i < url.length(); i++) {
+            string[display.length() + 3 + i] = url.charAt(i);
+        }
+        return new String(string);
     }
 
     /**
