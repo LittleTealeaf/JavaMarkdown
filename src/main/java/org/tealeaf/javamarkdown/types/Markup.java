@@ -1,7 +1,8 @@
 package org.tealeaf.javamarkdown.types;
 
 /**
- * Represents markdown elements that indicates a simple markup syntax to the content text, such as {@code **words**} to indicate <b>bold</b> text.
+ * Represents markdown elements that indicates a simple markup syntax to the
+ * content text, such as {@code **words**} to indicate <b>bold</b> text.
  *
  * @author Thomas Kwashnak
  * @since 0.0.1
@@ -31,52 +32,32 @@ public class Markup extends InlineElement {
 
     /**
      * {@inheritDoc}
+     *
      * @since 0.0.9
      *
      */
     @Override
     public String asString() {
-        //Converts the object to a string
+        // Converts the object to a string
         String contents = object.toString();
 
-        //Creates a char array with a length equals to the contents length, plus the syntax length on both sides
+        // Creates a char array with a length equals to the contents length, plus the
+        // syntax length on both sides
         char[] string = new char[contents.length() + syntax.length() * 2];
 
-        //Manually sets the characters for the syntax on both sides of the word simultaneously using char string
-        for(int i = 0; i < syntax.length(); i++) {
-            //Prints the syntax string at both the start and the end
+        // Manually sets the characters for the syntax on both sides of the word
+        // simultaneously using char string
+        for (int i = 0; i < syntax.length(); i++) {
+            // Prints the syntax string at both the start and the end
             string[i] = string[i + syntax.length() + contents.length()] = syntax.charAt(i);
         }
 
-        //Sets the characters from the contents string
-        for(int i = 0; i < contents.length(); i++) {
+        // Sets the characters from the contents string
+        for (int i = 0; i < contents.length(); i++) {
             string[syntax.length() + i] = contents.charAt(i);
         }
 
-        //Converts to a string
+        // Converts to a string
         return new String(string);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return {@code false}
-     * @since 0.0.9
-     */
-    @Override
-    public boolean requiresNewlineBefore() {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return {@code false}
-     *
-     * @since 0.0.7
-     */
-    @Override
-    public boolean requiresNewlineAfter() {
-        return false;
     }
 }

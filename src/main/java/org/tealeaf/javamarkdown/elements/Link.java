@@ -63,22 +63,4 @@ public class Link extends InlineElement {
         }
         return new String(string);
     }
-
-    /**
-     * {@inheritDoc}}
-     * @return false
-     */
-    @Override
-    public boolean requiresNewlineBefore() {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     * @return false
-     */
-    @Override
-    public boolean requiresNewlineAfter() {
-        return false;
-    }
 }
