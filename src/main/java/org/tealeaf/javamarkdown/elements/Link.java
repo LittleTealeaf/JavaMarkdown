@@ -63,4 +63,16 @@ public class Link extends InlineElement {
         }
         return new String(string);
     }
+
+
+    /**
+     * {@inheritDoc}
+     * <pre>Does not throw if the object is an instance of {@link Image}</pre>
+     * @since 0.0.20
+     */
+    @Override
+    protected <T> T checkType(T object) {
+        return object instanceof Image ? object: super.checkType(object);
+    }
+
 }
