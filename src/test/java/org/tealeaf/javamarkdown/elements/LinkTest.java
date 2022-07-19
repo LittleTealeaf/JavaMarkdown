@@ -47,4 +47,10 @@ public class LinkTest {
     void requiresNewlineAfter() {
         assertFalse(new Link("url").requiresNewlineAfter());
     }
+
+    @Test
+    void canPassImageIntoLink() {
+        Image image = new Image("url");
+        assertDoesNotThrow(() -> new Link(image,"url"));
+    }
 }
