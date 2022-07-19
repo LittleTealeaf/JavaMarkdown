@@ -73,10 +73,16 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
         return appendMarkdownElement(new Bold(content));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendBulletList(Object[] objects) {
         return appendMarkdownElement(new BulletList(objects));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendBulletList(String name, Object[] objects) {
         return appendMarkdownElement(new BulletList(name, objects));
     }
@@ -85,114 +91,198 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
         return appendMarkdownElement(new BulletList(objects));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendBulletList(Stream<?> stream) {
         return appendMarkdownElement(new BulletList(stream));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendBulletList(String name, List<?> objects) {
         return appendMarkdownElement(new BulletList(name, objects));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendBulletList(String name, Stream<?> stream) {
         return appendMarkdownElement(new BulletList(name, stream));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendCode(Object content) {
         return appendMarkdownElement(new Code(content));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendCodeBlock(Object content) {
         return appendMarkdownElement(new CodeBlock(content));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendCodeBlock(String language, Object content) {
         return appendMarkdownElement(new CodeBlock(language, content));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendHeader(Object content) {
         return appendMarkdownElement(new Header(content));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendHeader(int level, Object content) {
         return appendMarkdownElement(new Header(level, content));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendImage(String src) {
         return appendMarkdownElement(new Image(src));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendImage(String content, String src) {
         return appendMarkdownElement(new Image(content, src));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendStrikethrough(Object content) {
         return appendMarkdownElement(new Strikethrough(content));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendItalic(Object content) {
         return appendMarkdownElement(new Italic(content));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendLink(Object content, String url) {
         return appendMarkdownElement(new Link(content, url));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendLink(String url) {
         return appendMarkdownElement(new Link(url));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendNumberedList(Object[] objects) {
         return appendMarkdownElement(new NumberedList(objects));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendNumberedList(String name, Object[] objects) {
         return appendMarkdownElement(new NumberedList(name, objects));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendNumberedList(int start, Object[] objects) {
         return appendMarkdownElement(new NumberedList(start, objects));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendNumberedList(String name, int start, Object[] objects) {
         return appendMarkdownElement(new NumberedList(name, start, objects));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendNumberedList(List<?> objects) {
         return appendMarkdownElement(new NumberedList(objects));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendNumberedList(Stream<?> stream) {
         return appendMarkdownElement(new NumberedList(stream));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendNumberedList(int start, List<?> objects) {
         return appendMarkdownElement(new NumberedList(start, objects));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendNumberedList(int start, Stream<?> stream) {
         return appendMarkdownElement(new NumberedList(start, stream));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendNumberedList(String name, List<?> objects) {
         return appendMarkdownElement(new NumberedList(name, objects));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendNumberedList(String name, Stream<?> stream) {
         return appendMarkdownElement(new NumberedList(name, stream));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendNumberedList(String name, int start, List<?> objects) {
         return appendMarkdownElement(new NumberedList(name, start, objects));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendNumberedList(String name, int start, Stream<?> stream) {
         return appendMarkdownElement(new NumberedList(name, start, stream));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendTable(Object[] headers, Object[][] content) {
         return appendMarkdownElement(new Table().setHeaders(headers).addRows(content));
     }
 
+    /**
+     * @since 0.0.15
+     */
     default T appendTable(Object[] headers, Table.Alignment[] alignments, Object[][] content) {
         return appendMarkdownElement(new Table().setHeaders(headers).setAlignments(alignments).addRows(content));
     }
