@@ -59,8 +59,16 @@ publishing {
 }
 
 javadoc {
+    /*
+    https://docs.gradle.org/current/javadoc/org/gradle/external/javadoc/StandardJavadocDocletOptions.html
+     */
     options.showAll()
     options.setMemberLevel(JavadocMemberLevel.PACKAGE)
+    var standardOptions = (StandardJavadocDocletOptions) options
+    standardOptions.setAuthor(true);
+    standardOptions.setHeader("View Source on <a href=\"https://www.github.com/LittleTealeaf/JavaMarkdown\">GitHub</a>")
+
+    //standardOptions.setStylesheetFile("")
 }
 
 
