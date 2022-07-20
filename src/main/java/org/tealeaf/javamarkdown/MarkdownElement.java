@@ -18,6 +18,7 @@ public abstract class MarkdownElement {
     /**
      * Writes the formatted item to a Writer
      *
+     * @param <T> The base type of the writer used. This type must extend {@link Writer}
      * @param writer Writer to write contents to
      *
      * @return The writer passed in the parameters
