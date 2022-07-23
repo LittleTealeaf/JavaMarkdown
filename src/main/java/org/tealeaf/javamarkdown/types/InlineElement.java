@@ -10,7 +10,7 @@ public abstract class InlineElement extends MarkdownElement {
      *
      * <pre>Throws {@link IllegalContentsException} if object is an instance of the {@link Structure} class</pre>
      *
-     * <pre>Throws {@link IllegalContentsException} if object is an instance of the child class of {@link InlineElement}</pre>
+     * <pre>Throws {@link IllegalContentsException} if object is instance of the same class (such as an {@link org.tealeaf.javamarkdown.elements.Italic} within an {@link org.tealeaf.javamarkdown.elements.Italic})</pre>
      *
      * @since 0.0.11
      */
