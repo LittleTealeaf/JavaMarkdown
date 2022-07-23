@@ -111,7 +111,7 @@ public class Table extends Structure {
         CENTER(":-:"),
         RIGHT("--:");
 
-        final String alignment;
+        private final String alignment;
 
         Alignment(String alignment) {
             this.alignment = alignment;
