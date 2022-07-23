@@ -107,8 +107,21 @@ public class Table extends Structure {
      * @since 0.0.18
      */
     public enum Alignment {
+        /**
+         * <p>Aligns all text to the left in the cell.</p>
+         * <p>This is the default alignment</p>
+         * @since 0.0.18
+         */
         LEFT(":--"),
+        /**
+         * <p>Aligns all text to the center of the cell.</p>
+         * @since 0.0.18
+         */
         CENTER(":-:"),
+        /**
+         * <p>Aligns all text to the right in the cell</p>
+         * @since 0.0.18
+         */
         RIGHT("--:");
 
         final String alignment;
