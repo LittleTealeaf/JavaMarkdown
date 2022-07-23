@@ -3,6 +3,11 @@ package org.tealeaf.javamarkdown.types;
 import org.tealeaf.javamarkdown.MarkdownElement;
 import org.tealeaf.javamarkdown.exceptions.IllegalContentsException;
 
+/**
+ * A base type for any element that can be inserted within a sentence, such as simple markups or similar items.
+ * @author Thomas Kwashnak
+ * @since 0.0.11
+ */
 public abstract class InlineElement extends MarkdownElement {
 
     /**
