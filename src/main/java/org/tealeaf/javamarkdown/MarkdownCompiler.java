@@ -113,7 +113,12 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
     }
 
     /**
+     * <p>Displays provided content as short code snippets</p>
+     * <p>These code snippets are typically displayed in a monospace font and have a grey background</p>
+     * <p>This will throw an {@link org.tealeaf.javamarkdown.exceptions.IllegalContentsException} if a {@link org.tealeaf.javamarkdown.MarkdownElement} is passed in. If you really want to pass a {@code MarkdownElement} in, you can simply just use its {@code toString()} method to convert it to a String first.</p>
      * @since 0.0.15
+     * @param content The content to display within the code snippet.
+     * @return This Compiler
      */
     default T appendCode(Object content) {
         return appendMarkdownElement(new Code(content));
