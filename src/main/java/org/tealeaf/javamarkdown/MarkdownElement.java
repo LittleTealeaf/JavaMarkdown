@@ -121,4 +121,28 @@ public abstract class MarkdownElement {
      * @since 0.0.11
      */
     protected abstract <T> T checkType(T item) throws IllegalContentsException;
+
+
+    /**
+     * <p>Formats the element to a string, including required new-lines as needed</p>
+     *
+     * @param newLineBefore Whether or not there is a new line directly before printing this element
+     * @return The string representation of this element, adapting to whether or not there is a newline directly before
+     * @since 0.0.21
+     */
+    public String asString(boolean newLineBefore) {
+        if(!newLineBefore && requiresNewlineBefore()) {
+            if(requiresNewlineAfter()) {
+                return String.format("\n%s\n",asString());
+            } else {
+                return String.format("\n%s",asString());
+            }
+        } else {
+            if(requiresNewlineAfter()) {
+                return String.format("%s\n", asString());
+            } else {
+                return asString();
+            }
+        }
+    }
 }
