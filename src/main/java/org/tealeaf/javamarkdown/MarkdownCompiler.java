@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * <p>Implements methods used within any markdown compiler. Provides many shortcut methods for each markdown element that can be appended</p>
+ * <p>
+ * Implements methods used within any markdown compiler. Provides many shortcut
+ * methods for each markdown element that can be appended
+ * </p>
  *
- * @param <T> The class type to return in append methods. This should be the class inheriting this interface
+ * @param <T> The class type to return in append methods. This should be the
+ *            class inheriting this interface
  *
  * @author Thomas Kwashnak
  * @since 0.0.14
@@ -16,11 +20,17 @@ import java.util.stream.Stream;
 public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
 
     /**
-     * <p>Appends any given object to the end of the document. Checks what type of object was passed and uses the correct method accordingly</p>
+     * <p>
+     * Appends any given object to the end of the document. Checks what type of
+     * object was passed and uses the correct method accordingly
+     * </p>
      * <ul>
-     *     <li>If the object provided extends the {@link MarkdownElement} class, then this method will use {@link #appendMarkdownElement(MarkdownElement)} to handle adding
-     *     the element to the document.</li>
-     *     <li>Otherwise, this method will use {@link #appendString(String)} and pass the {@link Object#toString()} result as the string.</li>
+     * <li>If the object provided extends the {@link MarkdownElement} class, then
+     * this method will use {@link #appendMarkdownElement(MarkdownElement)} to
+     * handle adding
+     * the element to the document.</li>
+     * <li>Otherwise, this method will use {@link #appendString(String)} and pass
+     * the {@link Object#toString()} result as the string.</li>
      * </ul>
      *
      * @param object Content to add to the end of the document
@@ -32,11 +42,15 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
      * @since 0.0.14
      */
     default T append(Object object) {
-        return object instanceof MarkdownElement ? appendMarkdownElement((MarkdownElement) object) : appendString(object.toString());
+        return object instanceof MarkdownElement ? appendMarkdownElement((MarkdownElement) object)
+                : appendString(object.toString());
     }
 
     /**
-     * <p>Appends a markdown element to the end of the document. Adjusts and manages new lines depending on the requirements set by the Markdown Element</p>
+     * <p>
+     * Appends a markdown element to the end of the document. Adjusts and manages
+     * new lines depending on the requirements set by the Markdown Element
+     * </p>
      *
      * @param element Markdown Element to add to the end of the document
      *
@@ -49,7 +63,9 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
     T appendMarkdownElement(MarkdownElement element);
 
     /**
-     * <p>Appends a string to the end of the document.</p>
+     * <p>
+     * Appends a string to the end of the document.
+     * </p>
      *
      * @param string String to append to the end of the document
      *
@@ -60,8 +76,12 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
     T appendString(String string);
 
     /**
-     * <p>Displays provided content as <b>bold</b>.</p>
-     * <p>Wraps the content provided in <code>~</code></p>
+     * <p>
+     * Displays provided content as <b>bold</b>.
+     * </p>
+     * <p>
+     * Wraps the content provided in <code>~</code>
+     * </p>
      *
      * @param content The content to be displayed in bold
      *
@@ -138,7 +158,8 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
         return appendMarkdownElement(new CodeBlock(language, content));
     }
 
-    /**
+    /*
+     *
      * @since 0.0.15
      */
     default T appendHeader(Object content) {
@@ -174,6 +195,9 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
     }
 
     /**
+     * <p>Appends text to the end of the compiler formatted as {@link italicized}</p>
+     * @param content The content you wish to be formatted in italics
+     * @see org.tealeaf.javamarkdown.elements.Italic
      * @since 0.0.15
      */
     default T appendItalic(Object content) {
