@@ -2,13 +2,13 @@ package org.tealeaf.javamarkdown;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.tealeaf.javamarkdown.elements.Bold;
 import org.tealeaf.javamarkdown.elements.Header;
 import test.Tests;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.*;
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -112,7 +112,23 @@ class MarkdownWriterTest {
     }
 
     @Test
-    void testClose() throws IOException {
+    void testClose(@TempDir Path temp) throws IOException {
+        markdownWriter = new MarkdownWriter(new FileWriter(temp.resolve("test.txt").toString()));
         markdownWriter.close();
+        assertThrows(IOException.class,() -> markdownWriter.getWriter().append('c'));
+    }
+
+    @Test
+    void appendStringThrowsError(@TempDir Path temp) throws IOException {
+        markdownWriter = new MarkdownWriter(new FileWriter(temp.resolve("test.txt").toString()));
+        markdownWriter.close();
+        assertThrows(RuntimeException.class,() -> markdownWriter.appendString("testing"));
+    }
+
+    @Test
+    void appendMarkdownElementThrowsError(@TempDir Path temp) throws IOException {
+        markdownWriter = new MarkdownWriter(new FileWriter(temp.resolve("test.txt").toString()));
+        markdownWriter.close();
+        assertThrows(RuntimeException.class,() -> markdownWriter.appendMarkdownElement(new Bold("test")));
     }
 }
