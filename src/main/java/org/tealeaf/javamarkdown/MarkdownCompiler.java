@@ -191,6 +191,7 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
 
     /**
      * <p>Appends text to the end of the compiler formatted as {@link italicized}</p>
+     * @param content The content you wish to be formatted in italics
      * @see org.tealeaf.javamarkdown.elements.Italic
      * @since 0.0.15
      */
