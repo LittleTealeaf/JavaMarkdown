@@ -200,6 +200,9 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
     }
 
     /**
+     * <p>Appends content formatted as <span style="text-decoration:line-through;">struck out</span></p>
+     * @param content Content to strike out
+     * @return This instance of the compiler
      * @since 0.0.15
      */
     default T appendStrikethrough(Object content) {
