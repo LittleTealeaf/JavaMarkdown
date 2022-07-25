@@ -133,9 +133,21 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
     }
 
     /**
-     * <p>Displays provided content as short code snippets</p>
-     * <p>These code snippets are typically displayed in a monospace font and have a grey background</p>
-     * <p>This will throw an {@link org.tealeaf.javamarkdown.exceptions.IllegalContentsException} if a {@link org.tealeaf.javamarkdown.MarkdownElement} is passed in. If you really want to pass a {@code MarkdownElement} in, you can simply just use its {@code toString()} method to convert it to a String first.</p>
+     * <p>
+     * Displays provided content as short code snippets
+     * </p>
+     * <p>
+     * These code snippets are typically displayed in a monospace font and have a
+     * grey background
+     * </p>
+     * <p>
+     * This will throw an
+     * {@link org.tealeaf.javamarkdown.exceptions.IllegalContentsException} if a
+     * {@link org.tealeaf.javamarkdown.MarkdownElement} is passed in. If you really
+     * want to pass a {@code MarkdownElement} in, you can simply just use its
+     * {@code toString()} method to convert it to a String first.
+     * </p>
+     *
      * @since 0.0.15
      * @param content The content to display within the code snippet.
      * @return This Compiler
@@ -195,9 +207,11 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
     }
 
     /**
-     * <p>Appends text to the end of the compiler formatted as {@link italicized}</p>
+     * <p>
+     * Appends text to the end of the compiler formatted as <i>italics</i>
+     * </p>
+     *
      * @param content The content you wish to be formatted in italics
-     * @see org.tealeaf.javamarkdown.elements.Italic
      * @since 0.0.15
      */
     default T appendItalic(Object content) {
