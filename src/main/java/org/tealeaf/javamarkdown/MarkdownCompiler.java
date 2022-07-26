@@ -157,13 +157,23 @@ public interface MarkdownCompiler<T extends MarkdownCompiler<?>> {
     }
 
     /**
+     * <p>Displays a block of code</p>
+     * <p>These code blocks are typically displayed in a monospace font and have a grey background</p>
+     *
      * @since 0.0.15
+     * @param content The code to display in the code snippet
+     * @return This Compiler
      */
     default T appendCodeBlock(Object content) {
         return appendMarkdownElement(new CodeBlock(content));
     }
 
     /**
+     * <p>Displays a block of code with syntax highlighting</p>
+     * <p>These code blocks are typically displayed in a monospaced font and have a grey background. Indentation is also displayed</p>
+     * @param language The syntax highlighting language to use
+     * @param content The code to display in the code snippet
+     * @return This Compiler
      * @since 0.0.15
      */
     default T appendCodeBlock(String language, Object content) {
