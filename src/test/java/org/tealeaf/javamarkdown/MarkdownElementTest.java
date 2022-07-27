@@ -7,6 +7,9 @@ import org.tealeaf.javamarkdown.elements.Italic;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
+import java.io.StringWriter;
+
 class MarkdownElementTest {
 
     @Test
@@ -50,5 +53,21 @@ class MarkdownElementTest {
         assertNotEquals('\n', italicTrue.charAt(italicTrue.length() - 1));
         String italicFalse = italic.asString(false);
         assertNotEquals('\n', italicFalse.charAt(italicFalse.length() - 1));
+    }
+
+    @Test
+    void toWriter() throws IOException {
+        Bold bold = new Bold("testing");
+        StringWriter stringWriter = new StringWriter();
+        assertSame(stringWriter, bold.toWriter(stringWriter));
+        assertEquals(bold.asString(), stringWriter.toString());
+    }
+
+    @Test
+    void toAppendable() throws IOException {
+        Bold bold = new Bold("testss");
+        StringWriter stringWriter = new StringWriter();
+        assertSame(stringWriter, bold.toAppendable(stringWriter));
+        assertEquals(bold.asString(), stringWriter.toString());
     }
 }

@@ -27,8 +27,20 @@ public abstract class MarkdownElement {
      * @since 0.0.8
      */
     public <T extends Writer> T toWriter(T writer) throws IOException {
-        writer.write(asString());
-        return writer;
+        return toAppendable(writer);
+    }
+
+    /**
+     * Outputs the MarkdownElement into an appendable class
+     * @param <T> The type of appendable. This type must implement the {@link Appendable} interface
+     * @param appendable The appendable object to write this element to
+     * @return The appendable object passed in as the parameter
+     * @throws IOException If any exceptions were thrown during appending
+     * @since 0.0.21
+     */
+    public <T extends Appendable> T toAppendable(T appendable) throws IOException {
+        appendable.append(asString());
+        return appendable;
     }
 
     /**
