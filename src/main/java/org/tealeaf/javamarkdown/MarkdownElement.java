@@ -27,8 +27,7 @@ public abstract class MarkdownElement {
      * @since 0.0.8
      */
     public <T extends Writer> T toWriter(T writer) throws IOException {
-        writer.write(asString());
-        return writer;
+        return toAppendable(writer);
     }
 
     /**
