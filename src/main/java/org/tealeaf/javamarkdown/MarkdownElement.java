@@ -38,7 +38,7 @@ public abstract class MarkdownElement {
      * @return The appendable object passed in as the parameter
      * @since 0.0.21
      */
-    public <T extends Appendable> T toAppendable(T appendable) {
+    public <T extends Appendable> T toAppendable(T appendable) throws IOException {
         appendable.append(asString());
         return appendable;
     }
