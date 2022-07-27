@@ -32,6 +32,18 @@ public abstract class MarkdownElement {
     }
 
     /**
+     * Outputs the MarkdownElement into an appendable class
+     * @param <T> The type of appendable. This type must implement the {@link Appendable} interface
+     * @param appendable The appendable object to write this element to
+     * @return The appendable object passed in as the parameter
+     * @since 0.0.21
+     */
+    public <T extends Appendable> T toAppendable(T appendable) {
+        appendable.append(asString());
+        return appendable;
+    }
+
+    /**
      * Formats the element to a string
      *
      * @return String representation of the formatted item
