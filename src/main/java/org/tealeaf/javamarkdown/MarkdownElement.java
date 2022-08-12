@@ -68,8 +68,8 @@ public abstract class MarkdownElement {
 
     /**
      * <p>Whether the element requires at least one {@code \n} before printing itself in a document</p>
-     * <p>In instances such as in-line elements (like {@link Bold markup.Bold}), this would return {@code false} because bolds can be inserted
-     * directly in-line. However, in instances such as {@link NumberedList lists.NumberedList}, it would be required that there is a new line
+     * <p>In instances such as in-line elements (like {@link Bold Bold}), this would return {@code false} because bolds can be inserted
+     * directly in-line. However, in instances such as {@link NumberedList NumberedList}, it would be required that there is a new line
      * to prevent
      * the
      * following
