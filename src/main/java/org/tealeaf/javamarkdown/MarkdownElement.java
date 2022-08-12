@@ -89,7 +89,6 @@ public abstract class MarkdownElement {
      *
      * @return {@code true} if element requires a new line beforehand, {@code false} otherwise
      *
-     * @see MarkdownWriter#appendMarkdownElement(MarkdownElement)
      * @since 0.0.8
      */
     public abstract boolean requiresNewlineBefore();
@@ -114,7 +113,6 @@ public abstract class MarkdownElement {
      *
      * @return {@code true} if element requires a new line after, {@code false} otherwise
      *
-     * @see MarkdownWriter#MarkdownWriter()
      * @since 0.0.8
      */
     public abstract boolean requiresNewlineAfter();
