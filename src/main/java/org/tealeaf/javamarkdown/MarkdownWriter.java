@@ -100,13 +100,7 @@ public class MarkdownWriter extends Writer implements MarkdownCompiler<MarkdownW
      */
     public MarkdownWriter appendMarkdownElement(MarkdownElement markdownElement) {
         try {
-            if (markdownElement.requiresNewlineBefore() && lastChar != '\n') {
-                write("\n");
-            }
-            markdownElement.toWriter(this);
-            if (markdownElement.requiresNewlineAfter()) {
-                write("\n");
-            }
+            write(markdownElement.asString(lastChar == '\n'));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
