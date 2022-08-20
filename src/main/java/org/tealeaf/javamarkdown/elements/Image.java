@@ -28,7 +28,7 @@ public class Image extends Link {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      * @since 0.0.12
      */
     @Override
