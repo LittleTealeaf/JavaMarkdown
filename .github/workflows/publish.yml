@@ -19,7 +19,7 @@ jobs:
       - name: Make Gradlew executable
         run: chmod +x gradlew
       - name: Publish Packages
-        uses: gradle/gradle-build-action@356abb47e7664b5505e25d7997a5a522a17c62d9
+        uses: gradle/gradle-build-action@c295a4096e1d2c453eaf1f65c6f96686e26bd8be
         with:
           arguments: publish
         env:
@@ -50,7 +50,7 @@ jobs:
       - name: Make Gradlew Executable
         run: chmod +x gradlew
       - name: Javadoc with Gradle
-        uses: gradle/gradle-build-action@356abb47e7664b5505e25d7997a5a522a17c62d9
+        uses: gradle/gradle-build-action@c295a4096e1d2c453eaf1f65c6f96686e26bd8be
         with:
           arguments: javadoc
       - name: Move Javadocs to docs
