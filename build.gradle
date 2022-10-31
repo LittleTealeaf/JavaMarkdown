@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'java-library'
     id 'maven-publish'
-    id 'me.qoomon.git-versioning' version '6.3.3'
+    id 'me.qoomon.git-versioning' version '6.3.5'
 }
 
 group 'org.tealeaf'
