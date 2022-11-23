@@ -103,3 +103,5 @@ bin/
 
 .vscode/
 docs/javadoc/
+tags
+.settings
